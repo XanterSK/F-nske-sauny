@@ -1,0 +1,6 @@
+# Source photo library - stays local.
+# The 22 photos the site actually uses are already embedded inside index.html.
+# Remove this line if you want the whole library in the repo (note: it is public).
+CABIN DESIGNS/
+
+.DS_Store

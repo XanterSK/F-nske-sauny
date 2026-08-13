@@ -1,0 +1,721 @@
+<title>SUOMII — Bespoke Finnish Saunas</title>
+
+<style>
+  :root{
+    --ink:#0a1622;
+    --navy:#0f1f2e;
+    --panel:#132436;
+    --cream:#f5e6d3;
+    --cognac:#864c2c;
+    --walnut:#6f4d3a;
+    --gold:#d4a574;
+    --c70:rgba(245,230,211,.70);
+    --c45:rgba(245,230,211,.45);
+    --g30:rgba(212,165,116,.30);
+    --g14:rgba(212,165,116,.14);
+    --ui:"Avenir Next","Avenir","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,sans-serif;
+    --r:10px;
+    --pad:clamp(1.25rem,5vw,5.5rem);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--navy);color:var(--cream);
+    font-family:var(--ui);font-weight:300;line-height:1.62;
+    letter-spacing:.005em;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+
+  h2,h3{font-weight:300;letter-spacing:-.005em;line-height:1.12}
+  .rule{width:44px;height:1px;background:var(--gold);opacity:.9}
+
+  /* ================= NAV ================= */
+  #nav{
+    position:fixed;top:16px;left:50%;z-index:200;
+    transform:translate(-50%,-170%);opacity:0;pointer-events:none;
+    display:flex;align-items:center;gap:clamp(.9rem,2.2vw,2rem);
+    padding:.62rem .72rem .62rem clamp(1.1rem,2.2vw,1.7rem);
+    border-radius:100px;
+    background:rgba(10,22,34,.74);
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--g30);
+    box-shadow:0 20px 55px -20px rgba(0,0,0,.8);
+    transition:transform .6s var(--ease),opacity .4s ease;
+    max-width:calc(100vw - 1.5rem);
+  }
+  #nav.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+
+  #nav .lnk{
+    font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
+    color:var(--c70);white-space:nowrap;transition:color .3s ease;
+  }
+  #nav .lnk:hover{color:var(--gold)}
+
+  .langwrap{position:relative}
+  .langbtn{
+    display:flex;align-items:center;gap:.4rem;cursor:pointer;
+    background:rgba(212,165,116,.10);border:1px solid var(--g30);
+    color:var(--cream);border-radius:100px;
+    padding:.42rem .7rem .42rem .82rem;
+    font-size:.66rem;letter-spacing:.14em;font-weight:500;
+    transition:background .25s ease,border-color .25s ease;
+  }
+  .langbtn:hover{background:rgba(212,165,116,.2);border-color:var(--gold)}
+  .langbtn svg{width:9px;height:9px;transition:transform .3s var(--ease)}
+  .langwrap.open .langbtn svg{transform:rotate(180deg)}
+
+  .langmenu{
+    position:absolute;top:calc(100% + 10px);right:0;min-width:172px;
+    list-style:none;padding:.4rem;border-radius:14px;
+    background:rgba(10,22,34,.94);
+    -webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+    border:1px solid var(--g30);
+    box-shadow:0 24px 60px -18px rgba(0,0,0,.85);
+    opacity:0;transform:translateY(-8px) scale(.97);transform-origin:top right;
+    pointer-events:none;transition:opacity .28s ease,transform .34s var(--ease);
+  }
+  .langwrap.open .langmenu{opacity:1;transform:none;pointer-events:auto}
+  .langmenu li{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:.62rem .8rem;border-radius:9px;cursor:pointer;
+    font-size:.78rem;font-weight:300;color:var(--c70);
+    transition:background .2s ease,color .2s ease;
+  }
+  .langmenu li:hover{background:rgba(212,165,116,.14);color:var(--cream)}
+  .langmenu li .code{font-size:.6rem;letter-spacing:.16em;color:var(--c45)}
+  .langmenu li[aria-selected="true"]{color:var(--gold)}
+  .langmenu li[aria-selected="true"] .code{color:var(--gold)}
+
+  /* ================= HERO ================= */
+  .hero{position:relative;height:100svh;min-height:540px;overflow:hidden;display:grid;place-items:center}
+  .hero__bg{
+    position:absolute;inset:-4%;
+    background-size:cover;background-position:center;
+    filter:blur(3px) saturate(1.06);
+    transform:scale(1.06);will-change:transform;
+  }
+  .hero__veil{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(46% 30% at 50% 47%,rgba(10,22,34,.62) 0%,rgba(10,22,34,.28) 70%,transparent 100%),
+      radial-gradient(120% 82% at 50% 46%,rgba(10,22,34,.34) 0%,rgba(10,22,34,.62) 62%,rgba(10,22,34,.88) 100%),
+      linear-gradient(180deg,rgba(10,22,34,.55) 0%,transparent 28%,transparent 66%,var(--navy) 100%);
+  }
+  .hero__inner{position:relative;text-align:center;padding:0 1.5rem;display:grid;justify-items:center;gap:clamp(1rem,2.2vw,1.5rem)}
+
+  .wordmark{
+    font-size:clamp(1.5rem,4.4vw,2.9rem);
+    font-weight:400;letter-spacing:.52em;text-indent:.52em;
+    color:var(--cream);line-height:1;
+    text-shadow:0 6px 34px rgba(0,0,0,.55);
+  }
+  .hero .tagline{
+    font-size:clamp(.6rem,1.1vw,.7rem);letter-spacing:.3em;text-transform:uppercase;
+    color:var(--c70);font-weight:400;
+  }
+
+  .scrollcue{position:absolute;left:50%;bottom:2rem;transform:translateX(-50%)}
+  .scrollcue i{display:block;width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:cue 2.4s ease-in-out infinite}
+  @keyframes cue{0%,100%{opacity:.25;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1);transform-origin:top}}
+
+  /* ================= STATEMENT ================= */
+  .statement{padding:clamp(4.5rem,11vw,8.5rem) var(--pad) clamp(2.5rem,6vw,4rem);display:grid;justify-items:center;text-align:center;gap:1.5rem}
+  .statement h2{font-size:clamp(1.5rem,3.4vw,2.5rem);max-width:17ch;font-weight:200}
+  .statement p{max-width:44ch;color:var(--c70);font-size:clamp(.9rem,1.15vw,1rem)}
+
+  /* ================= COLLECTION / RAIL ================= */
+  .collection{padding:clamp(1.5rem,4vw,3rem) var(--pad) clamp(3.5rem,8vw,6.5rem)}
+  .collection__head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;
+    padding-bottom:clamp(1.2rem,3vw,2rem);
+    border-bottom:1px solid var(--g14);margin-bottom:clamp(1.4rem,3vw,2.2rem);
+  }
+  .collection__head h2{font-size:clamp(1.15rem,2.2vw,1.6rem);font-weight:300}
+  .count{font-size:.64rem;letter-spacing:.26em;color:var(--c45)}
+
+  .rail{
+    display:flex;gap:10px;
+    height:clamp(430px,62vh,660px);
+  }
+
+  .panel{
+    position:relative;flex:1 1 0;min-width:0;
+    border-radius:var(--r);overflow:hidden;cursor:pointer;
+    background:var(--panel);
+    transition:flex-grow .55s var(--ease);
+    contain:paint;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .panel.on{flex-grow:5.4}
+  .panel:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  /* the raster keeps a CONSTANT size - the panel only uncovers more of it.
+     resizing the bitmap every frame was what made this lag. */
+  .panel__img{
+    position:absolute;top:0;left:50%;
+    height:100%;width:72vw;max-width:none;   /* wider than any panel ever gets */
+    object-fit:cover;                         /* so portrait shots never letterbox */
+    transform:translateX(-50%) scale(1.04);
+    transform-origin:center;
+    transition:transform .55s var(--ease);
+    backface-visibility:hidden;
+  }
+  .panel.on .panel__img{transform:translateX(-50%) scale(1)}
+
+  /* opacity-only overlays: composited, so they cost nothing per frame */
+  .panel__tint{
+    position:absolute;inset:0;background:var(--ink);
+    opacity:.42;transition:opacity .55s ease;
+  }
+  .panel.on .panel__tint{opacity:0}
+
+  .panel__veil{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,22,34,0) 30%,rgba(10,22,34,.30) 56%,rgba(10,22,34,.92) 100%);
+  }
+
+  /* hairline + gold edge on the open panel */
+  .panel__edge{
+    position:absolute;inset:0;border-radius:var(--r);pointer-events:none;
+    box-shadow:inset 0 0 0 1px var(--g14);
+    transition:box-shadow .6s ease;
+  }
+  .panel.on .panel__edge{box-shadow:inset 0 0 0 1px var(--g30)}
+
+  /* collapsed: vertical name */
+  .panel__vert{
+    position:absolute;left:0;right:0;bottom:1.5rem;
+    display:grid;place-items:center;
+    opacity:1;transition:opacity .45s ease;
+  }
+  .panel.on .panel__vert{opacity:0;transition-duration:.25s}
+  .panel__vert span{
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-size:clamp(.66rem,1vw,.78rem);letter-spacing:.3em;text-transform:uppercase;
+    color:var(--cream);white-space:nowrap;font-weight:400;
+  }
+
+  /* open: index + name */
+  .panel__open{
+    position:absolute;left:0;bottom:0;
+    padding:clamp(1.2rem,2.4vw,2rem);
+    display:grid;gap:.55rem;
+    opacity:0;transform:translateY(14px);pointer-events:none;
+    transition:opacity .5s ease .18s,transform .7s var(--ease) .18s;
+  }
+  .panel.on .panel__open{opacity:1;transform:none;pointer-events:auto}
+  .panel__open .idx{
+    display:inline-block;width:fit-content;
+    font-size:.58rem;letter-spacing:.24em;font-weight:600;color:var(--gold);
+    border:1px solid var(--g30);border-radius:100px;
+    padding:.3rem .68rem;background:rgba(10,22,34,.4);
+  }
+  .panel__open h3{
+    font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:200;letter-spacing:.02em;
+    white-space:nowrap;
+  }
+
+  .railhint{
+    margin-top:1.1rem;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--c45);text-align:right;
+  }
+
+
+  .detail{
+    margin-top:.35rem;width:fit-content;cursor:pointer;
+    background:rgba(245,230,211,.10);border:1px solid var(--g30);color:var(--cream);
+    font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+    padding:.55rem 1.15rem;border-radius:100px;
+    transition:background .3s ease,border-color .3s ease,color .3s ease;
+  }
+  .detail:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+  /* ================= DETAIL WINDOW ================= */
+  .modal{
+    position:fixed;inset:0;z-index:400;display:grid;place-items:center;
+    padding:clamp(.75rem,3vw,2.5rem);
+    opacity:0;pointer-events:none;transition:opacity .35s ease;
+  }
+  .modal.open{opacity:1;pointer-events:auto}
+  .modal__scrim{
+    position:absolute;inset:0;background:rgba(6,14,22,.86);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  }
+  .modal__box{
+    position:relative;width:min(1080px,100%);max-height:92svh;overflow:auto;
+    display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);
+    background:var(--navy);border:1px solid var(--g30);border-radius:14px;
+    box-shadow:0 40px 120px -30px rgba(0,0,0,.9);
+    transform:translateY(18px) scale(.985);
+    transition:transform .45s var(--ease);
+  }
+  .modal.open .modal__box{transform:none}
+
+  .modal__x{
+    position:absolute;top:.7rem;right:.7rem;z-index:3;cursor:pointer;
+    width:34px;height:34px;border-radius:100px;
+    background:rgba(10,22,34,.72);border:1px solid var(--g30);color:var(--cream);
+    font-size:1rem;line-height:1;transition:background .25s ease,color .25s ease;
+  }
+  .modal__x:hover{background:var(--gold);color:var(--ink)}
+
+  .modal__media{padding:.55rem;display:grid;gap:.55rem;align-content:start}
+  #mMain{
+    width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;background:var(--panel);
+  }
+  .modal__thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem}
+  .modal__thumbs img{
+    width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:7px;cursor:pointer;
+    opacity:.5;transition:opacity .3s ease,box-shadow .3s ease;
+  }
+  .modal__thumbs img:hover{opacity:.85}
+  .modal__thumbs img.sel{opacity:1;box-shadow:0 0 0 1px var(--gold)}
+
+  .modal__body{
+    padding:clamp(1.4rem,2.6vw,2.4rem);
+    display:grid;gap:1rem;align-content:center;
+  }
+  .modal__body .idx{
+    width:fit-content;font-size:.58rem;letter-spacing:.24em;font-weight:600;color:var(--gold);
+    border:1px solid var(--g30);border-radius:100px;padding:.3rem .68rem;
+  }
+  .modal__body h3{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:200;letter-spacing:.02em}
+  .modal__body p{color:var(--c70);font-size:.95rem;max-width:42ch}
+  .modal__body p.pending{color:var(--c45);font-style:italic}
+  .modal__body .btn{margin-top:.4rem;justify-self:start}
+
+  @media(max-width:860px){
+    .modal__box{grid-template-columns:1fr}
+    .modal__thumbs{grid-template-columns:repeat(4,1fr)}
+  }
+
+  /* ================= ATELIER ================= */
+  .atelier{padding:0 var(--pad) clamp(3.5rem,8vw,6.5rem)}
+  .atelier__panel{
+    position:relative;border-radius:var(--r);overflow:hidden;
+    min-height:clamp(360px,52vw,540px);display:grid;align-items:center;
+  }
+  .atelier__panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .atelier__veil{
+    position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(10,22,34,.93) 0%,rgba(10,22,34,.78) 46%,rgba(10,22,34,.22) 100%);
+  }
+  @media(max-width:820px){
+    .atelier__veil{background:linear-gradient(180deg,rgba(10,22,34,.55) 0%,rgba(10,22,34,.93) 58%)}
+  }
+  .atelier__copy{position:relative;padding:clamp(2rem,5vw,4rem);display:grid;gap:1.2rem;max-width:560px}
+  .atelier__copy h2{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:200}
+  .atelier__copy p{color:var(--c70);max-width:42ch;font-size:clamp(.9rem,1.1vw,1rem)}
+
+  /* ================= CONTACT ================= */
+  .contact{padding:0 var(--pad) clamp(3rem,6vw,5rem)}
+  .contact__panel{
+    border-radius:var(--r);
+    background:linear-gradient(135deg,var(--cognac) 0%,var(--walnut) 70%,#4b3325 100%);
+    padding:clamp(3rem,8vw,5.5rem) clamp(1.5rem,5vw,4rem);
+    display:grid;justify-items:center;text-align:center;gap:1.6rem;
+  }
+  .contact h2{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:200;max-width:19ch}
+  .btn{
+    display:inline-block;padding:.95rem 2.4rem;background:var(--cream);color:var(--ink);
+    font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+    border-radius:100px;transition:transform .35s var(--ease),background .3s ease;
+  }
+  .btn:hover{background:var(--gold);transform:translateY(-2px)}
+
+  footer{
+    padding:2.2rem var(--pad);text-align:center;
+    font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c45);
+    border-top:1px solid var(--g14);
+  }
+
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+
+  /* ---------- mobile: the rail becomes a vertical accordion ---------- */
+  @media(max-width:860px){
+    .rail{flex-direction:column;height:auto;gap:8px}
+    .panel{flex:none;height:78px;transition:height .55s var(--ease)}
+    .panel__img{left:0;transform:none;width:100%;height:100%;object-fit:cover}
+    .panel.on .panel__img{transform:none}
+    .panel.on{height:min(56vh,380px)}
+    .panel__vert{bottom:0;top:0;left:1.2rem;right:auto;place-items:center start}
+    .panel__vert span{writing-mode:horizontal-tb;transform:none;letter-spacing:.24em}
+    .panel__open h3{white-space:normal}
+    .railhint{text-align:left}
+    #nav{gap:.6rem;padding:.5rem .55rem .5rem .9rem;top:12px}
+    #nav .lnk{font-size:.62rem;letter-spacing:.1em}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition-duration:.01ms!important}
+    .rv{opacity:1;transform:none}
+  }
+</style>
+
+<!-- ================= NAV ================= -->
+<nav id="nav" aria-label="Main">
+  <a class="lnk" href="#collection" data-t="nav_collections">Collections</a>
+  <a class="lnk" href="#atelier"    data-t="nav_craft">Craft</a>
+  <a class="lnk" href="#contact"    data-t="nav_contact">Contact</a>
+
+  <div class="langwrap" id="langWrap">
+    <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+      <span id="langCur">EN</span>
+      <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <ul class="langmenu" id="langMenu" role="listbox" aria-label="Language">
+      <li role="option" data-l="en" aria-selected="true">English<span class="code">EN</span></li>
+      <li role="option" data-l="sk" aria-selected="false">Slovenčina<span class="code">SK</span></li>
+      <li role="option" data-l="cs" aria-selected="false">Čeština<span class="code">CZ</span></li>
+      <li role="option" data-l="hu" aria-selected="false">Magyar<span class="code">HU</span></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero__bg" id="heroBg" style="background-image:url(data:image/jpeg;base64,__HERO__)"></div>
+  <div class="hero__veil"></div>
+  <div class="hero__inner">
+    <div class="wordmark">SUOMII</div>
+    <div class="rule"></div>
+    <p class="tagline" data-t="hero_subtitle">Bespoke Finnish Saunas</p>
+  </div>
+  <div class="scrollcue"><i></i></div>
+</header>
+
+<!-- ================= STATEMENT ================= -->
+<section class="statement">
+  <div class="rule rv"></div>
+  <h2 class="rv" data-t="hero_title">The Art of Sauna</h2>
+  <p class="rv" data-t="hero_description">Handcrafted saunas for the few. Every one an original.</p>
+</section>
+
+<!-- ================= COLLECTION ================= -->
+<section class="collection" id="collection">
+  <div class="collection__head">
+    <h2 class="rv" data-t="section_collections">Five Collections</h2>
+    <span class="count rv">01 — 05</span>
+  </div>
+
+  <div class="rail rv" id="rail">
+
+    <article class="panel on" tabindex="0" aria-label="Classic">
+      <img class="panel__img" src="data:image/jpeg;base64,__CLASSIC__" alt="Classic">
+      <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
+      <div class="panel__vert"><span>Classic</span></div>
+      <div class="panel__open"><span class="idx">01</span><h3>Classic</h3><button class="detail" data-t="detail">View detail</button></div>
+    </article>
+
+    <article class="panel" tabindex="0" aria-label="La Panca">
+      <img class="panel__img" src="data:image/jpeg;base64,__LAPANCA__" alt="La Panca">
+      <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
+      <div class="panel__vert"><span>La Panca</span></div>
+      <div class="panel__open"><span class="idx">02</span><h3>La Panca</h3><button class="detail" data-t="detail">View detail</button></div>
+    </article>
+
+    <article class="panel" tabindex="0" aria-label="Massivo">
+      <img class="panel__img" src="data:image/jpeg;base64,__MASSIVO__" alt="Massivo">
+      <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
+      <div class="panel__vert"><span>Massivo</span></div>
+      <div class="panel__open"><span class="idx">03</span><h3>Massivo</h3><button class="detail" data-t="detail">View detail</button></div>
+    </article>
+
+    <article class="panel" tabindex="0" aria-label="Dal">
+      <img class="panel__img" src="data:image/jpeg;base64,__DAL__" alt="Dal">
+      <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
+      <div class="panel__vert"><span>Dal</span></div>
+      <div class="panel__open"><span class="idx">04</span><h3>Dal</h3><button class="detail" data-t="detail">View detail</button></div>
+    </article>
+
+    <article class="panel" tabindex="0" aria-label="Tom">
+      <img class="panel__img" src="data:image/jpeg;base64,__TOM__" alt="Tom">
+      <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
+      <div class="panel__vert"><span>Tom</span></div>
+      <div class="panel__open"><span class="idx">05</span><h3>Tom</h3><button class="detail" data-t="detail">View detail</button></div>
+    </article>
+
+  </div>
+  <p class="railhint rv" data-t="rail_hint">Hover to explore</p>
+</section>
+
+<!-- ================= ATELIER ================= -->
+<section class="atelier" id="atelier">
+  <div class="atelier__panel rv">
+    <img src="data:image/jpeg;base64,__ATELIER__" alt="">
+    <div class="atelier__veil"></div>
+    <div class="atelier__copy">
+      <div class="rule"></div>
+      <h2 data-t="section_craft">Artistry in Every Detail</h2>
+      <p data-t="craft_description">A sauna is not manufactured. It comes into being.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="contact__panel rv">
+    <div class="rule" style="background:var(--cream)"></div>
+    <h2 data-t="cta_title">Let us build your sauna.</h2>
+    <a class="btn" href="mailto:info@suomii.com" data-t="cta_button">Request Consultation</a>
+  </div>
+</section>
+
+<!-- ================= DETAIL WINDOW ================= -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="mName">
+  <div class="modal__scrim" data-close></div>
+  <div class="modal__box">
+    <button class="modal__x" data-close aria-label="Close">&times;</button>
+    <div class="modal__media">
+      <img id="mMain" alt="">
+      <div class="modal__thumbs" id="mThumbs"></div>
+    </div>
+    <div class="modal__body">
+      <span class="idx" id="mIdx">01</span>
+      <h3 id="mName">Classic</h3>
+      <div class="rule"></div>
+      <p id="mDesc"></p>
+      <a class="btn" id="mCta" href="mailto:info@suomii.com" data-t="cta_button">Request Consultation</a>
+    </div>
+  </div>
+</div>
+
+<footer><span data-t="footer">© 2026 SUOMII · Handcrafted</span></footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var T = {
+    en:{nav_collections:"Collections",nav_craft:"Craft",nav_contact:"Contact",
+        hero_subtitle:"Bespoke Finnish Saunas",hero_title:"The Art of Sauna",
+        hero_description:"Handcrafted saunas for the few. Every one an original.",
+        section_collections:"Five Collections",detail:"View detail",desc_soon:"Full description coming soon.",rail_hint:"Hover to explore",
+        section_craft:"Artistry in Every Detail",
+        craft_description:"A sauna is not manufactured. It comes into being.",
+        cta_title:"Let us build your sauna.",cta_button:"Request Consultation",
+        footer:"© 2026 SUOMII · Handcrafted"},
+
+    sk:{nav_collections:"Kolekcie",nav_craft:"Remeslo",nav_contact:"Kontakt",
+        hero_subtitle:"Fínske sauny na mieru",hero_title:"Umenie saunovania",
+        hero_description:"Ručne vyrábané sauny pre náročných. Každá je originál.",
+        section_collections:"Päť kolekcií",detail:"Zobraziť detail",desc_soon:"Popis pripravujeme.",rail_hint:"Prejdite myšou",
+        section_craft:"Umenie v každom detaile",
+        craft_description:"Sauna sa nevyrába. Vzniká.",
+        cta_title:"Vytvorme vašu saunu na mieru.",cta_button:"Nezáväzná konzultácia",
+        footer:"© 2026 SUOMII · Ručná výroba"},
+
+    cs:{nav_collections:"Kolekce",nav_craft:"Řemeslo",nav_contact:"Kontakt",
+        hero_subtitle:"Finské sauny na míru",hero_title:"Umění saunování",
+        hero_description:"Ručně vyráběné sauny pro náročné. Každá je originál.",
+        section_collections:"Pět kolekcí",detail:"Zobrazit detail",desc_soon:"Popis připravujeme.",rail_hint:"Přejeďte myší",
+        section_craft:"Umění v každém detailu",
+        craft_description:"Sauna se nevyrábí. Vzniká.",
+        cta_title:"Vytvořme vaši saunu na míru.",cta_button:"Nezávazná konzultace",
+        footer:"© 2026 SUOMII · Ruční výroba"},
+
+    hu:{nav_collections:"Kollekciók",nav_craft:"Kézművesség",nav_contact:"Kapcsolat",
+        hero_subtitle:"Egyedi finn szaunák",hero_title:"A szauna művészete",
+        hero_description:"Kézzel készített szaunák igényeseknek. Mindegyik egyedi.",
+        section_collections:"Öt kollekció",detail:"Részletek",desc_soon:"A leírás hamarosan.",rail_hint:"Vigye rá az egeret",
+        section_craft:"Művészet minden részletben",
+        craft_description:"A szauna nem készül. Születik.",
+        cta_title:"Tervezzük meg az Ön szaunáját.",cta_button:"Kötetlen konzultáció",
+        footer:"© 2026 SUOMII · Kézzel készült"}
+  };
+
+  var CODE = {en:"EN",sk:"SK",cs:"CZ",hu:"HU"};
+  var langNow = "en";
+  var nodes = document.querySelectorAll("[data-t]");
+  var cur   = document.getElementById("langCur");
+  var wrap  = document.getElementById("langWrap");
+  var btn   = document.getElementById("langBtn");
+  var menu  = document.getElementById("langMenu");
+
+  function setLang(code){
+    var d = T[code]; if(!d) return;
+    nodes.forEach(function(n){ var v = d[n.getAttribute("data-t")]; if(v) n.textContent = v; });
+    cur.textContent = CODE[code];
+    menu.querySelectorAll("li").forEach(function(li){
+      li.setAttribute("aria-selected", li.dataset.l === code ? "true" : "false");
+    });
+    langNow = code;
+    if(modal && modal.classList.contains("open")) paintDesc();
+    try{ localStorage.setItem("suomii-lang", code); }catch(e){}
+  }
+  function closeMenu(){ wrap.classList.remove("open"); btn.setAttribute("aria-expanded","false"); }
+
+  btn.addEventListener("click", function(e){
+    e.stopPropagation();
+    var open = wrap.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  menu.addEventListener("click", function(e){
+    var li = e.target.closest("li"); if(!li) return;
+    setLang(li.dataset.l); closeMenu();
+  });
+  document.addEventListener("click", function(e){ if(!wrap.contains(e.target)) closeMenu(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeMenu(); });
+
+  var saved; try{ saved = localStorage.getItem("suomii-lang"); }catch(e){}
+  if(saved && T[saved]) setLang(saved);
+
+  /* ---------- expanding rail ---------- */
+  var panels = [].slice.call(document.querySelectorAll(".panel"));
+  var openIdx = 0, hoverTimer;
+
+  function open(i){
+    if(i === openIdx) return;
+    openIdx = i;
+    for(var k=0;k<panels.length;k++) panels[k].classList.toggle("on", k === i);
+  }
+  panels.forEach(function(p,i){
+    /* small delay stops the panels flickering when the cursor sweeps across */
+    p.addEventListener("mouseenter", function(){
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(function(){ open(i); }, 55);
+    });
+    p.addEventListener("mouseleave", function(){ clearTimeout(hoverTimer); });
+    p.addEventListener("click", function(e){
+      clearTimeout(hoverTimer);
+      if(e.target.classList.contains("detail")){ open(i); openModal(i); return; }
+      if(p.classList.contains("on")) openModal(i); else open(i);
+    });
+    p.addEventListener("focus", function(){ open(i); });
+    p.addEventListener("keydown", function(e){
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); open(i); }
+    });
+  });
+
+
+  /* ---------- detail window ---------- */
+  /* ↓↓ PASTE THE REAL COPY HERE. Empty string = the "coming soon" line shows. ↓↓ */
+  var DESC = {
+    classic:{en:"",sk:"",cs:"",hu:""},
+    lapanca:{en:"",sk:"",cs:"",hu:""},
+    massivo:{en:"",sk:"",cs:"",hu:""},
+    dal:    {en:"",sk:"",cs:"",hu:""},
+    tom:    {en:"",sk:"",cs:"",hu:""}
+  };
+
+  var SHOTS = {
+    classic:["data:image/jpeg;base64,__CLASSIC_X1__","data:image/jpeg;base64,__CLASSIC_X2__","data:image/jpeg;base64,__CLASSIC_X3__"],
+    lapanca:["data:image/jpeg;base64,__LAPANCA_X1__","data:image/jpeg;base64,__LAPANCA_X2__","data:image/jpeg;base64,__LAPANCA_X3__"],
+    massivo:["data:image/jpeg;base64,__MASSIVO_X1__","data:image/jpeg;base64,__MASSIVO_X2__","data:image/jpeg;base64,__MASSIVO_X3__"],
+    dal:    ["data:image/jpeg;base64,__DAL_X1__","data:image/jpeg;base64,__DAL_X2__","data:image/jpeg;base64,__DAL_X3__"],
+    tom:    ["data:image/jpeg;base64,__TOM_X1__","data:image/jpeg;base64,__TOM_X2__","data:image/jpeg;base64,__TOM_X3__"]
+  };
+  var KEYS  = ["classic","lapanca","massivo","dal","tom"];
+  var NAMES = ["Classic","La Panca","Massivo","Dal","Tom"];
+
+  var modal  = document.getElementById("modal");
+  var mMain  = document.getElementById("mMain");
+  var mThumbs= document.getElementById("mThumbs");
+  var mIdx   = document.getElementById("mIdx");
+  var mName  = document.getElementById("mName");
+  var mDesc  = document.getElementById("mDesc");
+  var mCta   = document.getElementById("mCta");
+  var lastFocus = null, modalIdx = 0;
+
+  function paintDesc(){
+    var key = KEYS[modalIdx];
+    var txt = (DESC[key] && DESC[key][langNow]) || "";
+    mDesc.textContent = txt || (T[langNow].desc_soon || T.en.desc_soon);
+    mDesc.classList.toggle("pending", !txt);
+  }
+
+  function openModal(i){
+    modalIdx = i;
+    var key = KEYS[i];
+    mIdx.textContent  = "0" + (i + 1);
+    mName.textContent = NAMES[i];
+    mCta.href = "mailto:info@suomii.com?subject=" + encodeURIComponent("SUOMII " + NAMES[i]);
+    paintDesc();
+
+    var shots = [panels[i].querySelector(".panel__img").src].concat(SHOTS[key]);
+    mMain.src = shots[0];
+    mThumbs.innerHTML = "";
+    shots.forEach(function(src, n){
+      var t = new Image();
+      t.src = src; t.alt = NAMES[i] + " " + (n + 1);
+      if(n === 0) t.className = "sel";
+      t.addEventListener("click", function(){
+        mMain.src = src;
+        mThumbs.querySelectorAll("img").forEach(function(x){ x.classList.remove("sel"); });
+        t.classList.add("sel");
+      });
+      mThumbs.appendChild(t);
+    });
+
+    lastFocus = document.activeElement;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+    document.documentElement.style.overflow = "hidden";
+    modal.querySelector(".modal__x").focus();
+  }
+
+  function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.documentElement.style.overflow = "";
+    if(lastFocus) lastFocus.focus();
+  }
+
+  modal.addEventListener("click", function(e){ if(e.target.hasAttribute("data-close")) closeModal(); });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && modal.classList.contains("open")) closeModal();
+  });
+
+  /* ---------- nav reveal ---------- */
+  var nav = document.getElementById("nav"), hero = document.querySelector(".hero");
+  var idle, hovering = false, pinned = false;
+
+  nav.addEventListener("mouseenter", function(){ hovering = true; });
+  nav.addEventListener("mouseleave", function(){ hovering = false; arm(); });
+
+  function arm(){
+    clearTimeout(idle);
+    idle = setTimeout(function(){
+      if(!pinned && !hovering && !wrap.classList.contains("open")) nav.classList.remove("show");
+    }, 2800);
+  }
+  function wake(){ nav.classList.add("show"); arm(); }
+  window.addEventListener("mousemove", wake, {passive:true});
+  window.addEventListener("touchstart", wake, {passive:true});
+  window.addEventListener("keydown", wake);
+
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(en){
+      pinned = !en[0].isIntersecting;
+      if(pinned) nav.classList.add("show"); else arm();
+    }, {threshold:0.12}).observe(hero);
+  }
+
+  /* ---------- reveal ---------- */
+  var rv = document.querySelectorAll(".rv");
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, {threshold:0.1, rootMargin:"0px 0px -6% 0px"});
+    rv.forEach(function(el){ io.observe(el); });
+  } else { rv.forEach(function(el){ el.classList.add("in"); }); }
+
+  /* ---------- hero parallax ---------- */
+  var heroBg = document.getElementById("heroBg"), ticking = false;
+  function tick(){
+    var y = window.pageYOffset, vh = window.innerHeight;
+    if(heroBg && y < vh * 1.2) heroBg.style.transform = "scale(1.06) translateY(" + (y * 0.14) + "px)";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(tick); }
+  }, {passive:true});
+  tick();
+})();
+</script>
