@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build suomii.html: escape all non-ASCII, then inject the base64 images."""
-import json, re, shutil, sys
+import json, os, re, shutil, sys
 
-D = '/private/tmp/claude-501/-Users-sebastianchristenko-Downloads-Finske-sauny-Kornel/9de086df-84b4-4cbd-a56a-d1aa9d4cfec1/scratchpad/'
-REPO    = '/Users/sebastianchristenko/Downloads/Finske sauny Kornel'
+D = os.path.dirname(os.path.abspath(__file__)) + '/'
+REPO    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = REPO + '/index.html'
 
 src = open(D + 'suomii.template.html', encoding='utf-8').read()
@@ -24,7 +24,12 @@ out = markup_esc(head) + js_esc(js) + markup_esc(tail)
 out = '<meta charset="utf-8">\n' + out
 
 # --- inject images ---
-imgs = json.load(open('/tmp/sauna_build/images.json'))
+CACHE = '/tmp/sauna_build/images.json'
+if not os.path.exists(CACHE):
+    print('photo cache missing - running encode.py')
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'encode.py')], check=True)
+imgs = json.load(open(CACHE))
 for key in imgs:
     token = '__%s__' % key.upper()
     if token not in out:
@@ -36,15 +41,8 @@ if left:
 
 assert out.isascii(), 'non-ASCII survived escaping'
 
-import os
-open(D + 'suomii.html', 'w', encoding='ascii').write(out)
 
 # index.html at the repo root: Vercel serves it with no config at all
-shutil.copy(D + 'suomii.html', PROJECT)
+open(PROJECT, 'w', encoding='ascii').write(out)
 
-# keep the editable source in the repo too
-src = os.path.join(REPO, 'src')
-os.makedirs(src, exist_ok=True)
-shutil.copy(D + 'suomii.template.html', os.path.join(src, 'suomii.template.html'))
-shutil.copy(D + 'build.py', os.path.join(src, 'build.py'))
 print('built %.2f MB - pure ASCII, charset declared' % (len(out) / 1024 / 1024))

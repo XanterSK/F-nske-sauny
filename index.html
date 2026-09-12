@@ -296,6 +296,67 @@
     .modal__thumbs{grid-template-columns:repeat(4,1fr)}
   }
 
+
+  /* ================= CONFIGURATOR ================= */
+  .config{padding:clamp(2rem,5vw,4rem) var(--pad) clamp(3.5rem,8vw,6rem)}
+
+  .cfg-step{
+    display:grid;grid-template-columns:auto minmax(0,1fr);
+    gap:clamp(1rem,3vw,2.5rem);align-items:start;
+    padding:clamp(1.4rem,3vw,2.2rem) 0;border-bottom:1px solid var(--g14);
+  }
+  .cfg-label{display:flex;align-items:baseline;gap:.6rem;padding-top:.3rem;white-space:nowrap}
+  .cfg-label em{font-style:normal;font-size:.58rem;letter-spacing:.24em;color:var(--gold);font-weight:600}
+  .cfg-label span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c70)}
+
+  /* step 1 - design chips */
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem}
+  .chip{
+    display:flex;align-items:center;gap:.6rem;cursor:pointer;
+    background:none;border:1px solid var(--g30);border-radius:100px;
+    padding:.32rem .95rem .32rem .32rem;color:var(--c70);
+    transition:border-color .3s ease,color .3s ease,background .3s ease;
+  }
+  .chip img{width:30px;height:30px;border-radius:100px;object-fit:cover;opacity:.55;transition:opacity .3s ease}
+  .chip span{font-size:.76rem;letter-spacing:.04em;white-space:nowrap}
+  .chip:hover{color:var(--cream);border-color:var(--gold)}
+  .chip.on{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+  .chip.on img{opacity:1}
+
+  /* step 2 - type cards */
+  .types{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.7rem}
+  .type{
+    text-align:left;cursor:pointer;display:grid;gap:.45rem;align-content:start;
+    background:rgba(19,36,54,.55);border:1px solid var(--g14);border-radius:var(--r);
+    padding:1.05rem 1.1rem;color:inherit;
+    transition:border-color .3s ease,background .3s ease,transform .3s var(--ease);
+  }
+  .type:hover{border-color:var(--g30);transform:translateY(-2px)}
+  .type.on{border-color:var(--gold);background:rgba(212,165,116,.10)}
+  .type__name{font-size:1.02rem;font-weight:300;letter-spacing:.01em}
+  .type.on .type__name{color:var(--gold)}
+  .type__spec{font-size:.6rem;letter-spacing:.14em;color:var(--gold);font-variant-numeric:tabular-nums}
+  .type__desc{font-size:.76rem;line-height:1.55;color:var(--c45)}
+  .type[disabled]{opacity:.3;cursor:not-allowed}
+  .type[disabled]:hover{transform:none;border-color:var(--g14)}
+
+  /* summary */
+  .cfg-sum{
+    margin-top:clamp(1.4rem,3vw,2.2rem);
+    display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;justify-content:space-between;
+    background:rgba(19,36,54,.55);border:1px solid var(--g30);border-radius:var(--r);
+    padding:clamp(1.2rem,2.6vw,1.8rem) clamp(1.2rem,3vw,2.2rem);
+  }
+  .cfg-sum__lbl{display:block;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--c45);margin-bottom:.4rem}
+  .cfg-sum__val{font-size:clamp(1.1rem,2.4vw,1.6rem);font-weight:200;letter-spacing:.01em}
+  .cfg-sum__val b{font-weight:200;color:var(--gold)}
+
+  @media(max-width:860px){
+    .cfg-step{grid-template-columns:1fr;gap:.9rem}
+    .cfg-label{padding-top:0}
+    .cfg-sum{flex-direction:column;align-items:flex-start}
+  }
+
   /* ================= ATELIER ================= */
   .atelier{padding:0 var(--pad) clamp(3.5rem,8vw,6.5rem)}
   .atelier__panel{
@@ -362,6 +423,7 @@
 <!-- ================= NAV ================= -->
 <nav id="nav" aria-label="Main">
   <a class="lnk" href="#collection" data-t="nav_collections">Collections</a>
+  <a class="lnk" href="#config"     data-t="config_title">Configure</a>
   <a class="lnk" href="#atelier"    data-t="nav_craft">Craft</a>
   <a class="lnk" href="#contact"    data-t="nav_contact">Contact</a>
 
@@ -446,6 +508,32 @@
   <p class="railhint rv" data-t="rail_hint">Hover to explore</p>
 </section>
 
+<!-- ================= CONFIGURATOR ================= -->
+<section class="config" id="config">
+  <div class="collection__head">
+    <h2 class="rv" data-t="config_title">Configure your sauna</h2>
+    <span class="count rv" data-t="config_hint">Two choices</span>
+  </div>
+
+  <div class="cfg-step rv">
+    <span class="cfg-label"><em>01</em><span data-t="cfg_design">Design</span></span>
+    <div class="chips" id="cfgDesigns"></div>
+  </div>
+
+  <div class="cfg-step rv">
+    <span class="cfg-label"><em>02</em><span data-t="cfg_type">Type</span></span>
+    <div class="types" id="cfgTypes"></div>
+  </div>
+
+  <div class="cfg-sum rv">
+    <div>
+      <span class="cfg-sum__lbl" data-t="cfg_your">Your selection</span>
+      <span class="cfg-sum__val" id="cfgOut"></span>
+    </div>
+    <a class="btn" id="cfgCta" data-t="cta_button">Request Consultation</a>
+  </div>
+</section>
+
 <!-- ================= ATELIER ================= -->
 <section class="atelier" id="atelier">
   <div class="atelier__panel rv">
@@ -464,7 +552,7 @@
   <div class="contact__panel rv">
     <div class="rule" style="background:var(--cream)"></div>
     <h2 data-t="cta_title">Let us build your sauna.</h2>
-    <a class="btn" href="mailto:info@suomii.com" data-t="cta_button">Request Consultation</a>
+    <a class="btn" href="mailto:agnes.kozenkow@suomii.com" data-t="cta_button">Request Consultation</a>
   </div>
 </section>
 
@@ -482,7 +570,7 @@
       <h3 id="mName">Classic</h3>
       <div class="rule"></div>
       <p id="mDesc"></p>
-      <a class="btn" id="mCta" href="mailto:info@suomii.com" data-t="cta_button">Request Consultation</a>
+      <a class="btn" id="mCta" href="mailto:agnes.kozenkow@suomii.com" data-t="cta_button">Request Consultation</a>
     </div>
   </div>
 </div>
@@ -494,7 +582,7 @@
   "use strict";
 
   var T = {
-    en:{nav_collections:"Collections",nav_craft:"Craft",nav_contact:"Contact",
+    en:{config_title:"Configure your sauna",config_hint:"Two choices",cfg_design:"Design",cfg_type:"Type",cfg_your:"Your selection",type_finnish:"Finnish",type_bio:"Bio",type_infra:"Infrared",type_combined:"Combined",typed_finnish:"Dry heat, stones, steam on demand. The original.",typed_bio:"Gentler warmth at higher humidity. Easy on the body.",typed_infra:"Radiant heat that reaches deeper, at a lower temperature.",typed_combined:"Finnish and infrared in one cabin. Both, whenever you want.",nav_collections:"Collections",nav_craft:"Craft",nav_contact:"Contact",
         hero_subtitle:"Bespoke Finnish Saunas",hero_title:"The Art of Sauna",
         hero_description:"Handcrafted saunas for the few. Every one an original.",
         section_collections:"Five Collections",detail:"View detail",desc_soon:"Full description coming soon.",rail_hint:"Hover to explore",
@@ -503,7 +591,7 @@
         cta_title:"Let us build your sauna.",cta_button:"Request Consultation",
         footer:"\u00a9 2026 SUOMII \u00b7 Handcrafted"},
 
-    sk:{nav_collections:"Kolekcie",nav_craft:"Remeslo",nav_contact:"Kontakt",
+    sk:{config_title:"Navrhnite si saunu",config_hint:"Dve vo\u013eby",cfg_design:"Dizajn",cfg_type:"Typ",cfg_your:"V\u00e1\u0161 v\u00fdber",type_finnish:"F\u00ednska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovan\u00e1",typed_finnish:"Such\u00e9 teplo, kamene, para pod\u013ea chuti. Origin\u00e1l.",typed_bio:"Miernej\u0161ie teplo a vy\u0161\u0161ia vlhkos\u0165. \u0160etrn\u00e1 k telu.",typed_infra:"S\u00e1lav\u00e9 teplo p\u00f4sob\u00ed hlb\u0161ie pri ni\u017e\u0161ej teplote.",typed_combined:"F\u00ednska a infra v jednej kab\u00edne. Oboje, kedyko\u013evek.",nav_collections:"Kolekcie",nav_craft:"Remeslo",nav_contact:"Kontakt",
         hero_subtitle:"F\u00ednske sauny na mieru",hero_title:"Umenie saunovania",
         hero_description:"Ru\u010dne vyr\u00e1ban\u00e9 sauny pre n\u00e1ro\u010dn\u00fdch. Ka\u017ed\u00e1 je origin\u00e1l.",
         section_collections:"P\u00e4\u0165 kolekci\u00ed",detail:"Zobrazi\u0165 detail",desc_soon:"Popis pripravujeme.",rail_hint:"Prejdite my\u0161ou",
@@ -512,7 +600,7 @@
         cta_title:"Vytvorme va\u0161u saunu na mieru.",cta_button:"Nez\u00e1v\u00e4zn\u00e1 konzult\u00e1cia",
         footer:"\u00a9 2026 SUOMII \u00b7 Ru\u010dn\u00e1 v\u00fdroba"},
 
-    cs:{nav_collections:"Kolekce",nav_craft:"\u0158emeslo",nav_contact:"Kontakt",
+    cs:{config_title:"Navrhn\u011bte si saunu",config_hint:"Dve vo\u013eby",cfg_design:"Design",cfg_type:"Typ",cfg_your:"V\u00e1\u0161 v\u00fdber",type_finnish:"F\u00ednska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovan\u00e1",typed_finnish:"Such\u00e9 teplo, kameny, p\u00e1ra podle chuti. Origin\u00e1l.",typed_bio:"M\u00edrn\u011bj\u0161\u00ed teplo a vy\u0161\u0161\u00ed vlhkost. \u0160etrn\u00e1 k t\u011blu.",typed_infra:"S\u00e1lav\u00e9 teplo p\u016fsob\u00ed hloub\u011bji p\u0159i ni\u017e\u0161\u00ed teplot\u011b.",typed_combined:"Finsk\u00e1 a infra v jedn\u00e9 kabin\u011b. Oboj\u00ed, kdykoli.",nav_collections:"Kolekce",nav_craft:"\u0158emeslo",nav_contact:"Kontakt",
         hero_subtitle:"Finsk\u00e9 sauny na m\u00edru",hero_title:"Um\u011bn\u00ed saunov\u00e1n\u00ed",
         hero_description:"Ru\u010dn\u011b vyr\u00e1b\u011bn\u00e9 sauny pro n\u00e1ro\u010dn\u00e9. Ka\u017ed\u00e1 je origin\u00e1l.",
         section_collections:"P\u011bt kolekc\u00ed",detail:"Zobrazit detail",desc_soon:"Popis p\u0159ipravujeme.",rail_hint:"P\u0159eje\u010fte my\u0161\u00ed",
@@ -521,7 +609,7 @@
         cta_title:"Vytvo\u0159me va\u0161i saunu na m\u00edru.",cta_button:"Nez\u00e1vazn\u00e1 konzultace",
         footer:"\u00a9 2026 SUOMII \u00b7 Ru\u010dn\u00ed v\u00fdroba"},
 
-    hu:{nav_collections:"Kollekci\u00f3k",nav_craft:"K\u00e9zm\u0171vess\u00e9g",nav_contact:"Kapcsolat",
+    hu:{config_title:"Tervezze meg szaun\u00e1j\u00e1t",config_hint:"K\u00e9t v\u00e1laszt\u00e1s",cfg_design:"Dizajn",cfg_type:"T\u00edpus",cfg_your:"\u00d6n v\u00e1laszt\u00e1sa",type_finnish:"Finn",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombin\u00e1lt",typed_finnish:"Sz\u00e1raz h\u0151, k\u00f6vek, g\u0151z ig\u00e9ny szerint. Az eredeti.",typed_bio:"Szel\u00eddebb h\u0151, magasabb p\u00e1ratartalom. K\u00edm\u00e9letes.",typed_infra:"A sug\u00e1rz\u00f3 h\u0151 m\u00e9lyebben hat, alacsonyabb h\u0151m\u00e9rs\u00e9kleten.",typed_combined:"Finn \u00e9s infra egy kabinban. Mindkett\u0151, amikor csak akarja.",nav_collections:"Kollekci\u00f3k",nav_craft:"K\u00e9zm\u0171vess\u00e9g",nav_contact:"Kapcsolat",
         hero_subtitle:"Egyedi finn szaun\u00e1k",hero_title:"A szauna m\u0171v\u00e9szete",
         hero_description:"K\u00e9zzel k\u00e9sz\u00edtett szaun\u00e1k ig\u00e9nyeseknek. Mindegyik egyedi.",
         section_collections:"\u00d6t kollekci\u00f3",detail:"R\u00e9szletek",desc_soon:"A le\u00edr\u00e1s hamarosan.",rail_hint:"Vigye r\u00e1 az egeret",
@@ -548,6 +636,7 @@
     });
     langNow = code;
     if(modal && modal.classList.contains("open")) paintDesc();
+    if(cfgDesigns) paintConfig();
     try{ localStorage.setItem("suomii-lang", code); }catch(e){}
   }
   function closeMenu(){ wrap.classList.remove("open"); btn.setAttribute("aria-expanded","false"); }
@@ -575,6 +664,7 @@
     if(i === openIdx) return;
     openIdx = i;
     for(var k=0;k<panels.length;k++) panels[k].classList.toggle("on", k === i);
+    if(typeof paintConfig === "function" && cfgDesigns) paintConfig();
   }
   panels.forEach(function(p,i){
     /* small delay stops the panels flickering when the cursor sweeps across */
@@ -636,7 +726,7 @@
     var key = KEYS[i];
     mIdx.textContent  = "0" + (i + 1);
     mName.textContent = NAMES[i];
-    mCta.href = "mailto:info@suomii.com?subject=" + encodeURIComponent("SUOMII " + NAMES[i]);
+    mCta.href = "mailto:agnes.kozenkow@suomii.com?subject=" + encodeURIComponent("SUOMII " + NAMES[i]);
     paintDesc();
 
     var shots = [panels[i].querySelector(".panel__img").src].concat(SHOTS[key]);
@@ -672,6 +762,103 @@
   document.addEventListener("keydown", function(e){
     if(e.key === "Escape" && modal.classList.contains("open")) closeModal();
   });
+
+
+  /* ---------- configurator: design x type ---------- */
+  var TYPES = [
+    {k:"finnish",  spec:"80-100 \u00b0C \u00b7 10-15 %"},
+    {k:"bio",      spec:"45-65 \u00b0C \u00b7 40-55 %"},
+    {k:"infra",    spec:"35-50 \u00b0C \u00b7 IR"},
+    {k:"combined", spec:"FIN + IR"}
+  ];
+
+  /* Which types each design can be built as.
+     ASSUMPTION: every design supports every type. Trim a list to restrict one. */
+  var AVAIL = {
+    classic:["finnish","bio","infra","combined"],
+    lapanca:["finnish","bio","infra","combined"],
+    massivo:["finnish","bio","infra","combined"],
+    dal:    ["finnish","bio","infra","combined"],
+    tom:    ["finnish","bio","infra","combined"]
+  };
+
+  var MAILTO = "agnes.kozenkow@suomii.com";
+  var cfgDesigns = document.getElementById("cfgDesigns");
+  var cfgTypes   = document.getElementById("cfgTypes");
+  var cfgOut     = document.getElementById("cfgOut");
+  var cfgCta     = document.getElementById("cfgCta");
+  var typeIdx = 0;
+
+  /* design chips reuse the rail photos already in the DOM - no extra bytes */
+  NAMES.forEach(function(name, i){
+    var b = document.createElement("button");
+    b.className = "chip" + (i === 0 ? " on" : "");
+    b.dataset.i = i;
+    var im = document.createElement("img");
+    im.src = panels[i].querySelector(".panel__img").src;
+    im.alt = "";
+    var sp = document.createElement("span");
+    sp.textContent = name;
+    b.appendChild(im); b.appendChild(sp);
+    b.addEventListener("click", function(){ open(i); });
+    cfgDesigns.appendChild(b);
+  });
+
+  TYPES.forEach(function(t, i){
+    var b = document.createElement("button");
+    b.className = "type" + (i === 0 ? " on" : "");
+    b.dataset.k = t.k;
+    b.innerHTML = '<span class="type__name"></span>'
+                + '<span class="type__spec">' + t.spec + '</span>'
+                + '<span class="type__desc"></span>';
+    b.addEventListener("click", function(){
+      if(b.hasAttribute("disabled")) return;
+      typeIdx = i; paintTypes(); paintSum();
+    });
+    cfgTypes.appendChild(b);
+  });
+
+  function paintTypes(){
+    var allowed = AVAIL[KEYS[openIdx]] || [];
+    var cards = cfgTypes.querySelectorAll(".type");
+    /* if the current pick is not offered for this design, fall back to the first one that is */
+    if(allowed.indexOf(TYPES[typeIdx].k) === -1){
+      for(var j = 0; j < TYPES.length; j++){
+        if(allowed.indexOf(TYPES[j].k) !== -1){ typeIdx = j; break; }
+      }
+    }
+    cards.forEach(function(c, i){
+      var ok = allowed.indexOf(TYPES[i].k) !== -1;
+      if(ok) c.removeAttribute("disabled"); else c.setAttribute("disabled","");
+      c.classList.toggle("on", ok && i === typeIdx);
+      var d = T[langNow] || T.en;
+      c.querySelector(".type__name").textContent = d["type_" + TYPES[i].k] || TYPES[i].k;
+      c.querySelector(".type__desc").textContent = d["typed_" + TYPES[i].k] || "";
+    });
+  }
+
+  function paintSum(){
+    var d = T[langNow] || T.en;
+    var typeName = d["type_" + TYPES[typeIdx].k] || "";
+    cfgOut.innerHTML = "";
+    var b = document.createElement("b");
+    b.textContent = NAMES[openIdx];
+    cfgOut.appendChild(b);
+    cfgOut.appendChild(document.createTextNode(" \u00b7 " + typeName));
+    cfgCta.href = "mailto:" + MAILTO
+      + "?subject=" + encodeURIComponent("SUOMII - " + NAMES[openIdx] + " / " + typeName)
+      + "&body=" + encodeURIComponent(
+          (d.cfg_design || "Design") + ": " + NAMES[openIdx] + "\n" +
+          (d.cfg_type   || "Type")   + ": " + typeName + " (" + TYPES[typeIdx].spec + ")\n\n");
+  }
+
+  function paintChips(){
+    cfgDesigns.querySelectorAll(".chip").forEach(function(c, i){
+      c.classList.toggle("on", i === openIdx);
+    });
+  }
+  function paintConfig(){ paintChips(); paintTypes(); paintSum(); }
+  paintConfig();
 
   /* ---------- nav reveal ---------- */
   var nav = document.getElementById("nav"), hero = document.querySelector(".hero");
