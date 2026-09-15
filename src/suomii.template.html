@@ -46,30 +46,100 @@
   h3{font-size:var(--t-h3)}
   .rule{width:44px;height:1px;background:var(--gold);opacity:.9}
 
-  /* ================= NAV ================= */
-  #nav{
-    position:fixed;top:16px;left:50%;z-index:200;
-    transform:translate(-50%,-170%);opacity:0;pointer-events:none;
-    display:flex;align-items:center;gap:clamp(.9rem,2.2vw,2rem);
-    padding:.62rem .72rem .62rem clamp(1.1rem,2.2vw,1.7rem);
-    border-radius:100px;
-    background:rgba(10,22,34,.74);
-    -webkit-backdrop-filter:blur(12px);
-    backdrop-filter:blur(12px);
-    border:1px solid var(--g30);
-    box-shadow:0 20px 55px -20px rgba(0,0,0,.8);
-    transition:transform .6s var(--ease),opacity .4s ease;
-    max-width:calc(100vw - 1.5rem);
+  /* ================= NAV =================
+     Layout from the hero-1 component: logo left, links centred, action right;
+     below 1024px a menu button opens a panel that slides in from the right. */
+  .topbar{
+    position:fixed;inset:0 0 auto 0;z-index:200;
+    transition:background .45s ease,box-shadow .45s ease,-webkit-backdrop-filter .45s ease,backdrop-filter .45s ease;
   }
-  #nav.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+  .topbar::before{            /* soft shade so the bar reads over the photo */
+    content:"";position:absolute;inset:0 0 -40px 0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(10,22,34,.6),transparent);transition:opacity .45s ease;
+  }
+  .topbar.solid{
+    background:rgba(10,22,34,.84);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:inset 0 -1px 0 var(--g14);
+  }
+  .topbar.solid::before{opacity:0}
+  .topbar__in{
+    position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:1.1rem var(--pad);transition:padding .45s var(--ease);
+  }
+  .topbar.solid .topbar__in{padding-top:.7rem;padding-bottom:.7rem}
+  .topbar__logo{justify-self:start;display:block;margin:-.4rem}
+  .topbar__logo img{height:44px;width:auto;padding:.4rem;box-sizing:content-box;transition:height .45s var(--ease)}
+  .topbar.solid .topbar__logo img{height:36px}
 
-  #nav .lnk{
+  .topbar__links{display:flex;gap:clamp(1.6rem,3vw,3rem)}
+  .topbar .lnk{
     font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;
-    color:var(--c70);white-space:nowrap;transition:color .3s ease;
+    color:var(--cream);white-space:nowrap;transition:color .3s ease;
   }
-  #nav .lnk:hover{color:var(--gold)}
-  .navlinks{display:contents}
-  .navbrand,.navtoggle{display:none}
+  .topbar .lnk:hover{color:var(--gold)}
+
+  .topbar__end{justify-self:end;display:flex;align-items:center;gap:1.4rem}
+  .topbar__cta{
+    font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;
+    color:var(--cream);white-space:nowrap;transition:color .3s ease;
+  }
+  .topbar__cta span{display:inline-block;transition:transform .3s var(--ease)}
+  .topbar__cta:hover{color:var(--gold)}
+  .topbar__cta:hover span{transform:translateX(4px)}
+
+  .iconbtn{
+    display:grid;place-items:center;width:42px;height:42px;border-radius:100px;cursor:pointer;
+    background:transparent;border:1px solid var(--g30);color:var(--cream);
+    transition:background .25s ease,border-color .25s ease;
+  }
+  .iconbtn:hover{background:rgba(212,165,116,.14);border-color:var(--gold)}
+  .iconbtn:focus{outline:none}
+  .iconbtn:focus-visible{box-shadow:0 0 0 2px var(--gold)}
+  .iconbtn svg{width:20px;height:20px}
+  .topbar .iconbtn{display:none;justify-self:end;grid-column:3}
+
+  @media(max-width:1023px){
+    .topbar__in{grid-template-columns:1fr auto}
+    .topbar__links,.topbar__end{display:none}
+    .topbar .iconbtn{display:grid;grid-column:auto}
+    .topbar__logo img{height:38px}
+    .topbar.solid .topbar__logo img{height:32px}
+  }
+
+  /* drawer = the component's mobile Dialog */
+  /* visibility keeps the closed panel's shadow off the page edge and its links out of the tab order */
+  .drawer{position:fixed;inset:0;z-index:300;pointer-events:none;visibility:hidden;transition:visibility 0s linear .5s}
+  .drawer.open{pointer-events:auto;visibility:visible;transition:none}
+  .drawer__scrim{position:absolute;inset:0;background:rgba(6,14,22,.72);opacity:0;transition:opacity .35s ease}
+  .drawer.open .drawer__scrim{opacity:1}
+  .drawer__panel{
+    position:absolute;inset:0 0 0 auto;width:100%;max-width:24rem;overflow-y:auto;
+    background:var(--navy);box-shadow:-1px 0 0 var(--g30),-30px 0 80px -30px rgba(0,0,0,.9);
+    padding:1rem var(--pad) 2rem;display:flex;flex-direction:column;
+    transform:translateX(100%);transition:transform .5s var(--ease);
+  }
+  @media(max-width:639px){ .drawer__panel{max-width:none;box-shadow:none} }
+  .drawer.open .drawer__panel{transform:none}
+  .drawer__head{display:flex;align-items:center;justify-content:space-between;padding-bottom:1rem}
+  .drawer__head img{height:38px;width:auto}
+  .drawer__group{padding:1.4rem 0;border-top:1px solid var(--g14);display:grid;gap:.2rem}
+  .drawer__group a.lnk{
+    display:block;margin:0 -.9rem;padding:.85rem .9rem;border-radius:var(--r);
+    font-size:1.15rem;font-weight:500;letter-spacing:.02em;color:var(--cream);
+    transition:background .25s ease,color .25s ease;
+  }
+  .drawer__group a.lnk:hover{background:var(--g14);color:var(--gold)}
+  .drawer__lbl{font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--c45);margin-bottom:.7rem}
+  .drawer__langs{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+  .drawer__langs button{
+    cursor:pointer;padding:.7rem 0;border-radius:100px;background:transparent;
+    border:1px solid var(--g30);color:var(--c70);
+    font-size:var(--t-label);letter-spacing:var(--track);font-weight:600;
+    transition:background .25s ease,color .25s ease,border-color .25s ease;
+  }
+  .drawer__langs button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  .drawer .btn{text-align:center;margin-top:auto}
 
   .langwrap{position:relative}
   .langbtn{
@@ -530,29 +600,6 @@
     .panel__vert span{writing-mode:horizontal-tb;transform:none;letter-spacing:.24em}
     .panel__open h3{white-space:normal}
     .railhint{text-align:left}
-    /* phone nav: brand + language + menu button, links drop down as a sheet */
-    #nav{width:calc(100vw - 24px);top:12px;gap:.5rem;padding:.45rem .45rem .45rem 1.1rem}
-    .navbrand{display:block;margin-right:auto;font-size:.82rem;font-weight:500;letter-spacing:.42em;color:var(--cream)}
-    .navtoggle{
-      display:grid;place-items:center;width:38px;height:38px;border-radius:100px;cursor:pointer;
-      background:rgba(212,165,116,.10);border:1px solid var(--g30);color:var(--cream);
-    }
-    .navtoggle i{display:block;width:15px;height:1px;background:currentColor;transition:transform .35s var(--ease)}
-    .navtoggle i + i{margin-top:5px}
-    #nav.menu .navtoggle i:first-child{transform:translateY(3px) rotate(45deg)}
-    #nav.menu .navtoggle i:last-child{transform:translateY(-3px) rotate(-45deg)}
-    .navlinks{
-      display:grid;position:absolute;top:calc(100% + 10px);left:0;right:0;
-      padding:.6rem;border-radius:18px;
-      background:rgba(10,22,34,.96);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
-      border:1px solid var(--g30);box-shadow:0 30px 70px -20px rgba(0,0,0,.9);
-      opacity:0;transform:translateY(-8px);pointer-events:none;
-      transition:opacity .28s ease,transform .34s var(--ease);
-    }
-    #nav.menu .navlinks{opacity:1;transform:none;pointer-events:auto}
-    #nav .lnk{font-size:.8rem;letter-spacing:.2em;padding:1rem .9rem;border-radius:12px}
-    #nav .lnk + .lnk{border-top:1px solid var(--g14)}
-    .langbtn{height:38px}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition-duration:.01ms!important}
@@ -561,29 +608,66 @@
 </style>
 
 <!-- ================= NAV ================= -->
-<nav id="nav" aria-label="Main">
-  <a class="navbrand" href="#top">SUOMII</a>
-  <div class="navlinks" id="navLinks">
-    <a class="lnk" href="#collection" data-t="nav_collections">Collections</a>
-    <a class="lnk" href="#config"     data-t="config_title">Configure</a>
-    <a class="lnk" href="#atelier"    data-t="nav_craft">Craft</a>
-    <a class="lnk" href="#contact"    data-t="nav_contact">Contact</a>
-  </div>
+<header class="topbar" id="nav">
+  <nav class="topbar__in" aria-label="Main">
+    <a class="topbar__logo" href="#top"><img src="data:image/png;base64,__LOGO__" alt="SUOMII"></a>
 
-  <div class="langwrap" id="langWrap">
-    <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
-      <span id="langCur">EN</span>
-      <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="topbar__links">
+      <a class="lnk" href="#collection" data-t="nav_collections">Collections</a>
+      <a class="lnk" href="#config"     data-t="config_title">Configure</a>
+      <a class="lnk" href="#atelier"    data-t="nav_craft">Craft</a>
+      <a class="lnk" href="#contact"    data-t="nav_contact">Contact</a>
+    </div>
+
+    <div class="topbar__end">
+      <div class="langwrap" id="langWrap">
+        <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="langCur">EN</span>
+          <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="langmenu" id="langMenu" role="listbox" aria-label="Language">
+          <li role="option" data-l="en" aria-selected="true">English<span class="code">EN</span></li>
+          <li role="option" data-l="sk" aria-selected="false">Slovenčina<span class="code">SK</span></li>
+          <li role="option" data-l="cs" aria-selected="false">Čeština<span class="code">CZ</span></li>
+          <li role="option" data-l="hu" aria-selected="false">Magyar<span class="code">HU</span></li>
+        </ul>
+      </div>
+      <a class="topbar__cta" href="#contact"><b data-t="nav_quote" style="font-weight:inherit">Request a quote</b> <span aria-hidden="true">&rarr;</span></a>
+    </div>
+
+    <button class="iconbtn" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-    <ul class="langmenu" id="langMenu" role="listbox" aria-label="Language">
-      <li role="option" data-l="en" aria-selected="true">English<span class="code">EN</span></li>
-      <li role="option" data-l="sk" aria-selected="false">Slovenčina<span class="code">SK</span></li>
-      <li role="option" data-l="cs" aria-selected="false">Čeština<span class="code">CZ</span></li>
-      <li role="option" data-l="hu" aria-selected="false">Magyar<span class="code">HU</span></li>
-    </ul>
+  </nav>
+</header>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+  <div class="drawer__scrim" data-dclose></div>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <a href="#top" data-dclose><img src="data:image/png;base64,__LOGO__" alt="SUOMII"></a>
+      <button class="iconbtn" type="button" data-dclose aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="drawer__group">
+      <a class="lnk" href="#collection" data-t="nav_collections" data-dclose>Collections</a>
+      <a class="lnk" href="#config"     data-t="config_title" data-dclose>Configure</a>
+      <a class="lnk" href="#atelier"    data-t="nav_craft" data-dclose>Craft</a>
+      <a class="lnk" href="#contact"    data-t="nav_contact" data-dclose>Contact</a>
+    </div>
+    <div class="drawer__group">
+      <p class="drawer__lbl" data-t="nav_lang">Language</p>
+      <div class="drawer__langs">
+        <button type="button" data-l="en" aria-pressed="true">EN</button>
+        <button type="button" data-l="sk" aria-pressed="false">SK</button>
+        <button type="button" data-l="cs" aria-pressed="false">CZ</button>
+        <button type="button" data-l="hu" aria-pressed="false">HU</button>
+      </div>
+    </div>
+    <a class="btn" href="#contact" data-t="nav_quote" data-dclose>Request a quote</a>
   </div>
-  <button class="navtoggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span><i></i><i></i></span></button>
-</nav>
+</div>
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
@@ -777,28 +861,28 @@
         section_collections:"Five Collections",detail:"View detail",desc_soon:"Full description coming soon.",rail_hint:"Hover to explore",
         craft_description:"A sauna is not manufactured. It comes into being.",
         cta_title:"Let us build your sauna.",cta_button:"Request Consultation",
-        footer:"© 2026 SUOMII · Handcrafted",rail_hint_touch:"Tap to explore",f_lead:"Tell us about your space. A detailed quote follows within a week.",f_showroom:"Showroom",f_phone:"Phone",f_email:"Email",f_change:"Change",f_name:"Name",f_place:"Where will the sauna stand?",f_msg:"Your space and wishes",f_consent:"I agree that SUOMII may contact me about this enquiry.",f_send:"Send enquiry",f_sending:"Sending…",f_ok_t:"Thank you.",f_ok:"Your enquiry has arrived. We will be in touch within a week.",f_req:"Please add your name, a valid email and your consent.",f_err:"Something went wrong. Please try again, or call us.",f_fallback:"Opening your email app with everything filled in.",partners:"In good company",p_wood:"Wood · Estonia",p_stoves:"Stoves · Finland",p_member:"Member",p_showroom:"Showroom · Budapest"},
+        footer:"© 2026 SUOMII · Handcrafted",nav_quote:"Request a quote",nav_lang:"Language",rail_hint_touch:"Tap to explore",f_lead:"Tell us about your space. A detailed quote follows within a week.",f_showroom:"Showroom",f_phone:"Phone",f_email:"Email",f_change:"Change",f_name:"Name",f_place:"Where will the sauna stand?",f_msg:"Your space and wishes",f_consent:"I agree that SUOMII may contact me about this enquiry.",f_send:"Send enquiry",f_sending:"Sending…",f_ok_t:"Thank you.",f_ok:"Your enquiry has arrived. We will be in touch within a week.",f_req:"Please add your name, a valid email and your consent.",f_err:"Something went wrong. Please try again, or call us.",f_fallback:"Opening your email app with everything filled in.",partners:"In good company",p_wood:"Wood · Estonia",p_stoves:"Stoves · Finland",p_member:"Member",p_showroom:"Showroom · Budapest"},
 
     sk:{config_title:"Navrhnite si saunu",config_hint:"Dve voľby",cfg_design:"Dizajn",cfg_type:"Typ",cfg_your:"Váš výber",type_finnish:"Fínska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kamene, para podľa chuti. Originál.",typed_bio:"Miernejšie teplo a vyššia vlhkosť. Šetrná k telu.",typed_infra:"Sálavé teplo pôsobí hlbšie pri nižšej teplote.",typed_combined:"Fínska a infra v jednej kabíne. Oboje, kedykoľvek.",nav_collections:"Kolekcie",nav_craft:"Remeslo",nav_contact:"Kontakt",hero_title:"Umenie saunovania",
         hero_description:"Ručne vyrábané sauny pre náročných. Každá je originál.",
         section_collections:"Päť kolekcií",detail:"Zobraziť detail",desc_soon:"Popis pripravujeme.",rail_hint:"Prejdite myšou",
         craft_description:"Sauna sa nevyrába. Vzniká.",
         cta_title:"Vytvorme vašu saunu na mieru.",cta_button:"Nezáväzná konzultácia",
-        footer:"© 2026 SUOMII · Ručná výroba",rail_hint_touch:"Ťuknite pre detail",f_lead:"Povedzte nám o vašom priestore. Podrobnú cenovú ponuku dostanete do týždňa.",f_showroom:"Showroom",f_phone:"Telefón",f_email:"E-mail",f_change:"Zmeniť",f_name:"Meno",f_place:"Kde bude sauna stáť?",f_msg:"Váš priestor a predstavy",f_consent:"Súhlasím, aby ma SUOMII kontaktovalo ohľadom tohto dopytu.",f_send:"Odoslať dopyt",f_sending:"Odosiela sa…",f_ok_t:"Ďakujeme.",f_ok:"Váš dopyt sme prijali. Ozveme sa do týždňa.",f_req:"Vyplňte meno, platný e-mail a potvrďte súhlas.",f_err:"Niečo sa nepodarilo. Skúste to znova alebo nám zavolajte.",f_fallback:"Otvára sa váš e-mail so všetkým vyplneným.",partners:"Naši partneri",p_wood:"Drevo · Estónsko",p_stoves:"Pece · Fínsko",p_member:"Členstvo",p_showroom:"Showroom · Budapešť"},
+        footer:"© 2026 SUOMII · Ručná výroba",nav_quote:"Cenová ponuka",nav_lang:"Jazyk",rail_hint_touch:"Ťuknite pre detail",f_lead:"Povedzte nám o vašom priestore. Podrobnú cenovú ponuku dostanete do týždňa.",f_showroom:"Showroom",f_phone:"Telefón",f_email:"E-mail",f_change:"Zmeniť",f_name:"Meno",f_place:"Kde bude sauna stáť?",f_msg:"Váš priestor a predstavy",f_consent:"Súhlasím, aby ma SUOMII kontaktovalo ohľadom tohto dopytu.",f_send:"Odoslať dopyt",f_sending:"Odosiela sa…",f_ok_t:"Ďakujeme.",f_ok:"Váš dopyt sme prijali. Ozveme sa do týždňa.",f_req:"Vyplňte meno, platný e-mail a potvrďte súhlas.",f_err:"Niečo sa nepodarilo. Skúste to znova alebo nám zavolajte.",f_fallback:"Otvára sa váš e-mail so všetkým vyplneným.",partners:"Naši partneri",p_wood:"Drevo · Estónsko",p_stoves:"Pece · Fínsko",p_member:"Členstvo",p_showroom:"Showroom · Budapešť"},
 
     cs:{config_title:"Navrhněte si saunu",config_hint:"Dvě volby",cfg_design:"Design",cfg_type:"Typ",cfg_your:"Váš výběr",type_finnish:"Finská",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kameny, pára podle chuti. Originál.",typed_bio:"Mírnější teplo a vyšší vlhkost. Šetrná k tělu.",typed_infra:"Sálavé teplo působí hlouběji při nižší teplotě.",typed_combined:"Finská a infra v jedné kabině. Obojí, kdykoli.",nav_collections:"Kolekce",nav_craft:"Řemeslo",nav_contact:"Kontakt",hero_title:"Umění saunování",
         hero_description:"Ručně vyráběné sauny pro náročné. Každá je originál.",
         section_collections:"Pět kolekcí",detail:"Zobrazit detail",desc_soon:"Popis připravujeme.",rail_hint:"Přejeďte myší",
         craft_description:"Sauna se nevyrábí. Vzniká.",
         cta_title:"Vytvořme vaši saunu na míru.",cta_button:"Nezávazná konzultace",
-        footer:"© 2026 SUOMII · Ruční výroba",rail_hint_touch:"Klepněte pro detail",f_lead:"Řekněte nám o svém prostoru. Podrobnou cenovou nabídku dostanete do týdne.",f_showroom:"Showroom",f_phone:"Telefon",f_email:"E-mail",f_change:"Změnit",f_name:"Jméno",f_place:"Kde bude sauna stát?",f_msg:"Váš prostor a představy",f_consent:"Souhlasím, aby mě SUOMII kontaktovalo ohledně této poptávky.",f_send:"Odeslat poptávku",f_sending:"Odesílá se…",f_ok_t:"Děkujeme.",f_ok:"Vaši poptávku jsme přijali. Ozveme se do týdne.",f_req:"Vyplňte jméno, platný e-mail a potvrďte souhlas.",f_err:"Něco se nepovedlo. Zkuste to znovu nebo nám zavolejte.",f_fallback:"Otevírá se váš e-mail se vším vyplněným.",partners:"Naši partneři",p_wood:"Dřevo · Estonsko",p_stoves:"Kamna · Finsko",p_member:"Členství",p_showroom:"Showroom · Budapešť"},
+        footer:"© 2026 SUOMII · Ruční výroba",nav_quote:"Cenová nabídka",nav_lang:"Jazyk",rail_hint_touch:"Klepněte pro detail",f_lead:"Řekněte nám o svém prostoru. Podrobnou cenovou nabídku dostanete do týdne.",f_showroom:"Showroom",f_phone:"Telefon",f_email:"E-mail",f_change:"Změnit",f_name:"Jméno",f_place:"Kde bude sauna stát?",f_msg:"Váš prostor a představy",f_consent:"Souhlasím, aby mě SUOMII kontaktovalo ohledně této poptávky.",f_send:"Odeslat poptávku",f_sending:"Odesílá se…",f_ok_t:"Děkujeme.",f_ok:"Vaši poptávku jsme přijali. Ozveme se do týdne.",f_req:"Vyplňte jméno, platný e-mail a potvrďte souhlas.",f_err:"Něco se nepovedlo. Zkuste to znovu nebo nám zavolejte.",f_fallback:"Otevírá se váš e-mail se vším vyplněným.",partners:"Naši partneři",p_wood:"Dřevo · Estonsko",p_stoves:"Kamna · Finsko",p_member:"Členství",p_showroom:"Showroom · Budapešť"},
 
     hu:{config_title:"Tervezze meg szaunáját",config_hint:"Két választás",cfg_design:"Dizajn",cfg_type:"Típus",cfg_your:"Ön választása",type_finnish:"Finn",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinált",typed_finnish:"Száraz hő, kövek, gőz igény szerint. Az eredeti.",typed_bio:"Szelídebb hő, magasabb páratartalom. Kíméletes.",typed_infra:"A sugárzó hő mélyebben hat, alacsonyabb hőmérsékleten.",typed_combined:"Finn és infra egy kabinban. Mindkettő, amikor csak akarja.",nav_collections:"Kollekciók",nav_craft:"Kézművesség",nav_contact:"Kapcsolat",hero_title:"A szauna művészete",
         hero_description:"Kézzel készített szaunák igényeseknek. Mindegyik egyedi.",
         section_collections:"Öt kollekció",detail:"Részletek",desc_soon:"A leírás hamarosan.",rail_hint:"Vigye rá az egeret",
         craft_description:"A szauna nem készül. Születik.",
         cta_title:"Tervezzük meg az Ön szaunáját.",cta_button:"Kötetlen konzultáció",
-        footer:"© 2026 SUOMII · Kézzel készült",rail_hint_touch:"Koppintson a részletekért",f_lead:"Meséljen a teréről. Részletes árajánlatot egy héten belül küldünk.",f_showroom:"Bemutatóterem",f_phone:"Telefon",f_email:"E-mail",f_change:"Módosítás",f_name:"Név",f_place:"Hol áll majd a szauna?",f_msg:"A tér és az elképzelései",f_consent:"Hozzájárulok, hogy a SUOMII ezzel a megkereséssel kapcsolatban felvegye velem a kapcsolatot.",f_send:"Ajánlatkérés küldése",f_sending:"Küldés…",f_ok_t:"Köszönjük.",f_ok:"Megkeresése megérkezett. Egy héten belül jelentkezünk.",f_req:"Kérjük, adja meg nevét, érvényes e-mail címét és hozzájárulását.",f_err:"Hiba történt. Kérjük, próbálja újra, vagy hívjon minket.",f_fallback:"Megnyílik a levelezője, minden adat kitöltve.",partners:"Partnereink",p_wood:"Faanyag · Észtország",p_stoves:"Kályhák · Finnország",p_member:"Tagság",p_showroom:"Bemutatóterem · Budapest"}
+        footer:"© 2026 SUOMII · Kézzel készült",nav_quote:"Ajánlatkérés",nav_lang:"Nyelv",rail_hint_touch:"Koppintson a részletekért",f_lead:"Meséljen a teréről. Részletes árajánlatot egy héten belül küldünk.",f_showroom:"Bemutatóterem",f_phone:"Telefon",f_email:"E-mail",f_change:"Módosítás",f_name:"Név",f_place:"Hol áll majd a szauna?",f_msg:"A tér és az elképzelései",f_consent:"Hozzájárulok, hogy a SUOMII ezzel a megkereséssel kapcsolatban felvegye velem a kapcsolatot.",f_send:"Ajánlatkérés küldése",f_sending:"Küldés…",f_ok_t:"Köszönjük.",f_ok:"Megkeresése megérkezett. Egy héten belül jelentkezünk.",f_req:"Kérjük, adja meg nevét, érvényes e-mail címét és hozzájárulását.",f_err:"Hiba történt. Kérjük, próbálja újra, vagy hívjon minket.",f_fallback:"Megnyílik a levelezője, minden adat kitöltve.",partners:"Partnereink",p_wood:"Faanyag · Észtország",p_stoves:"Kályhák · Finnország",p_member:"Tagság",p_showroom:"Bemutatóterem · Budapest"}
   };
 
   var CODE = {en:"EN",sk:"SK",cs:"CZ",hu:"HU"};
@@ -815,6 +899,9 @@
     cur.textContent = CODE[code];
     menu.querySelectorAll("li").forEach(function(li){
       li.setAttribute("aria-selected", li.dataset.l === code ? "true" : "false");
+    });
+    document.querySelectorAll(".drawer__langs button").forEach(function(b){
+      b.setAttribute("aria-pressed", b.dataset.l === code ? "true" : "false");
     });
     langNow = code;
     if(modal && modal.classList.contains("open")) paintDesc();
@@ -1129,49 +1216,37 @@
     });
   });
 
-  /* ---------- phone menu ---------- */
+  /* ---------- menu drawer (below 1024px) ---------- */
+  var drawer = document.getElementById("drawer");
   var navToggle = document.getElementById("navToggle");
-  function setMenu(on){
-    document.getElementById("nav").classList.toggle("menu", on);
+
+  function setDrawer(on){
+    drawer.classList.toggle("open", on);
+    drawer.setAttribute("aria-hidden", on ? "false" : "true");
     navToggle.setAttribute("aria-expanded", on ? "true" : "false");
+    document.documentElement.style.overflow = on ? "hidden" : "";
+    if(on) drawer.querySelector(".drawer__head .iconbtn").focus();
+    else navToggle.focus({preventScroll:true});
   }
-  navToggle.addEventListener("click", function(e){
-    e.stopPropagation();
-    closeMenu();
-    setMenu(!document.getElementById("nav").classList.contains("menu"));
+  navToggle.addEventListener("click", function(){ setDrawer(true); });
+  drawer.addEventListener("click", function(e){
+    if(e.target.closest("[data-dclose]")) setDrawer(false);
+    var l = e.target.closest(".drawer__langs button");
+    if(l) setLang(l.dataset.l);
   });
-  document.getElementById("navLinks").addEventListener("click", function(e){
-    if(e.target.closest("a")) setMenu(false);
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && drawer.classList.contains("open")) setDrawer(false);
   });
-  document.addEventListener("click", function(e){
-    if(!e.target.closest("#nav")) setMenu(false);
+  /* rotating a tablet past 1024px must not leave a hidden drawer holding the scroll lock */
+  window.addEventListener("resize", function(){
+    if(window.innerWidth >= 1024 && drawer.classList.contains("open")) setDrawer(false);
   });
-  btn.addEventListener("click", function(){ setMenu(false); });
 
-  /* ---------- nav reveal ---------- */
+  /* ---------- top bar turns solid once the hero is behind it ---------- */
   var nav = document.getElementById("nav"), hero = document.querySelector(".hero");
-  var idle, hovering = false, pinned = false;
-
-  nav.addEventListener("mouseenter", function(){ hovering = true; });
-  nav.addEventListener("mouseleave", function(){ hovering = false; arm(); });
-
-  function arm(){
-    clearTimeout(idle);
-    idle = setTimeout(function(){
-      if(!pinned && !hovering && !wrap.classList.contains("open") && !nav.classList.contains("menu")) nav.classList.remove("show");
-    }, 2800);
-  }
-  function wake(){ nav.classList.add("show"); arm(); }
-  window.addEventListener("mousemove", wake, {passive:true});
-  window.addEventListener("touchstart", wake, {passive:true});
-  window.addEventListener("keydown", wake);
-
-  if("IntersectionObserver" in window){
-    new IntersectionObserver(function(en){
-      pinned = !en[0].isIntersecting;
-      if(pinned) nav.classList.add("show"); else arm();
-    }, {threshold:0.12}).observe(hero);
-  }
+  function solid(){ nav.classList.toggle("solid", hero.getBoundingClientRect().bottom < nav.offsetHeight + 40); }
+  window.addEventListener("scroll", solid, {passive:true});
+  solid();
 
   /* ---------- reveal ---------- */
   var rv = document.querySelectorAll(".rv");

@@ -35,6 +35,15 @@ for key in imgs:
     if token not in out:
         sys.exit('template never uses ' + token)
     out = out.replace(token, imgs[key])
+# small assets kept in the repo (the logo): src/assets/logo.png -> __LOGO__
+import base64
+AS = D + 'assets/'
+for f in sorted(os.listdir(AS)) if os.path.isdir(AS) else []:
+    token = '__%s__' % os.path.splitext(f)[0].upper()
+    if token not in out:
+        sys.exit('template never uses ' + token)
+    out = out.replace(token, base64.b64encode(open(AS + f, 'rb').read()).decode('ascii'))
+
 left = re.findall(r'__[A-Z0-9_]+__', out)
 if left:
     sys.exit('unfilled tokens: ' + ', '.join(sorted(set(left))))
