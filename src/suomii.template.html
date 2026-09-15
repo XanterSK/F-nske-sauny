@@ -9,21 +9,29 @@
     --cognac:#864c2c;
     --walnut:#6f4d3a;
     --gold:#d4a574;
-    --c70:rgba(245,230,211,.70);
-    --c45:rgba(245,230,211,.45);
+    --c70:rgba(245,230,211,.84);
+    --c45:rgba(245,230,211,.62);
     --g30:rgba(212,165,116,.30);
     --g14:rgba(212,165,116,.14);
     --ui:"Avenir Next","Avenir","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,sans-serif;
     --r:10px;
     --pad:clamp(1.25rem,5vw,5.5rem);
     --ease:cubic-bezier(.22,1,.36,1);
+
+    /* one type scale for the whole page - nothing sized ad hoc */
+    --t-label:.72rem;                       /* every uppercase label, button, index */
+    --t-small:.9rem;                        /* card copy */
+    --t-body:clamp(1rem,1.2vw,1.08rem);     /* paragraphs */
+    --t-h3:clamp(1.9rem,3.4vw,2.7rem);      /* sauna names */
+    --t-h2:clamp(1.7rem,3.2vw,2.5rem);      /* every section heading */
+    --track:.2em;                           /* letter-spacing for labels */
   }
 
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{
     background:var(--navy);color:var(--cream);
-    font-family:var(--ui);font-weight:300;line-height:1.62;
+    font-family:var(--ui);font-weight:400;line-height:1.62;
     letter-spacing:.005em;overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
   }
@@ -31,7 +39,9 @@
   a{color:inherit;text-decoration:none}
   button{font-family:inherit}
 
-  h2,h3{font-weight:300;letter-spacing:-.005em;line-height:1.12}
+  h2,h3{font-weight:400;letter-spacing:-.005em;line-height:1.14}
+  h2{font-size:var(--t-h2)}
+  h3{font-size:var(--t-h3)}
   .rule{width:44px;height:1px;background:var(--gold);opacity:.9}
 
   /* ================= NAV ================= */
@@ -52,7 +62,7 @@
   #nav.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
 
   #nav .lnk{
-    font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
+    font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;
     color:var(--c70);white-space:nowrap;transition:color .3s ease;
   }
   #nav .lnk:hover{color:var(--gold)}
@@ -63,7 +73,7 @@
     background:rgba(212,165,116,.10);border:1px solid var(--g30);
     color:var(--cream);border-radius:100px;
     padding:.42rem .7rem .42rem .82rem;
-    font-size:.66rem;letter-spacing:.14em;font-weight:500;
+    font-size:var(--t-label);letter-spacing:var(--track);font-weight:500;
     transition:background .25s ease,border-color .25s ease;
   }
   .langbtn:hover{background:rgba(212,165,116,.2);border-color:var(--gold)}
@@ -84,11 +94,11 @@
   .langmenu li{
     display:flex;align-items:center;justify-content:space-between;gap:1rem;
     padding:.62rem .8rem;border-radius:9px;cursor:pointer;
-    font-size:.78rem;font-weight:300;color:var(--c70);
+    font-size:var(--t-small);font-weight:400;color:var(--c70);
     transition:background .2s ease,color .2s ease;
   }
   .langmenu li:hover{background:rgba(212,165,116,.14);color:var(--cream)}
-  .langmenu li .code{font-size:.6rem;letter-spacing:.16em;color:var(--c45)}
+  .langmenu li .code{font-size:var(--t-label);letter-spacing:var(--track);font-weight:500;color:var(--c45)}
   .langmenu li[aria-selected="true"]{color:var(--gold)}
   .langmenu li[aria-selected="true"] .code{color:var(--gold)}
 
@@ -111,13 +121,14 @@
 
   .wordmark{
     font-size:clamp(1.5rem,4.4vw,2.9rem);
-    font-weight:400;letter-spacing:.52em;text-indent:.52em;
+    font-weight:500;letter-spacing:.52em;text-indent:.52em;
     color:var(--cream);line-height:1;
     text-shadow:0 6px 34px rgba(0,0,0,.55);
   }
   .hero .tagline{
-    font-size:clamp(.6rem,1.1vw,.7rem);letter-spacing:.3em;text-transform:uppercase;
-    color:var(--c70);font-weight:400;
+    font-size:var(--t-label);letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;
+    color:var(--gold);font-weight:500;
+    text-shadow:0 2px 18px rgba(0,0,0,.6);
   }
 
   .scrollcue{position:absolute;left:50%;bottom:2rem;transform:translateX(-50%)}
@@ -126,8 +137,8 @@
 
   /* ================= STATEMENT ================= */
   .statement{padding:clamp(4.5rem,11vw,8.5rem) var(--pad) clamp(2.5rem,6vw,4rem);display:grid;justify-items:center;text-align:center;gap:1.5rem}
-  .statement h2{font-size:clamp(1.5rem,3.4vw,2.5rem);max-width:17ch;font-weight:200}
-  .statement p{max-width:44ch;color:var(--c70);font-size:clamp(.9rem,1.15vw,1rem)}
+  .statement h2{max-width:17ch}
+  .statement p{max-width:44ch;color:var(--c70);font-size:var(--t-body)}
 
   /* ================= COLLECTION / RAIL ================= */
   .collection{padding:clamp(1.5rem,4vw,3rem) var(--pad) clamp(3.5rem,8vw,6.5rem)}
@@ -136,8 +147,7 @@
     padding-bottom:clamp(1.2rem,3vw,2rem);
     border-bottom:1px solid var(--g14);margin-bottom:clamp(1.4rem,3vw,2.2rem);
   }
-  .collection__head h2{font-size:clamp(1.15rem,2.2vw,1.6rem);font-weight:300}
-  .count{font-size:.64rem;letter-spacing:.26em;color:var(--c45)}
+  .count{font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--c45)}
 
   .rail{
     display:flex;gap:10px;
@@ -197,8 +207,8 @@
   .panel.on .panel__vert{opacity:0;transition-duration:.25s}
   .panel__vert span{
     writing-mode:vertical-rl;transform:rotate(180deg);
-    font-size:clamp(.66rem,1vw,.78rem);letter-spacing:.3em;text-transform:uppercase;
-    color:var(--cream);white-space:nowrap;font-weight:400;
+    font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--cream);white-space:nowrap;font-weight:500;
   }
 
   /* open: index + name */
@@ -212,17 +222,16 @@
   .panel.on .panel__open{opacity:1;transform:none;pointer-events:auto}
   .panel__open .idx{
     display:inline-block;width:fit-content;
-    font-size:.58rem;letter-spacing:.24em;font-weight:600;color:var(--gold);
+    font-size:var(--t-label);letter-spacing:var(--track);font-weight:600;color:var(--gold);
     border:1px solid var(--g30);border-radius:100px;
-    padding:.3rem .68rem;background:rgba(10,22,34,.4);
+    padding:.3rem .7rem;background:rgba(10,22,34,.4);
   }
   .panel__open h3{
-    font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:200;letter-spacing:.02em;
-    white-space:nowrap;
+    letter-spacing:.02em;white-space:nowrap;
   }
 
   .railhint{
-    margin-top:1.1rem;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
+    margin-top:1.1rem;font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;
     color:var(--c45);text-align:right;
   }
 
@@ -230,8 +239,8 @@
   .detail{
     margin-top:.35rem;width:fit-content;cursor:pointer;
     background:rgba(245,230,211,.10);border:1px solid var(--g30);color:var(--cream);
-    font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
-    padding:.55rem 1.15rem;border-radius:100px;
+    font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;
+    padding:.6rem 1.2rem;border-radius:100px;
     transition:background .3s ease,border-color .3s ease,color .3s ease;
   }
   .detail:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
@@ -282,11 +291,11 @@
     display:grid;gap:1rem;align-content:center;
   }
   .modal__body .idx{
-    width:fit-content;font-size:.58rem;letter-spacing:.24em;font-weight:600;color:var(--gold);
+    width:fit-content;font-size:var(--t-label);letter-spacing:var(--track);font-weight:600;color:var(--gold);
     border:1px solid var(--g30);border-radius:100px;padding:.3rem .68rem;
   }
-  .modal__body h3{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:200;letter-spacing:.02em}
-  .modal__body p{color:var(--c70);font-size:.95rem;max-width:42ch}
+  .modal__body h3{letter-spacing:.02em}
+  .modal__body p{color:var(--c70);font-size:var(--t-body);max-width:42ch}
   .modal__body p.pending{color:var(--c45);font-style:italic}
   .modal__body .btn{margin-top:.4rem;justify-self:start}
 
@@ -305,8 +314,8 @@
     padding:clamp(1.4rem,3vw,2.2rem) 0;border-bottom:1px solid var(--g14);
   }
   .cfg-label{display:flex;align-items:baseline;gap:.6rem;padding-top:.3rem;white-space:nowrap}
-  .cfg-label em{font-style:normal;font-size:.58rem;letter-spacing:.24em;color:var(--gold);font-weight:600}
-  .cfg-label span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c70)}
+  .cfg-label em{font-style:normal;font-size:var(--t-label);letter-spacing:var(--track);color:var(--gold);font-weight:600}
+  .cfg-label span{font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--c70)}
 
   /* step 1 - design chips */
   .chips{display:flex;flex-wrap:wrap;gap:.6rem}
@@ -317,7 +326,7 @@
     transition:border-color .3s ease,color .3s ease,background .3s ease;
   }
   .chip img{width:30px;height:30px;border-radius:100px;object-fit:cover;opacity:.55;transition:opacity .3s ease}
-  .chip span{font-size:.76rem;letter-spacing:.04em;white-space:nowrap}
+  .chip span{font-size:var(--t-small);font-weight:500;letter-spacing:.02em;white-space:nowrap}
   .chip:hover{color:var(--cream);border-color:var(--gold)}
   .chip.on{color:var(--ink);background:var(--gold);border-color:var(--gold)}
   .chip.on img{opacity:1}
@@ -332,10 +341,10 @@
   }
   .type:hover{border-color:var(--g30);transform:translateY(-2px)}
   .type.on{border-color:var(--gold);background:rgba(212,165,116,.10)}
-  .type__name{font-size:1.02rem;font-weight:300;letter-spacing:.01em}
+  .type__name{font-size:1.15rem;font-weight:500;letter-spacing:.01em}
   .type.on .type__name{color:var(--gold)}
-  .type__spec{font-size:.6rem;letter-spacing:.14em;color:var(--gold);font-variant-numeric:tabular-nums}
-  .type__desc{font-size:.76rem;line-height:1.55;color:var(--c45)}
+  .type__spec{font-size:var(--t-label);letter-spacing:.1em;font-weight:500;color:var(--gold);font-variant-numeric:tabular-nums}
+  .type__desc{font-size:var(--t-small);line-height:1.55;color:var(--c70)}
   .type[disabled]{opacity:.3;cursor:not-allowed}
   .type[disabled]:hover{transform:none;border-color:var(--g14)}
 
@@ -346,9 +355,9 @@
     background:rgba(19,36,54,.55);border:1px solid var(--g30);border-radius:var(--r);
     padding:clamp(1.2rem,2.6vw,1.8rem) clamp(1.2rem,3vw,2.2rem);
   }
-  .cfg-sum__lbl{display:block;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--c45);margin-bottom:.4rem}
-  .cfg-sum__val{font-size:clamp(1.1rem,2.4vw,1.6rem);font-weight:200;letter-spacing:.01em}
-  .cfg-sum__val b{font-weight:200;color:var(--gold)}
+  .cfg-sum__lbl{display:block;font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--c45);margin-bottom:.4rem}
+  .cfg-sum__val{font-size:clamp(1.3rem,2.4vw,1.75rem);font-weight:400;letter-spacing:.01em}
+  .cfg-sum__val b{font-weight:500;color:var(--gold)}
 
   @media(max-width:860px){
     .cfg-step{grid-template-columns:1fr;gap:.9rem}
@@ -371,8 +380,7 @@
     .atelier__veil{background:linear-gradient(180deg,rgba(10,22,34,.55) 0%,rgba(10,22,34,.93) 58%)}
   }
   .atelier__copy{position:relative;padding:clamp(2rem,5vw,4rem);display:grid;gap:1.2rem;max-width:560px}
-  .atelier__copy h2{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:200}
-  .atelier__copy p{color:var(--c70);max-width:42ch;font-size:clamp(.9rem,1.1vw,1rem)}
+  .atelier__copy h2{max-width:16ch}
 
   /* ================= CONTACT ================= */
   .contact{padding:0 var(--pad) clamp(3rem,6vw,5rem)}
@@ -382,18 +390,45 @@
     padding:clamp(3rem,8vw,5.5rem) clamp(1.5rem,5vw,4rem);
     display:grid;justify-items:center;text-align:center;gap:1.6rem;
   }
-  .contact h2{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:200;max-width:19ch}
+  .contact h2{max-width:19ch}
   .btn{
     display:inline-block;padding:.95rem 2.4rem;background:var(--cream);color:var(--ink);
-    font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+    font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;
     border-radius:100px;transition:transform .35s var(--ease),background .3s ease;
   }
   .btn:hover{background:var(--gold);transform:translateY(-2px)}
 
   footer{
     padding:2.2rem var(--pad);text-align:center;
-    font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c45);
-    border-top:1px solid var(--g14);
+    font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--c45);
+  }
+
+  /* ================= PARTNERS ================= */
+  .partners{
+    padding:clamp(2.5rem,6vw,4rem) var(--pad);
+    border-top:1px solid var(--g14);border-bottom:1px solid var(--g14);
+    display:grid;justify-items:center;gap:clamp(1.4rem,3vw,2rem);
+  }
+  .partners__lbl{font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--gold)}
+  .partners__row{
+    list-style:none;width:100%;max-width:1100px;
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  .partners__row li{display:grid}
+  .partners__row li + li{border-left:1px solid var(--g14)}
+  .partners__row a,.partners__row .pw{
+    display:grid;justify-items:center;align-content:center;gap:.45rem;text-align:center;
+    padding:.6rem 1rem;color:var(--c70);transition:color .3s ease;
+  }
+  .partners__row a:hover{color:var(--cream)}
+  .partners__row a:hover .pr{color:var(--gold)}
+  .pn{font-size:clamp(.92rem,1.2vw,1.08rem);font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.2;white-space:nowrap}
+  .pr{font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--c45);transition:color .3s ease}
+  @media(max-width:760px){
+    .partners__row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:1.4rem}
+    .partners__row li + li{border-left:0}
+    .pn{white-space:normal}
+    .partners__row li:nth-child(even){border-left:1px solid var(--g14)}
   }
 
   .rv{opacity:0;transform:translateY(22px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
@@ -411,7 +446,7 @@
     .panel__open h3{white-space:normal}
     .railhint{text-align:left}
     #nav{gap:.6rem;padding:.5rem .55rem .5rem .9rem;top:12px}
-    #nav .lnk{font-size:.62rem;letter-spacing:.1em}
+    #nav .lnk{letter-spacing:.12em}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition-duration:.01ms!important}
@@ -447,7 +482,7 @@
   <div class="hero__inner">
     <div class="wordmark">SUOMII</div>
     <div class="rule"></div>
-    <p class="tagline" data-t="hero_subtitle">Bespoke Finnish Saunas</p>
+    <p class="tagline">Made with SISU</p>
   </div>
   <div class="scrollcue"><i></i></div>
 </header>
@@ -540,8 +575,7 @@
     <div class="atelier__veil"></div>
     <div class="atelier__copy">
       <div class="rule"></div>
-      <h2 data-t="section_craft">Artistry in Every Detail</h2>
-      <p data-t="craft_description">A sauna is not manufactured. It comes into being.</p>
+      <h2 data-t="craft_description">A sauna is not manufactured. It comes into being.</h2>
     </div>
   </div>
 </section>
@@ -574,6 +608,17 @@
   </div>
 </div>
 
+<!-- ================= PARTNERS ================= -->
+<section class="partners" aria-labelledby="partnersTitle">
+  <p class="partners__lbl" id="partnersTitle" data-t="partners">In good company</p>
+  <ul class="partners__row">
+    <li><a href="https://thermory.com" target="_blank" rel="noopener"><span class="pn">Thermory</span><span class="pr" data-t="p_wood">Wood · Estonia</span></a></li>
+    <li><a href="https://www.tulikivi.com" target="_blank" rel="noopener"><span class="pn">Tulikivi</span><span class="pr" data-t="p_stoves">Stoves · Finland</span></a></li>
+    <li><a href="https://saunafromfinland.com" target="_blank" rel="noopener"><span class="pn">Sauna from Finland</span><span class="pr" data-t="p_member">Member</span></a></li>
+    <li><span class="pw"><span class="pn">HomeSpa</span><span class="pr" data-t="p_showroom">Showroom · Budapest</span></span></li>
+  </ul>
+</section>
+
 <footer><span data-t="footer">© 2026 SUOMII · Handcrafted</span></footer>
 
 <script>
@@ -581,41 +626,33 @@
   "use strict";
 
   var T = {
-    en:{config_title:"Configure your sauna",config_hint:"Two choices",cfg_design:"Design",cfg_type:"Type",cfg_your:"Your selection",type_finnish:"Finnish",type_bio:"Bio",type_infra:"Infrared",type_combined:"Combined",typed_finnish:"Dry heat, stones, steam on demand. The original.",typed_bio:"Gentler warmth at higher humidity. Easy on the body.",typed_infra:"Radiant heat that reaches deeper, at a lower temperature.",typed_combined:"Finnish and infrared in one cabin. Both, whenever you want.",nav_collections:"Collections",nav_craft:"Craft",nav_contact:"Contact",
-        hero_subtitle:"Bespoke Finnish Saunas",hero_title:"The Art of Sauna",
+    en:{config_title:"Configure your sauna",config_hint:"Two choices",cfg_design:"Design",cfg_type:"Type",cfg_your:"Your selection",type_finnish:"Finnish",type_bio:"Bio",type_infra:"Infrared",type_combined:"Combined",typed_finnish:"Dry heat, stones, steam on demand. The original.",typed_bio:"Gentler warmth at higher humidity. Easy on the body.",typed_infra:"Radiant heat that reaches deeper, at a lower temperature.",typed_combined:"Finnish and infrared in one cabin. Both, whenever you want.",nav_collections:"Collections",nav_craft:"Craft",nav_contact:"Contact",hero_title:"The Art of Sauna",
         hero_description:"Handcrafted saunas for the few. Every one an original.",
         section_collections:"Five Collections",detail:"View detail",desc_soon:"Full description coming soon.",rail_hint:"Hover to explore",
-        section_craft:"Artistry in Every Detail",
         craft_description:"A sauna is not manufactured. It comes into being.",
         cta_title:"Let us build your sauna.",cta_button:"Request Consultation",
-        footer:"© 2026 SUOMII · Handcrafted"},
+        footer:"© 2026 SUOMII · Handcrafted",partners:"In good company",p_wood:"Wood · Estonia",p_stoves:"Stoves · Finland",p_member:"Member",p_showroom:"Showroom · Budapest"},
 
-    sk:{config_title:"Navrhnite si saunu",config_hint:"Dve voľby",cfg_design:"Dizajn",cfg_type:"Typ",cfg_your:"Váš výber",type_finnish:"Fínska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kamene, para podľa chuti. Originál.",typed_bio:"Miernejšie teplo a vyššia vlhkosť. Šetrná k telu.",typed_infra:"Sálavé teplo pôsobí hlbšie pri nižšej teplote.",typed_combined:"Fínska a infra v jednej kabíne. Oboje, kedykoľvek.",nav_collections:"Kolekcie",nav_craft:"Remeslo",nav_contact:"Kontakt",
-        hero_subtitle:"Fínske sauny na mieru",hero_title:"Umenie saunovania",
+    sk:{config_title:"Navrhnite si saunu",config_hint:"Dve voľby",cfg_design:"Dizajn",cfg_type:"Typ",cfg_your:"Váš výber",type_finnish:"Fínska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kamene, para podľa chuti. Originál.",typed_bio:"Miernejšie teplo a vyššia vlhkosť. Šetrná k telu.",typed_infra:"Sálavé teplo pôsobí hlbšie pri nižšej teplote.",typed_combined:"Fínska a infra v jednej kabíne. Oboje, kedykoľvek.",nav_collections:"Kolekcie",nav_craft:"Remeslo",nav_contact:"Kontakt",hero_title:"Umenie saunovania",
         hero_description:"Ručne vyrábané sauny pre náročných. Každá je originál.",
         section_collections:"Päť kolekcií",detail:"Zobraziť detail",desc_soon:"Popis pripravujeme.",rail_hint:"Prejdite myšou",
-        section_craft:"Umenie v každom detaile",
         craft_description:"Sauna sa nevyrába. Vzniká.",
         cta_title:"Vytvorme vašu saunu na mieru.",cta_button:"Nezáväzná konzultácia",
-        footer:"© 2026 SUOMII · Ručná výroba"},
+        footer:"© 2026 SUOMII · Ručná výroba",partners:"Naši partneri",p_wood:"Drevo · Estónsko",p_stoves:"Pece · Fínsko",p_member:"Členstvo",p_showroom:"Showroom · Budapešť"},
 
-    cs:{config_title:"Navrhněte si saunu",config_hint:"Dve voľby",cfg_design:"Design",cfg_type:"Typ",cfg_your:"Váš výber",type_finnish:"Fínska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kameny, pára podle chuti. Originál.",typed_bio:"Mírnější teplo a vyšší vlhkost. Šetrná k tělu.",typed_infra:"Sálavé teplo působí hlouběji při nižší teplotě.",typed_combined:"Finská a infra v jedné kabině. Obojí, kdykoli.",nav_collections:"Kolekce",nav_craft:"Řemeslo",nav_contact:"Kontakt",
-        hero_subtitle:"Finské sauny na míru",hero_title:"Umění saunování",
+    cs:{config_title:"Navrhněte si saunu",config_hint:"Dvě volby",cfg_design:"Design",cfg_type:"Typ",cfg_your:"Váš výběr",type_finnish:"Finská",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kameny, pára podle chuti. Originál.",typed_bio:"Mírnější teplo a vyšší vlhkost. Šetrná k tělu.",typed_infra:"Sálavé teplo působí hlouběji při nižší teplotě.",typed_combined:"Finská a infra v jedné kabině. Obojí, kdykoli.",nav_collections:"Kolekce",nav_craft:"Řemeslo",nav_contact:"Kontakt",hero_title:"Umění saunování",
         hero_description:"Ručně vyráběné sauny pro náročné. Každá je originál.",
         section_collections:"Pět kolekcí",detail:"Zobrazit detail",desc_soon:"Popis připravujeme.",rail_hint:"Přejeďte myší",
-        section_craft:"Umění v každém detailu",
         craft_description:"Sauna se nevyrábí. Vzniká.",
         cta_title:"Vytvořme vaši saunu na míru.",cta_button:"Nezávazná konzultace",
-        footer:"© 2026 SUOMII · Ruční výroba"},
+        footer:"© 2026 SUOMII · Ruční výroba",partners:"Naši partneři",p_wood:"Dřevo · Estonsko",p_stoves:"Kamna · Finsko",p_member:"Členství",p_showroom:"Showroom · Budapešť"},
 
-    hu:{config_title:"Tervezze meg szaunáját",config_hint:"Két választás",cfg_design:"Dizajn",cfg_type:"Típus",cfg_your:"Ön választása",type_finnish:"Finn",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinált",typed_finnish:"Száraz hő, kövek, gőz igény szerint. Az eredeti.",typed_bio:"Szelídebb hő, magasabb páratartalom. Kíméletes.",typed_infra:"A sugárzó hő mélyebben hat, alacsonyabb hőmérsékleten.",typed_combined:"Finn és infra egy kabinban. Mindkettő, amikor csak akarja.",nav_collections:"Kollekciók",nav_craft:"Kézművesség",nav_contact:"Kapcsolat",
-        hero_subtitle:"Egyedi finn szaunák",hero_title:"A szauna művészete",
+    hu:{config_title:"Tervezze meg szaunáját",config_hint:"Két választás",cfg_design:"Dizajn",cfg_type:"Típus",cfg_your:"Ön választása",type_finnish:"Finn",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinált",typed_finnish:"Száraz hő, kövek, gőz igény szerint. Az eredeti.",typed_bio:"Szelídebb hő, magasabb páratartalom. Kíméletes.",typed_infra:"A sugárzó hő mélyebben hat, alacsonyabb hőmérsékleten.",typed_combined:"Finn és infra egy kabinban. Mindkettő, amikor csak akarja.",nav_collections:"Kollekciók",nav_craft:"Kézművesség",nav_contact:"Kapcsolat",hero_title:"A szauna művészete",
         hero_description:"Kézzel készített szaunák igényeseknek. Mindegyik egyedi.",
         section_collections:"Öt kollekció",detail:"Részletek",desc_soon:"A leírás hamarosan.",rail_hint:"Vigye rá az egeret",
-        section_craft:"Művészet minden részletben",
         craft_description:"A szauna nem készül. Születik.",
         cta_title:"Tervezzük meg az Ön szaunáját.",cta_button:"Kötetlen konzultáció",
-        footer:"© 2026 SUOMII · Kézzel készült"}
+        footer:"© 2026 SUOMII · Kézzel készült",partners:"Partnereink",p_wood:"Faanyag · Észtország",p_stoves:"Kályhák · Finnország",p_member:"Tagság",p_showroom:"Bemutatóterem · Budapest"}
   };
 
   var CODE = {en:"EN",sk:"SK",cs:"CZ",hu:"HU"};
