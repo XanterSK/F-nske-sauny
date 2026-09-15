@@ -1,10 +1,10 @@
 # SUOMII
 
-Website for SUOMII bespoke Finnish saunas.
+Website for SUOMII bespoke Finnish saunas. Live at https://suomii.vercel.app
 
-`index.html` is the whole site — a single self-contained file. Every photo is
-embedded as base64, so it needs no server, no build step and no network to run.
-Open it by double-clicking, or let Vercel serve it as-is.
+`index.html` is the whole page — a single self-contained file. Every photo is
+embedded as base64, so it runs without a build step or network.
+The enquiry form posts to a small serverless function in `api/`.
 
 ## Layout
 
@@ -13,6 +13,8 @@ Open it by double-clicking, or let Vercel serve it as-is.
 | `index.html`                | The built site. **Generated — do not edit.**  |
 | `src/suomii.template.html`  | The real source. Edit this.                   |
 | `src/build.py`              | Escapes the text, embeds the photos, writes `index.html`. |
+| `src/encode.py`             | Resizes and base64-encodes the photos (run by `build.py` when needed). |
+| `api/inquiry.js`            | Vercel function: receives the form, emails it via Resend. |
 | `CABIN DESIGNS/`            | Source photo library. Local only, git-ignored. |
 
 ## Rebuilding
@@ -21,24 +23,34 @@ Open it by double-clicking, or let Vercel serve it as-is.
 python3 src/build.py
 ```
 
-The photo library must be present locally, and the base64 cache
-(`/tmp/sauna_build/images.json`) must exist. If it doesn't, re-run the encoder
-step that produces it before building.
+Needs the photo library present locally. Pushing to `main` deploys to Vercel.
+
+## Enquiry form
+
+The form sends name, email, phone, location, message and the chosen
+design × type to `POST /api/inquiry`, which emails it through
+[Resend](https://resend.com). Set these in Vercel → Project → Settings →
+Environment Variables:
+
+| Variable         | Needed   | Value                                              |
+| ---------------- | -------- | -------------------------------------------------- |
+| `RESEND_API_KEY` | yes      | API key from Resend                                |
+| `INQUIRY_TO`     | no       | Recipients, comma-separated. Default `agnes.kozenkow@suomii.com` |
+| `INQUIRY_FROM`   | no       | Sender. Default `SUOMII <onboarding@resend.dev>`   |
+
+Until `RESEND_API_KEY` is set, the endpoint answers 503 and the page opens the
+visitor's mail app with everything pre-filled, so no enquiry is lost.
+Resend's test sender only delivers to the Resend account's own address — to send
+to `suomii.com` addresses, verify the `suomii.com` domain in Resend.
 
 ## Why the build step
 
-Two problems it solves:
-
-1. **Encoding.** Every non-ASCII character is escaped — `Slovenčina` becomes
-   `Sloven&#269;ina` in markup, `Ručne` becomes `Ručne` in JavaScript. The
-   file is pure ASCII, so accented Slovak, Czech and Hungarian render correctly
-   even if a browser ignores the charset entirely.
-2. **Photos.** They are resized, re-compressed and inlined as base64, so the
-   single file stays self-contained.
+1. **Encoding.** Every non-ASCII character is escaped, so accented Slovak,
+   Czech and Hungarian render correctly even if a browser ignores the charset.
+2. **Photos.** They are resized, re-compressed and inlined as base64.
 
 ## Still to do
 
-- Real copy for Slovak, Czech and Hungarian — the current strings are unverified.
-- Descriptions for the five saunas. Fill in the `DESC` object at the top of the
-  script in `src/suomii.template.html`; an empty string shows a "coming soon" line.
-- Replace the placeholder contact address `info@suomii.com`.
+- Native-speaker check of the Slovak, Czech and Hungarian copy.
+- Descriptions for the five saunas: fill in the `DESC` object in
+  `src/suomii.template.html`; an empty string shows a "coming soon" line.
