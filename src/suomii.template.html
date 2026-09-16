@@ -180,6 +180,7 @@
   .hero{position:relative;height:100svh;min-height:540px;overflow:hidden;display:grid;place-items:center}
   .hero__bg{
     position:absolute;inset:-4%;
+    background-image:url(__SRC:hero__);
     background-size:cover;background-position:center;
     filter:blur(3px) saturate(1.06);
     transform:scale(1.06);will-change:transform;
@@ -204,6 +205,8 @@
     color:var(--gold);font-weight:500;
     text-shadow:0 2px 18px rgba(0,0,0,.6);
   }
+
+  @media(min-width:760px){ .hero__bg{background-image:url(__BIG:hero__)} }
 
   .scrollcue{position:absolute;left:50%;bottom:2rem;transform:translateX(-50%)}
   .scrollcue i{display:block;width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:cue 2.4s ease-in-out infinite}
@@ -488,6 +491,45 @@
   .house__names small{display:block;font-family:var(--ui);font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;color:var(--c45);margin-top:.2rem}
   @media(max-width:860px){ .house{grid-template-columns:1fr} }
 
+  /* ================= REFERENCES ================= */
+  .refs{padding:clamp(5rem,11vw,8rem) var(--pad);border-top:1px solid var(--g14)}
+  .refgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+  .refgrid figure{position:relative;margin:0;overflow:hidden;border-radius:4px;background:var(--panel)}
+  .refgrid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .7s var(--ease)}
+  .refgrid figure:hover img{transform:scale(1.04)}
+  .refgrid figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.2rem .9rem;
+    background:linear-gradient(0deg,rgba(10,22,34,.92),transparent);
+    font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--cream);
+  }
+  @media(max-width:860px){ .refgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem} }
+  @media(max-width:480px){ .refgrid{grid-template-columns:1fr} }
+
+  /* ================= MAP ================= */
+  .where{padding:clamp(5rem,11vw,8rem) var(--pad);border-top:1px solid var(--g14)}
+  .where__grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+  .map{width:100%;height:auto;display:block}
+  .map .cn{fill:#132436;stroke:#1d3247;stroke-width:1;transition:fill .35s ease,stroke .35s ease}
+  .map .cn.on{fill:#1b3149;stroke:var(--g30)}
+  .map .cn.hi{fill:var(--cognac);stroke:var(--gold)}
+  .map .pin{fill:var(--gold)}
+  .map .pin--hq{stroke:var(--gold);stroke-width:2;fill:none}
+  .map text{fill:var(--c70);font-family:var(--ui);font-size:19px;letter-spacing:.06em;font-weight:500;text-anchor:middle}
+  .map .lb--hq{fill:var(--gold)}
+
+  .where__list{list-style:none;display:grid}
+  .where__list li{padding:1.1rem 0;border-top:1px solid var(--g14);display:grid;gap:.25rem;cursor:default}
+  .where__list li:last-child{border-bottom:1px solid var(--g14)}
+  .where__list b{font-size:1.1rem;font-weight:500;color:var(--cream);transition:color .3s ease}
+  .where__list span{font-size:var(--t-small);color:var(--c70)}
+  .where__list li.hi b{color:var(--gold)}
+  @media(max-width:860px){
+    .where__grid{grid-template-columns:1fr}
+    .map{aspect-ratio:19/14;border-radius:4px}   /* JS swaps in a tighter viewBox, see below */
+    .map text{font-size:30px}
+    .map .pin{r:10}
+  }
+
   /* ================= TEAM =================
      Overlapping avatars; the hovered or tapped one grows and shows name + role. */
   .team{padding:clamp(5rem,10vw,8rem) var(--pad) clamp(3rem,6vw,4.5rem);border-top:1px solid var(--g14);display:grid;justify-items:center;text-align:center;gap:1rem}
@@ -711,7 +753,7 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
-  <div class="hero__bg" id="heroBg" style="background-image:url(data:image/jpeg;base64,__HERO__)"></div>
+  <div class="hero__bg" id="heroBg"></div>
   <div class="hero__veil"></div>
   <div class="hero__inner">
     <div class="wordmark">SUOMII</div>
@@ -742,35 +784,35 @@
   <div class="rail rv" id="rail">
 
     <article class="panel on" tabindex="0" aria-label="Classic">
-      <img class="panel__img" src="data:image/jpeg;base64,__CLASSIC__" alt="Classic">
+      <img class="panel__img" src="__SRC:classic__" srcset="__SET:classic__" sizes="(max-width:860px) 100vw, 75vw" alt="Classic" loading="lazy" decoding="async">
       <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
       <div class="panel__vert"><span>Classic</span></div>
       <div class="panel__open"><span class="idx">01</span><h3>Classic</h3><button class="detail" data-t="detail">View detail</button></div>
     </article>
 
     <article class="panel" tabindex="0" aria-label="La Panca">
-      <img class="panel__img" src="data:image/jpeg;base64,__LAPANCA__" alt="La Panca">
+      <img class="panel__img" src="__SRC:lapanca__" srcset="__SET:lapanca__" sizes="(max-width:860px) 100vw, 75vw" alt="La Panca" loading="lazy" decoding="async">
       <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
       <div class="panel__vert"><span>La Panca</span></div>
       <div class="panel__open"><span class="idx">02</span><h3>La Panca</h3><button class="detail" data-t="detail">View detail</button></div>
     </article>
 
     <article class="panel" tabindex="0" aria-label="Massivo">
-      <img class="panel__img" src="data:image/jpeg;base64,__MASSIVO__" alt="Massivo">
+      <img class="panel__img" src="__SRC:massivo__" srcset="__SET:massivo__" sizes="(max-width:860px) 100vw, 75vw" alt="Massivo" loading="lazy" decoding="async">
       <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
       <div class="panel__vert"><span>Massivo</span></div>
       <div class="panel__open"><span class="idx">03</span><h3>Massivo</h3><button class="detail" data-t="detail">View detail</button></div>
     </article>
 
     <article class="panel" tabindex="0" aria-label="Dal">
-      <img class="panel__img" src="data:image/jpeg;base64,__DAL__" alt="Dal">
+      <img class="panel__img" src="__SRC:dal__" srcset="__SET:dal__" sizes="(max-width:860px) 100vw, 75vw" alt="Dal" loading="lazy" decoding="async">
       <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
       <div class="panel__vert"><span>Dal</span></div>
       <div class="panel__open"><span class="idx">04</span><h3>Dal</h3><button class="detail" data-t="detail">View detail</button></div>
     </article>
 
     <article class="panel" tabindex="0" aria-label="Tom">
-      <img class="panel__img" src="data:image/jpeg;base64,__TOM__" alt="Tom">
+      <img class="panel__img" src="__SRC:tom__" srcset="__SET:tom__" sizes="(max-width:860px) 100vw, 75vw" alt="Tom" loading="lazy" decoding="async">
       <div class="panel__tint"></div><div class="panel__veil"></div><div class="panel__edge"></div>
       <div class="panel__vert"><span>Tom</span></div>
       <div class="panel__open"><span class="idx">05</span><h3>Tom</h3><button class="detail" data-t="detail">View detail</button></div>
@@ -820,7 +862,7 @@
 <!-- ================= ATELIER + HISTORY ================= -->
 <section class="atelier" id="atelier">
   <figure class="atelier__fig">
-    <img src="data:image/jpeg;base64,__ATELIER__" alt="">
+    <img src="__SRC:atelier__" srcset="__SET:atelier__" sizes="100vw" alt="" loading="lazy" decoding="async">
     <blockquote class="quote rv">
       <p data-t="quote">In 2005, I decided it was time to devote myself to my passion: the sauna.</p>
       <cite><b>Timo Nakari</b><span class="lbl" data-t="quote_role">Founder &amp; sauna designer</span></cite>
@@ -837,15 +879,47 @@
   </div>
 </section>
 
+<!-- ================= REFERENCES ================= -->
+<section class="refs" id="refs">
+  <header class="sechead rv">
+    <h2 data-t="refs_h">Delivered saunas</h2>
+    <p data-t="refs_lead">A few of the cabins we have built for homes, gardens and spas.</p>
+  </header>
+  <div class="refgrid rv">
+    <figure><img src="__SRC:ref1__" srcset="__SET:ref1__" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref1">Sauna house by the pool</figcaption></figure>
+    <figure><img src="__SRC:ref2__" srcset="__SET:ref2__" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref2">Indoor sauna, Budapest</figcaption></figure>
+    <figure><img src="__SRC:ref3__" srcset="__SET:ref3__" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref3">Sauna house, Lake Balaton</figcaption></figure>
+    <figure><img src="__SRC:ref4__" srcset="__SET:ref4__" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref4">Hotel sauna in red cedar</figcaption></figure>
+    <figure><img src="__SRC:ref5__" srcset="__SET:ref5__" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref5">Garden cabin in larch</figcaption></figure>
+    <figure><img src="__SRC:ref6__" srcset="__SET:ref6__" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref6">Banya in solid timber</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= WHERE WE ARE ================= -->
+<section class="where" id="where">
+  <header class="sechead rv">
+    <h2 data-t="where_h">Where SUOMII is represented</h2>
+    <p data-t="where_lead">Built in Hungary, delivered across Central Europe.</p>
+  </header>
+  <div class="where__grid rv">
+    <svg class="map" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="mapTitle"><title id="mapTitle" data-t="where_h">Where SUOMII is represented</title><path class="cn" data-c="POL" d="M526 319L505 279L509 258L497 224L479 201L493 184L481 151L515 132L593 101L656 78L706 90L710 106L758 107L820 114L912 113L937 120L949 141L951 169L965 194L965 220L935 233L950 262L951 290L976 344L971 361L946 368L901 418L914 444L903 441L855 418L819 426L796 420L766 433L741 412L720 420L718 416L695 387L657 383L653 364L618 358L611 373L584 361L587 344L550 339L526 319Z"/><path class="cn" data-c="SVN" d="M465 589L507 593L532 581L576 579L585 570L594 570L603 589L563 604L559 627L541 633L541 648L522 647L505 638L496 647L461 645L472 640L460 617L465 589Z"/><path class="cn" data-c="HRV" d="M716 623L729 644L745 660L725 680L703 668L668 669L625 660L602 661L591 673L573 660L563 683L587 708L598 725L621 745L640 757L659 779L703 799L698 808L650 788L622 769L576 753L534 714L544 710L521 687L520 669L488 660L473 684L458 665L459 646L496 647L505 638L522 647L541 648L541 633L559 627L563 604L603 589L619 596L657 620L698 631L716 623Z"/><path class="cn" data-c="CHE" d="M255 532L257 542L249 556L272 566L297 567L293 591L271 600L234 593L223 616L199 617L191 608L163 627L139 630L117 618L100 594L76 602L77 577L113 545L112 531L135 536L148 526L191 526L201 514L255 532Z"/><path class="cn" data-c="ITA" d="M551 1023L533 1062L540 1077L530 1102L492 1084L466 1078L397 1054L404 1029L462 1033L513 1028L551 1023ZM236 874L265 910L258 977L236 973L215 990L196 977L194 916L183 887L210 889L236 874ZM394 575L465 589L460 617L472 640L432 632L391 652L394 679L388 695L404 722L451 749L476 793L532 835L571 835L583 846L569 857L614 875L651 891L694 917L699 927L690 945L662 921L618 913L597 946L634 964L628 990L607 993L580 1035L559 1039L559 1024L570 998L580 987L561 958L546 933L525 926L510 905L478 895L456 875L419 871L380 848L335 814L301 784L285 731L260 725L219 707L196 715L168 739L147 743L152 720L125 713L112 671L130 655L115 634L117 618L139 630L163 627L191 608L199 617L223 616L234 593L271 600L293 591L297 567L327 575L333 565L383 555L394 575Z"/><path class="cn" data-c="UKR" d="M1364 257L1383 260L1396 245L1411 248L1463 242L1495 278L1482 290L1486 310L1526 313L1544 339L1543 351L1606 373L1645 363L1676 391L1705 391L1778 410L1779 428L1759 459L1770 491L1762 510L1714 514L1688 530L1686 556L1646 560L1613 578L1566 581L1523 602L1526 637L1551 650L1601 647L1592 667L1537 676L1469 708L1441 696L1452 671L1398 655L1407 644L1454 626L1440 613L1362 599L1359 578L1312 585L1294 616L1255 657L1232 647L1209 656L1187 646L1199 640L1208 621L1222 603L1218 593L1229 589L1234 596L1263 598L1276 594L1267 588L1270 580L1253 565L1246 542L1228 532L1231 513L1209 497L1188 495L1151 477L1118 483L1106 491L1085 491L1072 505L1035 510L1018 519L995 505L963 505L932 499L911 511L907 496L879 480L889 456L903 441L914 444L901 418L946 368L971 361L976 344L951 290L975 287L1003 270L1041 269L1092 274L1148 289L1187 290L1206 299L1225 288L1238 303L1283 300L1303 306L1306 274L1321 261L1364 257Z"/><path class="cn" data-c="ROU" d="M911 511L932 499L963 505L995 505L1018 519L1035 510L1072 505L1085 491L1106 491L1121 497L1137 514L1153 538L1181 572L1183 597L1178 621L1187 646L1209 656L1232 647L1255 657L1256 671L1232 683L1217 677L1203 743L1174 737L1137 718L1078 730L1053 744L980 741L942 733L922 736L908 714L899 705L910 696L898 689L882 701L853 685L849 663L819 650L813 632L786 611L826 600L856 562L880 523L911 511Z"/><path class="cn" data-c="SRB" d="M819 650L849 663L853 685L882 701L898 689L910 696L899 705L908 714L896 727L900 746L924 769L905 786L897 802L902 809L894 816L871 817L854 820L852 816L858 810L864 797L857 797L847 788L839 785L832 777L823 773L816 766L807 769L800 786L788 790L792 786L773 775L756 769L749 762L736 752L748 750L755 725L731 704L743 680L725 680L745 660L729 644L716 623L755 608L786 611L813 632L819 650Z"/><path class="cn" data-c="BIH" d="M725 680L743 680L731 704L755 725L748 750L736 752L727 757L710 770L703 799L659 779L640 757L621 745L598 725L587 708L563 683L573 660L591 673L602 661L625 660L668 669L703 668L725 680Z"/><path class="cn" data-c="FRA" d="M253 825L236 865L214 854L202 819L212 800L245 780L253 825ZM-46 363L-11 392L15 387L59 414L70 420L84 418L108 434L180 445L155 485L148 526L135 536L112 531L113 545L77 577L76 602L100 594L117 618L115 634L130 655L112 671L125 713L152 720L147 743L101 773L3 759L-70 776L-76 808L-134 815L-190 791L-208 802L-300 778L-320 758L-294 726L-285 617L-336 558L-373 529L-450 507L-455 464L-390 452L-306 467L-322 400L-274 425L-158 379L-143 329L-99 316L-92 338L-69 339L-46 363Z"/><path class="cn" data-c="BEL" d="M-59 304L-23 309L24 296L55 323L83 338L77 379L64 381L59 414L15 387L-11 392L-46 363L-69 339L-92 338L-99 316L-59 304Z"/><path class="cn" data-c="NLD" d="M79 167L120 169L130 191L117 249L104 273L74 273L83 338L55 323L24 296L-23 309L-59 304L-33 287L10 194L79 167Z"/><path class="cn" data-c="DNK" d="M410 27L379 82L327 44L320 15L394 -8L410 27ZM321 -32L308 -6L293 -13L257 36L271 69L239 80L201 71L181 33L179 -38L188 -57L202 -78L246 -82L264 -102L304 -122L302 -85L288 -62L293 -43L321 -32Z"/><path class="cn" data-c="LUX" d="M77 379L87 392L84 418L70 420L59 414L64 381L77 379Z"/><path class="cn on" data-c="HUN" d="M585 570L602 533L592 521L620 521L624 497L649 512L668 518L710 511L714 499L734 498L758 489L763 492L787 485L799 471L815 468L869 486L879 480L907 496L911 511L880 523L856 562L826 600L786 611L755 608L716 623L698 631L657 620L619 596L603 589L594 570L585 570Z"/><path class="cn on" data-c="SVK" d="M718 416L720 420L741 412L766 433L796 420L819 426L855 418L903 441L889 456L879 480L869 486L815 468L799 471L787 485L763 492L758 489L734 498L714 499L710 511L668 518L649 512L624 497L619 477L623 469L630 457L652 458L669 452L671 446L680 443L684 430L695 427L703 417L718 416Z"/><path class="cn on" data-c="AUT" d="M624 497L620 521L592 521L602 533L585 570L576 579L532 581L507 593L465 589L394 575L383 555L333 565L327 575L297 567L272 566L249 556L257 542L255 532L270 528L295 544L302 529L346 532L382 521L406 523L422 535L426 525L419 487L437 480L455 453L492 472L520 448L538 444L576 461L600 458L623 469L619 477L624 497Z"/><path class="cn on" data-c="DEU" d="M271 69L272 95L323 111L322 134L373 122L401 104L457 130L481 151L493 184L479 201L497 224L509 258L505 279L526 319L504 325L490 318L478 330L442 342L423 357L387 370L396 388L401 413L427 428L455 453L437 480L419 487L426 525L422 535L406 523L382 521L346 532L302 529L295 544L270 528L255 532L201 514L191 526L148 526L155 485L180 445L108 434L84 418L87 392L77 379L83 338L74 273L104 273L117 249L130 191L120 169L130 155L172 151L181 166L215 133L204 109L201 71L239 80L271 69Z"/><path class="cn on" data-c="CZE" d="M623 469L600 458L576 461L538 444L520 448L492 472L455 453L427 428L401 413L396 388L387 370L423 357L442 342L478 330L490 318L504 325L526 319L550 339L587 344L584 361L611 373L618 358L653 364L657 383L695 387L718 416L703 417L695 427L684 430L680 443L671 446L669 452L652 458L630 457L623 469Z"/><circle class="pin" cx="726" cy="531" r="7"/><circle class="pin pin--hq" cx="726" cy="531" r="15"/><text class="lb lb--hq" data-t="c_hu" x="726" y="578">Hungary</text><text class="lb" data-t="c_sk" x="742" y="455">Slovakia</text><text class="lb" data-t="c_at" x="470" y="533">Austria</text><text class="lb" data-t="c_de" x="285" y="313">Germany</text><text class="lb" data-t="c_cz" x="540" y="395">Czechia</text></svg>
+    <ul class="where__list" id="whereList">
+      <li data-c="HUN"><b data-t="c_hu">Hungary</b><span data-t="w_hu">Workshop, showroom and production</span></li>
+      <li data-c="SVK"><b data-t="c_sk">Slovakia</b><span data-t="w_sk">Kornel Szabo, country manager</span></li>
+      <li data-c="AUT"><b data-t="c_at">Austria</b><span data-t="w_partner">Trade partner</span></li>
+      <li data-c="DEU"><b data-t="c_de">Germany</b><span data-t="w_partner">Trade partner</span></li>
+      <li data-c="CZE"><b data-t="c_cz">Czechia</b><span data-t="w_partner">Trade partner</span></li>
+    </ul>
+  </div>
+</section>
+
 <!-- ================= TEAM ================= -->
 <section class="team" id="team">
   <p class="lbl rv" data-t="team_lbl">The team</p>
   <h2 class="rv" data-t="team_h">The people behind every sauna</h2>
   <ul class="avatars rv" id="avatars">
-    <li><button class="av" type="button"><img src="data:image/jpeg;base64,__TIMO__" alt="Timo Nakari"><span class="av__tip" role="tooltip"><b>Timo Nakari</b><small data-t="quote_role">Founder &amp; sauna designer</small></span></button></li>
-    <li><button class="av av--init" type="button" aria-label="Emil Pákozdi"><span class="av__init" aria-hidden="true">EP</span><span class="av__tip" role="tooltip"><b>Emil Pákozdi</b><small data-t="role_emil">Co-owner, master joiner</small></span></button></li>
-    <li><button class="av av--init" type="button" aria-label="Ágnes Kissné Kozenkow"><span class="av__init" aria-hidden="true">ÁK</span><span class="av__tip" role="tooltip"><b>Ágnes Kissné Kozenkow</b><small data-t="role_agnes">Enquiries &amp; quotes</small></span></button></li>
-    <li><button class="av av--init" type="button" aria-label="Dalma Sarkadi-Vanyolai"><span class="av__init" aria-hidden="true">DS</span><span class="av__tip" role="tooltip"><b>Dalma Sarkadi-Vanyolai</b><small data-t="role_dalma">Interior designer, Dal</small></span></button></li>
+    <li><button class="av" type="button"><img src="__SRC:timo__" width="220" height="220" alt="Timo Nakari" loading="lazy" decoding="async"><span class="av__tip" role="tooltip"><b>Timo Nakari</b><small data-t="quote_role">Founder &amp; sauna designer</small></span></button></li>
+    <li><button class="av av--init" type="button" aria-label="Kornel Szabo"><span class="av__init" aria-hidden="true">KS</span><span class="av__tip" role="tooltip"><b>Kornel Szabo</b><small data-t="role_kornel">Country manager for Slovakia</small></span></button></li>
   </ul>
   <p class="railhint lbl rv"><span class="mouse" data-t="team_hint">Hover to meet the team</span><span class="touch" data-t="team_hint_touch">Tap to meet the team</span></p>
 </section>
@@ -952,13 +1026,13 @@
   "use strict";
 
   var T = {
-    en:{team_lbl:"The team",team_h:"The people behind every sauna",role_emil:"Co-owner, master joiner",role_agnes:"Enquiries & quotes",role_dalma:"Interior designer, Dal",team_hint:"Hover to meet the team",team_hint_touch:"Tap to meet the team",cfg_step1:"Choose a design",cfg_step2:"Choose how it heats",spec_temp:"Temperature",spec_hum:"Humidity",spec_heat:"Heat source",heat_finnish:"Stove with stones",heat_bio:"Stove with evaporator",heat_infra:"Infrared panels",heat_combined:"Stove and infrared panels",hum_dry:"Dry air",cfg_note:"Detailed quote within a week",nav_craft:"Story",story_line:"Saunas built to serve a generation. Never from a catalogue.",col_h:"The Collection",col_lead:"Five designs. Each one built to measure.",cfg_h:"Compose your sauna",cfg_lead:"Choose a design, then how it should heat.",cfg_go:"Request this sauna",quote:"In 2005, I decided it was time to devote myself to my passion: the sauna.",quote_role:"Founder & sauna designer",house_h:"Our story",house_text:"Timo Nakari is a Finnish sauna designer. Since 2005 he has designed and built saunas with co-owner and master joiner Emil Pákozdi, alongside architects and interior designers, in Hungary and across Europe. Our wood comes directly from Thermory in Estonia, where we check its quality in person several times a year.",cta_h:"Let us build your sauna.",f_workshop:"Workshop",config_title:"Configure your sauna",cfg_design:"Design",cfg_type:"Type",cfg_your:"Your selection",type_finnish:"Finnish",type_bio:"Bio",type_infra:"Infrared",type_combined:"Combined",typed_finnish:"Dry heat, stones, steam on demand. The original.",typed_bio:"Gentler warmth at higher humidity. Easy on the body.",typed_infra:"Radiant heat that reaches deeper, at a lower temperature.",typed_combined:"Finnish and infrared in one cabin. Both, whenever you want.",nav_collections:"Collections",nav_contact:"Contact",detail:"View detail",desc_soon:"Full description coming soon.",rail_hint:"Hover to explore",nav_quote:"Request a quote",nav_lang:"Language",rail_hint_touch:"Tap to explore",f_lead:"Tell us about your space. A detailed quote follows within a week.",f_showroom:"Showroom",f_phone:"Phone",f_email:"Email",f_change:"Change",f_name:"Name",f_place:"Where will the sauna stand?",f_msg:"Your space and wishes",f_consent:"I agree that SUOMII may contact me about this enquiry.",f_send:"Send enquiry",f_sending:"Sending…",f_ok_t:"Thank you.",f_ok:"Your enquiry has arrived. We will be in touch within a week.",f_req:"Please add your name, a valid email and your consent.",f_err:"Something went wrong. Please try again, or call us.",f_fallback:"Opening your email app with everything filled in.",partners:"In good company",p_wood:"Wood · Estonia",p_stoves:"Stoves · Finland",p_member:"Member",p_showroom:"Showroom · Budapest"},
+    en:{refs_h:"Delivered saunas",refs_lead:"A few of the cabins we have built for homes, gardens and spas.",ref1:"Szaunaház a medence mellett",ref2:"Beltéri szauna, Budapest",ref3:"Szaunaház a Balatonnál",ref4:"Hotelszauna vörös cédrusból",ref5:"Kerti kabin vörösfenyőből",ref6:"Banya tömör fából",where_h:"Where SUOMII is represented",where_lead:"Built in Hungary, delivered across Central Europe.",c_hu:"Hungary",c_sk:"Slovakia",c_at:"Austria",c_de:"Germany",c_cz:"Czechia",w_hu:"Workshop, showroom and production",w_sk:"Kornel Szabo, country manager",w_partner:"Trade partner",role_kornel:"Country manager for Slovakia",team_lbl:"The team",team_h:"The people behind every sauna",team_hint:"Hover to meet the team",team_hint_touch:"Tap to meet the team",cfg_step1:"Choose a design",cfg_step2:"Choose how it heats",spec_temp:"Temperature",spec_hum:"Humidity",spec_heat:"Heat source",heat_finnish:"Stove with stones",heat_bio:"Stove with evaporator",heat_infra:"Infrared panels",heat_combined:"Stove and infrared panels",hum_dry:"Dry air",cfg_note:"Detailed quote within a week",nav_craft:"Story",story_line:"Saunas built to serve a generation. Never from a catalogue.",col_h:"The Collection",col_lead:"Five designs. Each one built to measure.",cfg_h:"Compose your sauna",cfg_lead:"Choose a design, then how it should heat.",cfg_go:"Request this sauna",quote:"In 2005, I decided it was time to devote myself to my passion: the sauna.",quote_role:"Founder & sauna designer",house_h:"Our story",house_text:"Timo Nakari is a Finnish sauna designer. Since 2005 he has designed and built saunas with co-owner and master joiner Emil Pákozdi, alongside architects and interior designers, in Hungary and across Europe. Our wood comes directly from Thermory in Estonia, where we check its quality in person several times a year.",cta_h:"Let us build your sauna.",f_workshop:"Workshop",config_title:"Configure your sauna",cfg_design:"Design",cfg_type:"Type",cfg_your:"Your selection",type_finnish:"Finnish",type_bio:"Bio",type_infra:"Infrared",type_combined:"Combined",typed_finnish:"Dry heat, stones, steam on demand. The original.",typed_bio:"Gentler warmth at higher humidity. Easy on the body.",typed_infra:"Radiant heat that reaches deeper, at a lower temperature.",typed_combined:"Finnish and infrared in one cabin. Both, whenever you want.",nav_collections:"Collections",nav_contact:"Contact",detail:"View detail",desc_soon:"Full description coming soon.",rail_hint:"Hover to explore",nav_quote:"Request a quote",nav_lang:"Language",rail_hint_touch:"Tap to explore",f_lead:"Tell us about your space. A detailed quote follows within a week.",f_showroom:"Showroom",f_phone:"Phone",f_email:"Email",f_change:"Change",f_name:"Name",f_place:"Where will the sauna stand?",f_msg:"Your space and wishes",f_consent:"I agree that SUOMII may contact me about this enquiry.",f_send:"Send enquiry",f_sending:"Sending…",f_ok_t:"Thank you.",f_ok:"Your enquiry has arrived. We will be in touch within a week.",f_req:"Please add your name, a valid email and your consent.",f_err:"Something went wrong. Please try again, or call us.",f_fallback:"Opening your email app with everything filled in.",partners:"In good company",p_wood:"Wood · Estonia",p_stoves:"Stoves · Finland",p_member:"Member",p_showroom:"Showroom · Budapest"},
 
-    sk:{team_lbl:"Tím",team_h:"Ľudia za každou saunou",role_emil:"Spolumajiteľ, stolársky majster",role_agnes:"Dopyty a cenové ponuky",role_dalma:"Interiérová dizajnérka, Dal",team_hint:"Prejdite myšou na tím",team_hint_touch:"Ťuknite na člena tímu",cfg_step1:"Vyberte dizajn",cfg_step2:"Vyberte spôsob ohrevu",spec_temp:"Teplota",spec_hum:"Vlhkosť",spec_heat:"Zdroj tepla",heat_finnish:"Pec s kameňmi",heat_bio:"Pec s odparovačom",heat_infra:"Infražiariče",heat_combined:"Pec a infražiariče",hum_dry:"Suchý vzduch",cfg_note:"Podrobná cenová ponuka do týždňa",nav_craft:"Príbeh",story_line:"Sauny, ktoré slúžia celej generácii. Nikdy z katalógu.",col_h:"Kolekcia",col_lead:"Päť dizajnov. Každý na mieru.",cfg_h:"Zložte si svoju saunu",cfg_lead:"Vyberte dizajn a potom spôsob kúrenia.",cfg_go:"Chcem túto saunu",quote:"V roku 2005 som si povedal, že je čas venovať sa svojej vášni: saune.",quote_role:"Zakladateľ a dizajnér sáun",house_h:"Náš príbeh",house_text:"Timo Nakari je fínsky dizajnér sáun. Od roku 2005 navrhuje a stavia sauny so spolumajiteľom, stolárskym majstrom Emilom Pákozdim, v spolupráci s architektmi a interiérovými dizajnérmi v Maďarsku aj v ďalších krajinách Európy. Drevo odoberáme priamo od Thermory v Estónsku a jeho kvalitu tam niekoľkokrát do roka osobne kontrolujeme.",cta_h:"Postavme vašu saunu.",f_workshop:"Dielňa",config_title:"Navrhnite si saunu",cfg_design:"Dizajn",cfg_type:"Typ",cfg_your:"Váš výber",type_finnish:"Fínska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kamene, para podľa chuti. Originál.",typed_bio:"Miernejšie teplo a vyššia vlhkosť. Šetrná k telu.",typed_infra:"Sálavé teplo pôsobí hlbšie pri nižšej teplote.",typed_combined:"Fínska a infra v jednej kabíne. Oboje, kedykoľvek.",nav_collections:"Kolekcie",nav_contact:"Kontakt",detail:"Zobraziť detail",desc_soon:"Popis pripravujeme.",rail_hint:"Prejdite myšou",nav_quote:"Cenová ponuka",nav_lang:"Jazyk",rail_hint_touch:"Ťuknite pre detail",f_lead:"Povedzte nám o vašom priestore. Podrobnú cenovú ponuku dostanete do týždňa.",f_showroom:"Showroom",f_phone:"Telefón",f_email:"E-mail",f_change:"Zmeniť",f_name:"Meno",f_place:"Kde bude sauna stáť?",f_msg:"Váš priestor a predstavy",f_consent:"Súhlasím, aby ma SUOMII kontaktovalo ohľadom tohto dopytu.",f_send:"Odoslať dopyt",f_sending:"Odosiela sa…",f_ok_t:"Ďakujeme.",f_ok:"Váš dopyt sme prijali. Ozveme sa do týždňa.",f_req:"Vyplňte meno, platný e-mail a potvrďte súhlas.",f_err:"Niečo sa nepodarilo. Skúste to znova alebo nám zavolajte.",f_fallback:"Otvára sa váš e-mail so všetkým vyplneným.",partners:"Naši partneri",p_wood:"Drevo · Estónsko",p_stoves:"Pece · Fínsko",p_member:"Členstvo",p_showroom:"Showroom · Budapešť"},
+    sk:{refs_h:"Realizované sauny",refs_lead:"Niekoľko kabín, ktoré sme postavili do domov, záhrad a wellness.",ref1:"Vonkajšia sauna pri bazéne",ref2:"Interiérová sauna v rodinnom dome",ref3:"Saunový domček pri Balatone",ref4:"Pivničná sauna s kamennou stenou",ref5:"Vonkajšia kabína s čiernym sklom",ref6:"Baňa s pecou na drevo",where_h:"Kde nás nájdete",where_lead:"Vyrábame v Maďarsku, dodávame po strednej Európe.",c_hu:"Maďarsko",c_sk:"Slovensko",c_at:"Rakúsko",c_de:"Nemecko",c_cz:"Česko",w_hu:"Dielňa, showroom a výroba",w_sk:"Kornel Szabo, country manager",w_partner:"Obchodný partner",role_kornel:"Country manager pre Slovensko",team_lbl:"Tím",team_h:"Ľudia za každou saunou",team_hint:"Prejdite myšou na tím",team_hint_touch:"Ťuknite na člena tímu",cfg_step1:"Vyberte dizajn",cfg_step2:"Vyberte spôsob ohrevu",spec_temp:"Teplota",spec_hum:"Vlhkosť",spec_heat:"Zdroj tepla",heat_finnish:"Pec s kameňmi",heat_bio:"Pec s odparovačom",heat_infra:"Infražiariče",heat_combined:"Pec a infražiariče",hum_dry:"Suchý vzduch",cfg_note:"Podrobná cenová ponuka do týždňa",nav_craft:"Príbeh",story_line:"Sauny, ktoré slúžia celej generácii. Nikdy z katalógu.",col_h:"Kolekcia",col_lead:"Päť dizajnov. Každý na mieru.",cfg_h:"Zložte si svoju saunu",cfg_lead:"Vyberte dizajn a potom spôsob kúrenia.",cfg_go:"Chcem túto saunu",quote:"V roku 2005 som si povedal, že je čas venovať sa svojej vášni: saune.",quote_role:"Zakladateľ a dizajnér sáun",house_h:"Náš príbeh",house_text:"Timo Nakari je fínsky dizajnér sáun. Od roku 2005 navrhuje a stavia sauny so spolumajiteľom, stolárskym majstrom Emilom Pákozdim, v spolupráci s architektmi a interiérovými dizajnérmi v Maďarsku aj v ďalších krajinách Európy. Drevo odoberáme priamo od Thermory v Estónsku a jeho kvalitu tam niekoľkokrát do roka osobne kontrolujeme.",cta_h:"Postavme vašu saunu.",f_workshop:"Dielňa",config_title:"Navrhnite si saunu",cfg_design:"Dizajn",cfg_type:"Typ",cfg_your:"Váš výber",type_finnish:"Fínska",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kamene, para podľa chuti. Originál.",typed_bio:"Miernejšie teplo a vyššia vlhkosť. Šetrná k telu.",typed_infra:"Sálavé teplo pôsobí hlbšie pri nižšej teplote.",typed_combined:"Fínska a infra v jednej kabíne. Oboje, kedykoľvek.",nav_collections:"Kolekcie",nav_contact:"Kontakt",detail:"Zobraziť detail",desc_soon:"Popis pripravujeme.",rail_hint:"Prejdite myšou",nav_quote:"Cenová ponuka",nav_lang:"Jazyk",rail_hint_touch:"Ťuknite pre detail",f_lead:"Povedzte nám o vašom priestore. Podrobnú cenovú ponuku dostanete do týždňa.",f_showroom:"Showroom",f_phone:"Telefón",f_email:"E-mail",f_change:"Zmeniť",f_name:"Meno",f_place:"Kde bude sauna stáť?",f_msg:"Váš priestor a predstavy",f_consent:"Súhlasím, aby ma SUOMII kontaktovalo ohľadom tohto dopytu.",f_send:"Odoslať dopyt",f_sending:"Odosiela sa…",f_ok_t:"Ďakujeme.",f_ok:"Váš dopyt sme prijali. Ozveme sa do týždňa.",f_req:"Vyplňte meno, platný e-mail a potvrďte súhlas.",f_err:"Niečo sa nepodarilo. Skúste to znova alebo nám zavolajte.",f_fallback:"Otvára sa váš e-mail so všetkým vyplneným.",partners:"Naši partneri",p_wood:"Drevo · Estónsko",p_stoves:"Pece · Fínsko",p_member:"Členstvo",p_showroom:"Showroom · Budapešť"},
 
-    cs:{team_lbl:"Tým",team_h:"Lidé za každou saunou",role_emil:"Spolumajitel, truhlářský mistr",role_agnes:"Poptávky a cenové nabídky",role_dalma:"Interiérová designérka, Dal",team_hint:"Najeďte myší na tým",team_hint_touch:"Klepněte na člena týmu",cfg_step1:"Vyberte design",cfg_step2:"Vyberte způsob ohřevu",spec_temp:"Teplota",spec_hum:"Vlhkost",spec_heat:"Zdroj tepla",heat_finnish:"Kamna s kameny",heat_bio:"Kamna s odpařovačem",heat_infra:"Infrazářiče",heat_combined:"Kamna a infrazářiče",hum_dry:"Suchý vzduch",cfg_note:"Podrobná cenová nabídka do týdne",nav_craft:"Příběh",story_line:"Sauny, které slouží celé generaci. Nikdy z katalogu.",col_h:"Kolekce",col_lead:"Pět designů. Každý na míru.",cfg_h:"Složte si svou saunu",cfg_lead:"Vyberte design a pak způsob vytápění.",cfg_go:"Chci tuto saunu",quote:"V roce 2005 jsem si řekl, že je čas věnovat se své vášni: sauně.",quote_role:"Zakladatel a designér saun",house_h:"Náš příběh",house_text:"Timo Nakari je finský designér saun. Od roku 2005 navrhuje a staví sauny se spolumajitelem, truhlářským mistrem Emilem Pákozdim, ve spolupráci s architekty a interiérovými designéry v Maďarsku i v dalších zemích Evropy. Dřevo odebíráme přímo od Thermory v Estonsku a jeho kvalitu tam několikrát do roka osobně kontrolujeme.",cta_h:"Postavme vaši saunu.",f_workshop:"Dílna",config_title:"Navrhněte si saunu",cfg_design:"Design",cfg_type:"Typ",cfg_your:"Váš výběr",type_finnish:"Finská",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kameny, pára podle chuti. Originál.",typed_bio:"Mírnější teplo a vyšší vlhkost. Šetrná k tělu.",typed_infra:"Sálavé teplo působí hlouběji při nižší teplotě.",typed_combined:"Finská a infra v jedné kabině. Obojí, kdykoli.",nav_collections:"Kolekce",nav_contact:"Kontakt",detail:"Zobrazit detail",desc_soon:"Popis připravujeme.",rail_hint:"Přejeďte myší",nav_quote:"Cenová nabídka",nav_lang:"Jazyk",rail_hint_touch:"Klepněte pro detail",f_lead:"Řekněte nám o svém prostoru. Podrobnou cenovou nabídku dostanete do týdne.",f_showroom:"Showroom",f_phone:"Telefon",f_email:"E-mail",f_change:"Změnit",f_name:"Jméno",f_place:"Kde bude sauna stát?",f_msg:"Váš prostor a představy",f_consent:"Souhlasím, aby mě SUOMII kontaktovalo ohledně této poptávky.",f_send:"Odeslat poptávku",f_sending:"Odesílá se…",f_ok_t:"Děkujeme.",f_ok:"Vaši poptávku jsme přijali. Ozveme se do týdne.",f_req:"Vyplňte jméno, platný e-mail a potvrďte souhlas.",f_err:"Něco se nepovedlo. Zkuste to znovu nebo nám zavolejte.",f_fallback:"Otevírá se váš e-mail se vším vyplněným.",partners:"Naši partneři",p_wood:"Dřevo · Estonsko",p_stoves:"Kamna · Finsko",p_member:"Členství",p_showroom:"Showroom · Budapešť"},
+    cs:{refs_h:"Realizované sauny",refs_lead:"Několik kabin, které jsme postavili do domů, zahrad a wellness.",ref1:"Venkovní sauna u bazénu",ref2:"Interiérová sauna v rodinném domě",ref3:"Saunový domek u Balatonu",ref4:"Sklepní sauna s kamennou stěnou",ref5:"Venkovní kabina s černým sklem",ref6:"Baňa s kamny na dřevo",where_h:"Kde nás najdete",where_lead:"Vyrábíme v Maďarsku, dodáváme po střední Evropě.",c_hu:"Maďarsko",c_sk:"Slovensko",c_at:"Rakousko",c_de:"Německo",c_cz:"Česko",w_hu:"Dílna, showroom a výroba",w_sk:"Kornel Szabo, country manager",w_partner:"Obchodní partner",role_kornel:"Country manager pro Slovensko",team_lbl:"Tým",team_h:"Lidé za každou saunou",team_hint:"Najeďte myší na tým",team_hint_touch:"Klepněte na člena týmu",cfg_step1:"Vyberte design",cfg_step2:"Vyberte způsob ohřevu",spec_temp:"Teplota",spec_hum:"Vlhkost",spec_heat:"Zdroj tepla",heat_finnish:"Kamna s kameny",heat_bio:"Kamna s odpařovačem",heat_infra:"Infrazářiče",heat_combined:"Kamna a infrazářiče",hum_dry:"Suchý vzduch",cfg_note:"Podrobná cenová nabídka do týdne",nav_craft:"Příběh",story_line:"Sauny, které slouží celé generaci. Nikdy z katalogu.",col_h:"Kolekce",col_lead:"Pět designů. Každý na míru.",cfg_h:"Složte si svou saunu",cfg_lead:"Vyberte design a pak způsob vytápění.",cfg_go:"Chci tuto saunu",quote:"V roce 2005 jsem si řekl, že je čas věnovat se své vášni: sauně.",quote_role:"Zakladatel a designér saun",house_h:"Náš příběh",house_text:"Timo Nakari je finský designér saun. Od roku 2005 navrhuje a staví sauny se spolumajitelem, truhlářským mistrem Emilem Pákozdim, ve spolupráci s architekty a interiérovými designéry v Maďarsku i v dalších zemích Evropy. Dřevo odebíráme přímo od Thermory v Estonsku a jeho kvalitu tam několikrát do roka osobně kontrolujeme.",cta_h:"Postavme vaši saunu.",f_workshop:"Dílna",config_title:"Navrhněte si saunu",cfg_design:"Design",cfg_type:"Typ",cfg_your:"Váš výběr",type_finnish:"Finská",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinovaná",typed_finnish:"Suché teplo, kameny, pára podle chuti. Originál.",typed_bio:"Mírnější teplo a vyšší vlhkost. Šetrná k tělu.",typed_infra:"Sálavé teplo působí hlouběji při nižší teplotě.",typed_combined:"Finská a infra v jedné kabině. Obojí, kdykoli.",nav_collections:"Kolekce",nav_contact:"Kontakt",detail:"Zobrazit detail",desc_soon:"Popis připravujeme.",rail_hint:"Přejeďte myší",nav_quote:"Cenová nabídka",nav_lang:"Jazyk",rail_hint_touch:"Klepněte pro detail",f_lead:"Řekněte nám o svém prostoru. Podrobnou cenovou nabídku dostanete do týdne.",f_showroom:"Showroom",f_phone:"Telefon",f_email:"E-mail",f_change:"Změnit",f_name:"Jméno",f_place:"Kde bude sauna stát?",f_msg:"Váš prostor a představy",f_consent:"Souhlasím, aby mě SUOMII kontaktovalo ohledně této poptávky.",f_send:"Odeslat poptávku",f_sending:"Odesílá se…",f_ok_t:"Děkujeme.",f_ok:"Vaši poptávku jsme přijali. Ozveme se do týdne.",f_req:"Vyplňte jméno, platný e-mail a potvrďte souhlas.",f_err:"Něco se nepovedlo. Zkuste to znovu nebo nám zavolejte.",f_fallback:"Otevírá se váš e-mail se vším vyplněným.",partners:"Naši partneři",p_wood:"Dřevo · Estonsko",p_stoves:"Kamna · Finsko",p_member:"Členství",p_showroom:"Showroom · Budapešť"},
 
-    hu:{team_lbl:"Csapat",team_h:"Az emberek minden szauna mögött",role_emil:"Társtulajdonos, asztalosmester",role_agnes:"Ajánlatkérés és kapcsolattartás",role_dalma:"Belsőépítész, Dal",team_hint:"Vigye az egeret a csapatra",team_hint_touch:"Koppintson a csapattagokra",cfg_step1:"Válasszon dizájnt",cfg_step2:"Válassza ki a fűtés módját",spec_temp:"Hőmérséklet",spec_hum:"Páratartalom",spec_heat:"Hőforrás",heat_finnish:"Kályha kövekkel",heat_bio:"Kályha párologtatóval",heat_infra:"Infrasugárzók",heat_combined:"Kályha és infrasugárzók",hum_dry:"Száraz levegő",cfg_note:"Részletes árajánlat egy héten belül",nav_craft:"Történet",story_line:"Szaunák egy generáció számára. Soha nem katalógusból.",col_h:"A kollekció",col_lead:"Öt dizájn. Mindegyik méretre készül.",cfg_h:"Állítsa össze saját szaunáját",cfg_lead:"Válasszon dizájnt, majd a fűtés módját.",cfg_go:"Ezt a szaunát kérem",quote:"2005-ben úgy gondoltam, ideje azzal foglalkozni, ami a szenvedélyem: a szauna.",quote_role:"Alapító, szaunatervező",house_h:"Történetünk",house_text:"Timo Nakari finn szaunatervező. 2005 óta tervez és épít szaunákat társtulajdonosával, Pákozdi Emil asztalosmesterrel, építészekkel és belsőépítészekkel együttműködve, Magyarországon és Európa több országában. Faanyagunkat közvetlenül az észtországi Thermorytól szerezzük be, és minőségét évente többször személyesen ellenőrizzük.",cta_h:"Építsük meg az Ön szaunáját.",f_workshop:"Műhely",config_title:"Tervezze meg szaunáját",cfg_design:"Dizajn",cfg_type:"Típus",cfg_your:"Ön választása",type_finnish:"Finn",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinált",typed_finnish:"Száraz hő, kövek, gőz igény szerint. Az eredeti.",typed_bio:"Szelídebb hő, magasabb páratartalom. Kíméletes.",typed_infra:"A sugárzó hő mélyebben hat, alacsonyabb hőmérsékleten.",typed_combined:"Finn és infra egy kabinban. Mindkettő, amikor csak akarja.",nav_collections:"Kollekciók",nav_contact:"Kapcsolat",detail:"Részletek",desc_soon:"A leírás hamarosan.",rail_hint:"Vigye rá az egeret",nav_quote:"Ajánlatkérés",nav_lang:"Nyelv",rail_hint_touch:"Koppintson a részletekért",f_lead:"Meséljen a teréről. Részletes árajánlatot egy héten belül küldünk.",f_showroom:"Bemutatóterem",f_phone:"Telefon",f_email:"E-mail",f_change:"Módosítás",f_name:"Név",f_place:"Hol áll majd a szauna?",f_msg:"A tér és az elképzelései",f_consent:"Hozzájárulok, hogy a SUOMII ezzel a megkereséssel kapcsolatban felvegye velem a kapcsolatot.",f_send:"Ajánlatkérés küldése",f_sending:"Küldés…",f_ok_t:"Köszönjük.",f_ok:"Megkeresése megérkezett. Egy héten belül jelentkezünk.",f_req:"Kérjük, adja meg nevét, érvényes e-mail címét és hozzájárulását.",f_err:"Hiba történt. Kérjük, próbálja újra, vagy hívjon minket.",f_fallback:"Megnyílik a levelezője, minden adat kitöltve.",partners:"Partnereink",p_wood:"Faanyag · Észtország",p_stoves:"Kályhák · Finnország",p_member:"Tagság",p_showroom:"Bemutatóterem · Budapest"}
+    hu:{refs_h:"Elkészült szaunák",refs_lead:"Néhány kabin, amelyet otthonokba, kertekbe és wellnessbe építettünk.",ref1:"Kültéri szauna a medence mellett",ref2:"Beltéri szauna családi házban",ref3:"Szaunaház a Balatonnál",ref4:"Pinceszauna kőfallal",ref5:"Kültéri kabin fekete üveggel",ref6:"Banya, fatüzelésű kályhával",where_h:"Hol vagyunk jelen",where_lead:"Magyarországon készül, Közép-Európába szállítjuk.",c_hu:"Magyarország",c_sk:"Szlovákia",c_at:"Ausztria",c_de:"Németország",c_cz:"Csehország",w_hu:"Műhely, bemutatóterem és gyártás",w_sk:"Kornel Szabo, country manager",w_partner:"Kereskedelmi partner",role_kornel:"Country manager Szlovákiában",team_lbl:"Csapat",team_h:"Az emberek minden szauna mögött",team_hint:"Vigye az egeret a csapatra",team_hint_touch:"Koppintson a csapattagokra",cfg_step1:"Válasszon dizájnt",cfg_step2:"Válassza ki a fűtés módját",spec_temp:"Hőmérséklet",spec_hum:"Páratartalom",spec_heat:"Hőforrás",heat_finnish:"Kályha kövekkel",heat_bio:"Kályha párologtatóval",heat_infra:"Infrasugárzók",heat_combined:"Kályha és infrasugárzók",hum_dry:"Száraz levegő",cfg_note:"Részletes árajánlat egy héten belül",nav_craft:"Történet",story_line:"Szaunák egy generáció számára. Soha nem katalógusból.",col_h:"A kollekció",col_lead:"Öt dizájn. Mindegyik méretre készül.",cfg_h:"Állítsa össze saját szaunáját",cfg_lead:"Válasszon dizájnt, majd a fűtés módját.",cfg_go:"Ezt a szaunát kérem",quote:"2005-ben úgy gondoltam, ideje azzal foglalkozni, ami a szenvedélyem: a szauna.",quote_role:"Alapító, szaunatervező",house_h:"Történetünk",house_text:"Timo Nakari finn szaunatervező. 2005 óta tervez és épít szaunákat társtulajdonosával, Pákozdi Emil asztalosmesterrel, építészekkel és belsőépítészekkel együttműködve, Magyarországon és Európa több országában. Faanyagunkat közvetlenül az észtországi Thermorytól szerezzük be, és minőségét évente többször személyesen ellenőrizzük.",cta_h:"Építsük meg az Ön szaunáját.",f_workshop:"Műhely",config_title:"Tervezze meg szaunáját",cfg_design:"Dizajn",cfg_type:"Típus",cfg_your:"Ön választása",type_finnish:"Finn",type_bio:"Bio",type_infra:"Infra",type_combined:"Kombinált",typed_finnish:"Száraz hő, kövek, gőz igény szerint. Az eredeti.",typed_bio:"Szelídebb hő, magasabb páratartalom. Kíméletes.",typed_infra:"A sugárzó hő mélyebben hat, alacsonyabb hőmérsékleten.",typed_combined:"Finn és infra egy kabinban. Mindkettő, amikor csak akarja.",nav_collections:"Kollekciók",nav_contact:"Kapcsolat",detail:"Részletek",desc_soon:"A leírás hamarosan.",rail_hint:"Vigye rá az egeret",nav_quote:"Ajánlatkérés",nav_lang:"Nyelv",rail_hint_touch:"Koppintson a részletekért",f_lead:"Meséljen a teréről. Részletes árajánlatot egy héten belül küldünk.",f_showroom:"Bemutatóterem",f_phone:"Telefon",f_email:"E-mail",f_change:"Módosítás",f_name:"Név",f_place:"Hol áll majd a szauna?",f_msg:"A tér és az elképzelései",f_consent:"Hozzájárulok, hogy a SUOMII ezzel a megkereséssel kapcsolatban felvegye velem a kapcsolatot.",f_send:"Ajánlatkérés küldése",f_sending:"Küldés…",f_ok_t:"Köszönjük.",f_ok:"Megkeresése megérkezett. Egy héten belül jelentkezünk.",f_req:"Kérjük, adja meg nevét, érvényes e-mail címét és hozzájárulását.",f_err:"Hiba történt. Kérjük, próbálja újra, vagy hívjon minket.",f_fallback:"Megnyílik a levelezője, minden adat kitöltve.",partners:"Partnereink",p_wood:"Faanyag · Észtország",p_stoves:"Kályhák · Finnország",p_member:"Tagság",p_showroom:"Bemutatóterem · Budapest"}
   };
 
   var CODE = {en:"EN",sk:"SK",cs:"CZ",hu:"HU"};
@@ -983,6 +1057,7 @@
       b.setAttribute("aria-pressed", b.dataset.l === code ? "true" : "false");
     });
     langNow = code;
+    document.documentElement.lang = code === "cs" ? "cs" : code;
     if(modal && modal.classList.contains("open")) paintDesc();
     if(cfgDesigns) paintConfig();
     try{ localStorage.setItem("suomii-lang", code); }catch(e){}
@@ -1043,12 +1118,17 @@
     tom:    {en:"",sk:"",cs:"",hu:""}
   };
 
+  /* [thumbnail, full size] - nothing here is downloaded until the window opens */
   var SHOTS = {
-    classic:["data:image/jpeg;base64,__CLASSIC_X1__","data:image/jpeg;base64,__CLASSIC_X2__","data:image/jpeg;base64,__CLASSIC_X3__"],
-    lapanca:["data:image/jpeg;base64,__LAPANCA_X1__","data:image/jpeg;base64,__LAPANCA_X2__","data:image/jpeg;base64,__LAPANCA_X3__"],
-    massivo:["data:image/jpeg;base64,__MASSIVO_X1__","data:image/jpeg;base64,__MASSIVO_X2__","data:image/jpeg;base64,__MASSIVO_X3__"],
-    dal:    ["data:image/jpeg;base64,__DAL_X1__","data:image/jpeg;base64,__DAL_X2__","data:image/jpeg;base64,__DAL_X3__"],
-    tom:    ["data:image/jpeg;base64,__TOM_X1__","data:image/jpeg;base64,__TOM_X2__","data:image/jpeg;base64,__TOM_X3__"]
+    classic:[["__SRC:classic_x1__","__BIG:classic_x1__"],["__SRC:classic_x2__","__BIG:classic_x2__"],["__SRC:classic_x3__","__BIG:classic_x3__"]],
+    lapanca:[["__SRC:lapanca_x1__","__BIG:lapanca_x1__"],["__SRC:lapanca_x2__","__BIG:lapanca_x2__"],["__SRC:lapanca_x3__","__BIG:lapanca_x3__"]],
+    massivo:[["__SRC:massivo_x1__","__BIG:massivo_x1__"],["__SRC:massivo_x2__","__BIG:massivo_x2__"],["__SRC:massivo_x3__","__BIG:massivo_x3__"]],
+    dal:    [["__SRC:dal_x1__","__BIG:dal_x1__"],["__SRC:dal_x2__","__BIG:dal_x2__"],["__SRC:dal_x3__","__BIG:dal_x3__"]],
+    tom:    [["__SRC:tom_x1__","__BIG:tom_x1__"],["__SRC:tom_x2__","__BIG:tom_x2__"],["__SRC:tom_x3__","__BIG:tom_x3__"]]
+  };
+  var MAIN = {
+    classic:["__SRC:classic__","__BIG:classic__"], lapanca:["__SRC:lapanca__","__BIG:lapanca__"],
+    massivo:["__SRC:massivo__","__BIG:massivo__"], dal:["__SRC:dal__","__BIG:dal__"], tom:["__SRC:tom__","__BIG:tom__"]
   };
   var KEYS  = ["classic","lapanca","massivo","dal","tom"];
   var NAMES = ["Classic","La Panca","Massivo","Dal","Tom"];
@@ -1076,15 +1156,16 @@
     mName.textContent = NAMES[i];
     paintDesc();
 
-    var shots = [panels[i].querySelector(".panel__img").src].concat(SHOTS[key]);
-    mMain.src = shots[0];
+    var shots = [MAIN[key]].concat(SHOTS[key]);      /* [thumb, full] pairs */
+    mMain.src = shots[0][1];
     mThumbs.innerHTML = "";
-    shots.forEach(function(src, n){
+    shots.forEach(function(pair, n){
       var t = new Image();
-      t.src = src; t.alt = NAMES[i] + " " + (n + 1);
+      t.src = pair[0]; t.alt = NAMES[i] + " " + (n + 1);
+      t.loading = "lazy"; t.decoding = "async";
       if(n === 0) t.className = "sel";
       t.addEventListener("click", function(){
-        mMain.src = src;
+        mMain.src = pair[1];
         mThumbs.querySelectorAll("img").forEach(function(x){ x.classList.remove("sel"); });
         t.classList.add("sel");
       });
@@ -1322,6 +1403,29 @@
       mailFallback(d);
     });
   });
+
+  /* ---------- map ---------- */
+  /* phones get a tighter frame around the five countries instead of the whole window */
+  var mapEl = document.querySelector(".map");
+  function fitMap(){
+    mapEl.setAttribute("viewBox", window.innerWidth <= 860 ? "140 180 760 560" : "0 0 1000 700");
+  }
+  window.addEventListener("resize", fitMap);
+  fitMap();
+
+  /* ---------- pointing at a country or a row highlights both ---------- */
+  var whereList = document.getElementById("whereList");
+  var mapSvg = document.querySelector(".map");
+  function mark(code){
+    whereList.querySelectorAll("li").forEach(function(li){ li.classList.toggle("hi", !!code && li.dataset.c === code); });
+    mapSvg.querySelectorAll(".cn").forEach(function(c){ c.classList.toggle("hi", !!code && c.dataset.c === code); });
+  }
+  whereList.addEventListener("pointerover", function(e){ var li = e.target.closest("li"); if(li) mark(li.dataset.c); });
+  whereList.addEventListener("pointerleave", function(){ mark(null); });
+  mapSvg.addEventListener("pointerover", function(e){
+    var c = e.target.closest(".cn.on"); mark(c ? c.dataset.c : null);
+  });
+  mapSvg.addEventListener("pointerleave", function(){ mark(null); });
 
   /* ---------- team: tap shows a name on touch screens ---------- */
   var avatars = document.getElementById("avatars");

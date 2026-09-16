@@ -20,21 +20,36 @@ js_esc     = lambda s: ''.join(c if ord(c) < 128 else '\\u%04x' % ord(c) for c i
 
 out = markup_esc(head) + js_esc(js) + markup_esc(tail)
 
-# charset must land inside the first 1024 bytes to be honoured
-out = '<meta charset="utf-8">\n' + out
+# --- wrap in a real document ---
+# Without a doctype browsers fall into quirks mode, and without the viewport
+# meta a phone lays the page out at ~980px and shrinks it. Both were missing.
+STYLE_END = '</style>'
+i = out.index(STYLE_END) + len(STYLE_END)
+head_html, body_html = out[:i], out[i:]
+out = ('<!DOCTYPE html>\n<html lang="en">\n<head>\n'
+       '<meta charset="utf-8">\n'
+       '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+       '<meta name="theme-color" content="#0f1f2e">\n'
+       '<meta name="description" content="SUOMII - bespoke Finnish saunas, handmade in Hungary since 2005.">\n'
+       + head_html + '\n</head>\n<body>' + body_html + '\n</body>\n</html>\n')
 
-# --- inject images ---
-CACHE = '/tmp/sauna_build/images.json'
-if not os.path.exists(CACHE):
-    print('photo cache missing - running encode.py')
-    import subprocess
-    subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'encode.py')], check=True)
-imgs = json.load(open(CACHE))
+# --- photos: real files in img/, two widths each (see src/images.py) ---
+MANIFEST = REPO + '/img/manifest.json'
+if not os.path.exists(MANIFEST):
+    sys.exit('img/manifest.json missing - run python3 src/images.py')
+imgs = json.load(open(MANIFEST))
+
+def small(key): return imgs[key][0]['src']
+def big(key):   return imgs[key][-1]['src']
+def srcset(key): return ', '.join('%s %dw' % (e['src'], e['w']) for e in imgs[key])
+
 for key in imgs:
-    token = '__%s__' % key.upper()
-    if token not in out:
-        sys.exit('template never uses ' + token)
-    out = out.replace(token, imgs[key])
+    out = out.replace('__SRC:%s__' % key, small(key))
+    out = out.replace('__BIG:%s__' % key, big(key))
+    out = out.replace('__SET:%s__' % key, srcset(key))
+left_img = re.findall(r'__(?:SRC|BIG|SET):[a-z0-9_]+__', out)
+if left_img:
+    sys.exit('unknown photo keys: ' + ', '.join(sorted(set(left_img))))
 # small assets kept in the repo (the logo): src/assets/logo.png -> __LOGO__
 import base64
 AS = D + 'assets/'

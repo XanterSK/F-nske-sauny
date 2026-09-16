@@ -1,0 +1,288 @@
+{
+ "atelier": [
+  {
+   "src": "img/atelier-900.jpg",
+   "w": 900
+  },
+  {
+   "src": "img/atelier-1800.jpg",
+   "w": 1800
+  }
+ ],
+ "classic": [
+  {
+   "src": "img/classic-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/classic-1400.jpg",
+   "w": 1400
+  }
+ ],
+ "classic_x1": [
+  {
+   "src": "img/classic_x1-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/classic_x1-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "classic_x2": [
+  {
+   "src": "img/classic_x2-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/classic_x2-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "classic_x3": [
+  {
+   "src": "img/classic_x3-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/classic_x3-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "dal": [
+  {
+   "src": "img/dal-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/dal-1400.jpg",
+   "w": 1400
+  }
+ ],
+ "dal_x1": [
+  {
+   "src": "img/dal_x1-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/dal_x1-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "dal_x2": [
+  {
+   "src": "img/dal_x2-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/dal_x2-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "dal_x3": [
+  {
+   "src": "img/dal_x3-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/dal_x3-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "hero": [
+  {
+   "src": "img/hero-900.jpg",
+   "w": 900
+  },
+  {
+   "src": "img/hero-1800.jpg",
+   "w": 1800
+  }
+ ],
+ "lapanca": [
+  {
+   "src": "img/lapanca-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/lapanca-1400.jpg",
+   "w": 1400
+  }
+ ],
+ "lapanca_x1": [
+  {
+   "src": "img/lapanca_x1-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/lapanca_x1-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "lapanca_x2": [
+  {
+   "src": "img/lapanca_x2-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/lapanca_x2-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "lapanca_x3": [
+  {
+   "src": "img/lapanca_x3-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/lapanca_x3-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "massivo": [
+  {
+   "src": "img/massivo-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/massivo-1400.jpg",
+   "w": 1400
+  }
+ ],
+ "massivo_x1": [
+  {
+   "src": "img/massivo_x1-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/massivo_x1-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "massivo_x2": [
+  {
+   "src": "img/massivo_x2-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/massivo_x2-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "massivo_x3": [
+  {
+   "src": "img/massivo_x3-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/massivo_x3-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "ref1": [
+  {
+   "src": "img/ref1-600.jpg",
+   "w": 600
+  },
+  {
+   "src": "img/ref1-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "ref2": [
+  {
+   "src": "img/ref2-600.jpg",
+   "w": 600
+  },
+  {
+   "src": "img/ref2-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "ref3": [
+  {
+   "src": "img/ref3-600.jpg",
+   "w": 600
+  },
+  {
+   "src": "img/ref3-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "ref4": [
+  {
+   "src": "img/ref4-600.jpg",
+   "w": 600
+  },
+  {
+   "src": "img/ref4-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "ref5": [
+  {
+   "src": "img/ref5-600.jpg",
+   "w": 600
+  },
+  {
+   "src": "img/ref5-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "ref6": [
+  {
+   "src": "img/ref6-600.jpg",
+   "w": 600
+  },
+  {
+   "src": "img/ref6-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "timo": [
+  {
+   "src": "img/timo-220.jpg",
+   "w": 220
+  }
+ ],
+ "tom": [
+  {
+   "src": "img/tom-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/tom-1400.jpg",
+   "w": 1400
+  }
+ ],
+ "tom_x1": [
+  {
+   "src": "img/tom_x1-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/tom_x1-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "tom_x2": [
+  {
+   "src": "img/tom_x2-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/tom_x2-1200.jpg",
+   "w": 1200
+  }
+ ],
+ "tom_x3": [
+  {
+   "src": "img/tom_x3-700.jpg",
+   "w": 700
+  },
+  {
+   "src": "img/tom_x3-1200.jpg",
+   "w": 1200
+  }
+ ]
+}
