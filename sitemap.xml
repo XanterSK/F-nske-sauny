@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://suomii.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://suomii.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://suomii.vercel.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://suomii.vercel.app/sk/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://suomii.vercel.app/cs/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://suomii.vercel.app/hu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://suomii.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://suomii.vercel.app/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://suomii.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://suomii.vercel.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://suomii.vercel.app/sk/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://suomii.vercel.app/cs/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://suomii.vercel.app/hu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://suomii.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://suomii.vercel.app/sk/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://suomii.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://suomii.vercel.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://suomii.vercel.app/sk/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://suomii.vercel.app/cs/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://suomii.vercel.app/hu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://suomii.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://suomii.vercel.app/cs/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://suomii.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://suomii.vercel.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://suomii.vercel.app/sk/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://suomii.vercel.app/cs/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://suomii.vercel.app/hu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://suomii.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://suomii.vercel.app/hu/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://suomii.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://suomii.vercel.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://suomii.vercel.app/sk/"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://suomii.vercel.app/cs/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://suomii.vercel.app/hu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://suomii.vercel.app/"/>
+  </url>
+</urlset>
