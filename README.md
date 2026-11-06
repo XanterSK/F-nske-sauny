@@ -67,6 +67,18 @@ JavaScript — search engines only ever indexed the English copy, so four of the
 five markets were invisible. The language picker is now plain links between the
 five URLs.
 
+## Contact details
+
+The phone number and email shown on the page come from `CONTACT` at the top of
+`build.py`, keyed by language, because each market should reach its own person:
+Slovakia should not be answered from Budapest. `default` is the Hungarian head
+office and any language listed there overrides it. An empty string means "not
+published yet" and the row is simply left out, so nothing fake ever ships.
+
+Only the head-office phone is filled in today. The email row is empty on every
+language until the brand owner names a public address — the old one belonged to
+a single person and was taken down at their request.
+
 ## Enquiry form
 
 The form sends name, email, phone, location, message and the chosen
@@ -107,4 +119,9 @@ to `suomii.com` addresses, verify the `suomii.com` domain in Resend.
 - Analytics — there is none, so nobody knows how many visitors arrive.
 - Descriptions for the five saunas: fill in the `DESC` object in
   `src/suomii.template.html`; an empty string shows a "coming soon" line.
-- A photo of Kornel Szabo — the team section falls back to initials.
+- Photos of Agnes Kozenkow, David and Kornel Szabo — the team section falls
+  back to initials for all three. David's surname is missing too, and Agnes's
+  role is a guess ("Sales and showroom") until the owner confirms it.
+- Public email addresses per country for the `CONTACT` table — see above.
+- New Classic photographs: the owner wants some of the five Classic shots
+  replaced once Timo has updated the shared folder.

@@ -26,7 +26,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "@id": "https://suomii.vercel.app/#suomii", "name": "SUOMII", "legalName": "Suomi Sauna Kft.", "description": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "url": "https://suomii.vercel.app/", "logo": "https://suomii.vercel.app/icon-512.png", "image": "https://suomii.vercel.app/og.jpg", "foundingDate": "2005", "founder": {"@type": "Person", "name": "Timo Nakari"}, "email": "agnes.kozenkow@suomii.com", "telephone": "+36204755035", "sameAs": ["https://www.instagram.com/suomi_sauna/"], "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}, "location": [{"@type": "Place", "name": "Showroom", "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}}, {"@type": "Place", "name": "Workshop", "address": {"@type": "PostalAddress", "streetAddress": "V&#225;llalkoz&#243;k &#250;tja 7", "addressLocality": "Gy&#337;r&#250;jbar&#225;t", "postalCode": "9081", "addressCountry": "HU"}}], "areaServed": [{"@type": "Country", "name": "Hungary"}, {"@type": "Country", "name": "Slovakia"}, {"@type": "Country", "name": "Austria"}, {"@type": "Country", "name": "Germany"}, {"@type": "Country", "name": "Czechia"}], "knowsLanguage": ["en", "de", "sk", "cs", "hu"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "@id": "https://suomii.vercel.app/#suomii", "name": "SUOMII", "legalName": "Suomi Sauna Kft.", "description": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "url": "https://suomii.vercel.app/", "logo": "https://suomii.vercel.app/icon-512.png", "image": "https://suomii.vercel.app/og.jpg", "foundingDate": "2005", "founder": {"@type": "Person", "name": "Timo Nakari"}, "telephone": "+36202636777", "sameAs": ["https://www.instagram.com/suomi_sauna/"], "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}, "location": [{"@type": "Place", "name": "Showroom", "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}}, {"@type": "Place", "name": "Workshop", "address": {"@type": "PostalAddress", "streetAddress": "V&#225;llalkoz&#243;k &#250;tja 7", "addressLocality": "Gy&#337;r&#250;jbar&#225;t", "postalCode": "9081", "addressCountry": "HU"}}], "areaServed": [{"@type": "Country", "name": "Hungary"}, {"@type": "Country", "name": "Slovakia"}, {"@type": "Country", "name": "Austria"}, {"@type": "Country", "name": "Germany"}, {"@type": "Country", "name": "Czechia"}], "knowsLanguage": ["en", "de", "sk", "cs", "hu"]}</script>
 
 <style>
   :root{
@@ -409,7 +409,9 @@
   .modal__x:hover{background:var(--gold);color:var(--ink)}
   .modal__x:focus{outline:none}
   .modal__x:focus-visible{box-shadow:0 0 0 2px var(--gold)}
-  .modal__media{display:grid;gap:4px;align-content:start}
+  .modal__media{position:relative;display:grid;gap:4px;align-content:start}
+  /* brand manual: the mark stays on the photograph, framed, never cropped */
+  .modal__logo{position:absolute;top:14px;left:14px;z-index:2;width:clamp(74px,8vw,96px);filter:drop-shadow(0 4px 18px rgba(0,0,0,.65));pointer-events:none}
   #mMain{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--panel)}
   .modal__thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
   .modal__thumbs img{width:100%;aspect-ratio:4/3;object-fit:cover;cursor:pointer;opacity:.45;transition:opacity .3s ease}
@@ -737,7 +739,7 @@
 
     <div class="topbar__links">
       <a class="lnk" href="#collection" data-t="nav_collections">Collections</a>
-      <a class="lnk" href="#config"     data-t="config_title">Configure your sauna</a>
+      <a class="lnk" href="#config"     data-t="nav_config">Configure</a>
       <a class="lnk" href="#atelier"    data-t="nav_craft">Story</a>
       <a class="lnk" href="#contact"    data-t="nav_contact">Contact</a>
     </div>
@@ -770,7 +772,7 @@
     </div>
     <div class="drawer__group">
       <a class="lnk" href="#collection" data-t="nav_collections" data-dclose>Collections</a>
-      <a class="lnk" href="#config"     data-t="config_title" data-dclose>Configure your sauna</a>
+      <a class="lnk" href="#config"     data-t="nav_config" data-dclose>Configure</a>
       <a class="lnk" href="#atelier"    data-t="nav_craft" data-dclose>Story</a>
       <a class="lnk" href="#contact"    data-t="nav_contact" data-dclose>Contact</a>
     </div>
@@ -856,7 +858,7 @@
 <!-- ================= CONFIGURATOR ================= -->
 <section class="config" id="config">
   <header class="sechead rv">
-    <h2 data-t="cfg_h">Compose your sauna</h2>
+    <h2 data-t="config_title">Configure your sauna</h2>
     <p data-t="cfg_lead">Choose a design, then how it should heat.</p>
   </header>
 
@@ -950,6 +952,8 @@
   <h2 class="rv" data-t="team_h">The people behind every sauna</h2>
   <ul class="avatars rv" id="avatars">
     <li><button class="av" type="button"><img src="/img/timo-220.jpg" width="220" height="220" alt="Timo Nakari" loading="lazy" decoding="async"><span class="av__tip" role="tooltip"><b>Timo Nakari</b><small data-t="quote_role">Founder & sauna designer</small></span></button></li>
+    <li><button class="av av--init" type="button" aria-label="Agnes Kozenkow"><span class="av__init" aria-hidden="true">AK</span><span class="av__tip" role="tooltip"><b>Agnes Kozenkow</b><small data-t="role_agnes">Sales and showroom</small></span></button></li>
+    <li><button class="av av--init" type="button" aria-label="David"><span class="av__init" aria-hidden="true">D</span><span class="av__tip" role="tooltip"><b>David</b><small data-t="role_david">Delivery manager</small></span></button></li>
     <li><button class="av av--init" type="button" aria-label="Kornel Szabo"><span class="av__init" aria-hidden="true">KS</span><span class="av__tip" role="tooltip"><b>Kornel Szabo</b><small data-t="role_kornel">Country manager for Slovakia</small></span></button></li>
   </ul>
   <p class="railhint lbl rv"><span class="mouse" data-t="team_hint">Hover to meet the team</span><span class="touch" data-t="team_hint_touch">Tap to meet the team</span></p>
@@ -961,10 +965,7 @@
     <div class="contact__intro rv">
       <h2 data-t="cta_h" data-h>Let us build your sauna.</h2>
       <p class="contact__lead" data-t="f_lead">Tell us about your space. A detailed quote follows within a week.</p>
-      <dl class="contact__info">
-        <div><dt class="lbl" data-t="f_phone">Phone</dt><dd><a href="tel:+36204755035">+36 20 4755 035</a></dd></div>
-        <div><dt class="lbl" data-t="f_email">Email</dt><dd><a href="mailto:agnes.kozenkow@suomii.com">agnes.kozenkow@suomii.com</a></dd></div>
-      </dl>
+      <dl class="contact__info"><div><dt class="lbl">Phone</dt><dd><a href="tel:+36202636777">+36 20 2636 777</a></dd></div></dl>
     </div>
 
     <form class="form rv" id="form" novalidate>
@@ -1003,6 +1004,7 @@
   <div class="modal__box">
     <button class="modal__x" data-close aria-label="Close">&times;</button>
     <div class="modal__media">
+      <svg class="logo modal__logo" viewBox="0 0 438.836 232.156" role="img" aria-label="SUOMII"><rect class="fr" x="1.5" y="1.5" width="435.836" height="229.156"/><use href="#wm"/></svg>
       <img id="mMain" alt="">
       <div class="modal__thumbs" id="mThumbs"></div>
     </div>
@@ -1023,7 +1025,6 @@
       <li><a href="https://thermory.com" target="_blank" rel="noopener">Thermory</a><small data-t="p_wood">Wood &#183; Estonia</small></li>
       <li><a href="https://www.tulikivi.com" target="_blank" rel="noopener">Tulikivi</a><small data-t="p_stoves">Stoves &#183; Finland</small></li>
       <li><a href="https://saunafromfinland.com" target="_blank" rel="noopener">Sauna from Finland</a><small data-t="p_member">Member</small></li>
-      <li><span class="pn">HomeSpa</span><small data-t="p_showroom">Showroom &#183; Budapest</small></li>
     </ul>
   </div>
 
@@ -1034,15 +1035,15 @@
     </div>
     <div>
       <p class="lbl" data-t="f_showroom">Showroom</p>
-      <address>Suomi Sauna / HomeSpa<br>K&#225;nai &#250;t 3/A<br>1112 Budapest</address>
+      <address>K&#225;nai &#250;t 3/A<br>1112 Budapest</address>
     </div>
     <div>
-      <p class="lbl" data-t="f_workshop">Workshop</p>
+      <p class="lbl" data-t="f_workshop">Production</p>
       <address>V&#225;llalkoz&#243;k &#250;tja 7<br>9081 Gy&#337;r&#250;jbar&#225;t</address>
     </div>
     <div>
       <p class="lbl" data-t="nav_contact">Contact</p>
-      <p class="foot__lines"><a href="tel:+36204755035">+36 20 4755 035</a><br><a href="tel:+36202636777">+36 20 2636 777</a><br><a href="mailto:agnes.kozenkow@suomii.com">agnes.kozenkow@suomii.com</a></p>
+      <p class="foot__lines"><a href="tel:+36202636777">+36 20 2636 777</a></p>
     </div>
   </div>
 
@@ -1056,7 +1057,7 @@
 (function(){
   "use strict";
 
-  var T = {"c_at": "Austria", "c_cz": "Czechia", "c_de": "Germany", "c_hu": "Hungary", "c_sk": "Slovakia", "cfg_design": "Design", "cfg_go": "Request this sauna", "cfg_h": "Compose your sauna", "cfg_lead": "Choose a design, then how it should heat.", "cfg_note": "Detailed quote within a week", "cfg_step1": "Choose a design", "cfg_step2": "Choose how it heats", "cfg_type": "Type", "cfg_your": "Your selection", "col_h": "The Collection", "col_lead": "Five designs. Each one built to measure.", "config_title": "Configure your sauna", "cta_h": "Let us build your sauna.", "desc_soon": "Full description coming soon.", "detail": "View detail", "f_change": "Change", "f_consent": "I agree that SUOMII may contact me about this enquiry.", "f_email": "Email", "f_err": "Something went wrong. Please try again, or call us.", "f_fallback": "Opening your email app with everything filled in.", "f_lead": "Tell us about your space. A detailed quote follows within a week.", "f_msg": "Your space and wishes", "f_name": "Name", "f_ok": "Your enquiry has arrived. We will be in touch within a week.", "f_ok_t": "Thank you.", "f_phone": "Phone", "f_place": "Where will the sauna stand?", "f_req": "Please add your name, a valid email and your consent.", "f_send": "Send enquiry", "f_sending": "Sending\u2026", "f_showroom": "Showroom", "f_workshop": "Workshop", "heat_bio": "Stove with evaporator", "heat_combined": "Stove and infrared panels", "heat_finnish": "Stove with stones", "heat_infra": "Infrared panels", "house_h": "Our story", "house_text": "Timo Nakari is a Finnish sauna designer. Since 2005 he has designed and built saunas with co-owner and master joiner Emil P\u00e1kozdi, alongside architects and interior designers, in Hungary and across Europe. Our wood comes directly from Thermory in Estonia, where we check its quality in person several times a year.", "hum_dry": "Dry air", "meta_desc": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "meta_title": "SUOMII \u2014 Bespoke Finnish Saunas, Handmade in Hungary", "nav_collections": "Collections", "nav_contact": "Contact", "nav_craft": "Story", "nav_lang": "Language", "nav_quote": "Request a quote", "p_member": "Member", "p_showroom": "Showroom \u00b7 Budapest", "p_stoves": "Stoves \u00b7 Finland", "p_wood": "Wood \u00b7 Estonia", "partners": "In good company", "quote": "In 2005, I decided it was time to devote myself to my passion: the sauna.", "quote_role": "Founder & sauna designer", "rail_hint": "Hover to explore", "rail_hint_touch": "Tap to explore", "ref1": "Outdoor sauna by the pool", "ref2": "Indoor sauna in a family home", "ref3": "Sauna house at Lake Balaton", "ref4": "Cellar sauna with a stone wall", "ref5": "Outdoor cabin with black glass", "ref6": "Banya with a wood-burning stove", "refs_h": "Delivered saunas", "refs_lead": "A few of the cabins we have built for homes, gardens and spas.", "role_kornel": "Country manager for Slovakia", "spec_heat": "Heat source", "spec_hum": "Humidity", "spec_temp": "Temperature", "story_line": "Saunas built to serve a generation. Never from a catalogue.", "team_h": "The people behind every sauna", "team_hint": "Hover to meet the team", "team_hint_touch": "Tap to meet the team", "team_lbl": "The team", "type_bio": "Bio", "type_combined": "Combined", "type_finnish": "Finnish", "type_infra": "Infrared", "typed_bio": "Gentler warmth at higher humidity. Easy on the body.", "typed_combined": "Finnish and infrared in one cabin. Both, whenever you want.", "typed_finnish": "Dry heat, stones, steam on demand. The original.", "typed_infra": "Radiant heat that reaches deeper, at a lower temperature.", "w_hu": "Workshop, showroom and production", "w_partner": "Trade partner", "w_sk": "Kornel Szabo, country manager", "where_h": "Where SUOMII is represented", "where_lead": "Built in Hungary, delivered across Central Europe."};
+  var T = {"c_at": "Austria", "c_cz": "Czechia", "c_de": "Germany", "c_hu": "Hungary", "c_sk": "Slovakia", "cfg_design": "Design", "cfg_go": "Request this sauna", "cfg_lead": "Choose a design, then how it should heat.", "cfg_note": "Detailed quote within a week", "cfg_step1": "Choose a design", "cfg_step2": "Choose how it heats", "cfg_type": "Type", "cfg_your": "Your selection", "col_h": "The Collection", "col_lead": "Five designs. Each one built to measure.", "config_title": "Configure your sauna", "cta_h": "Let us build your sauna.", "desc_soon": "Full description coming soon.", "detail": "View detail", "f_change": "Change", "f_consent": "I agree that SUOMII may contact me about this enquiry.", "f_email": "Email", "f_err": "Something went wrong. Please try again, or call us.", "f_fallback": "Opening your email app with everything filled in.", "f_lead": "Tell us about your space. A detailed quote follows within a week.", "f_msg": "Your space and wishes", "f_name": "Name", "f_ok": "Your enquiry has arrived. We will be in touch within a week.", "f_ok_t": "Thank you.", "f_phone": "Phone", "f_place": "Where will the sauna stand?", "f_req": "Please add your name, a valid email and your consent.", "f_send": "Send enquiry", "f_sending": "Sending\u2026", "f_showroom": "Showroom", "f_workshop": "Production", "heat_bio": "Stove with evaporator", "heat_combined": "Stove and infrared panels", "heat_finnish": "Stove with stones", "heat_infra": "Infrared panels", "house_h": "Our story", "house_text": "Timo Nakari is a Finnish sauna designer. Since 2005 he has designed and built saunas with co-owner and master joiner Emil P\u00e1kozdi, alongside architects and interior designers, in Hungary and across Europe. Our wood comes directly from Thermory in Estonia, where we check its quality in person several times a year.", "hum_dry": "Dry air", "meta_desc": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "meta_title": "SUOMII \u2014 Bespoke Finnish Saunas, Handmade in Hungary", "nav_collections": "Collections", "nav_config": "Configure", "nav_contact": "Contact", "nav_craft": "Story", "nav_lang": "Language", "nav_quote": "Request a quote", "p_member": "Member", "p_stoves": "Stoves \u00b7 Finland", "p_wood": "Wood \u00b7 Estonia", "partners": "In good company", "quote": "In 2005, I decided it was time to devote myself to my passion: the sauna.", "quote_role": "Founder & sauna designer", "rail_hint": "Hover to explore", "rail_hint_touch": "Tap to explore", "ref1": "Outdoor sauna by the pool", "ref2": "Indoor sauna in a family home", "ref3": "Sauna house at Lake Balaton", "ref4": "Cellar sauna with a stone wall", "ref5": "Outdoor cabin with black glass", "ref6": "Banya with a wood-burning stove", "refs_h": "Delivered saunas", "refs_lead": "A few of the cabins we have built for homes, gardens and spas.", "role_agnes": "Sales and showroom", "role_david": "Delivery manager", "role_kornel": "Country manager for Slovakia", "spec_heat": "Heat source", "spec_hum": "Humidity", "spec_temp": "Temperature", "story_line": "Saunas built to serve a generation. Never from a catalogue.", "team_h": "The people behind every sauna", "team_hint": "Hover to meet the team", "team_hint_touch": "Tap to meet the team", "team_lbl": "The team", "type_bio": "Bio", "type_combined": "Combined", "type_finnish": "Finnish", "type_infra": "Infrared", "typed_bio": "Gentler warmth at higher humidity. Easy on the body.", "typed_combined": "Finnish and infrared in one cabin. Both, whenever you want.", "typed_finnish": "Dry heat, stones, steam on demand. The original.", "typed_infra": "Radiant heat that reaches deeper, at a lower temperature.", "w_hu": "Workshop, showroom and production", "w_partner": "Trade partner", "w_sk": "Kornel Szabo, country manager", "where_h": "Where SUOMII is represented", "where_lead": "Built in Hungary, delivered across Central Europe."};
 
   /* every language is a separate pre-rendered page, so nothing is translated
      at runtime - T only carries the strings the scripts build themselves. */

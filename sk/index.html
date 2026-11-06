@@ -26,7 +26,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="sk_SK">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "@id": "https://suomii.vercel.app/#suomii", "name": "SUOMII", "legalName": "Suomi Sauna Kft.", "description": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "url": "https://suomii.vercel.app/", "logo": "https://suomii.vercel.app/icon-512.png", "image": "https://suomii.vercel.app/og.jpg", "foundingDate": "2005", "founder": {"@type": "Person", "name": "Timo Nakari"}, "email": "agnes.kozenkow@suomii.com", "telephone": "+36204755035", "sameAs": ["https://www.instagram.com/suomi_sauna/"], "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}, "location": [{"@type": "Place", "name": "Showroom", "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}}, {"@type": "Place", "name": "Workshop", "address": {"@type": "PostalAddress", "streetAddress": "V&#225;llalkoz&#243;k &#250;tja 7", "addressLocality": "Gy&#337;r&#250;jbar&#225;t", "postalCode": "9081", "addressCountry": "HU"}}], "areaServed": [{"@type": "Country", "name": "Hungary"}, {"@type": "Country", "name": "Slovakia"}, {"@type": "Country", "name": "Austria"}, {"@type": "Country", "name": "Germany"}, {"@type": "Country", "name": "Czechia"}], "knowsLanguage": ["en", "de", "sk", "cs", "hu"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "@id": "https://suomii.vercel.app/#suomii", "name": "SUOMII", "legalName": "Suomi Sauna Kft.", "description": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "url": "https://suomii.vercel.app/", "logo": "https://suomii.vercel.app/icon-512.png", "image": "https://suomii.vercel.app/og.jpg", "foundingDate": "2005", "founder": {"@type": "Person", "name": "Timo Nakari"}, "telephone": "+36202636777", "sameAs": ["https://www.instagram.com/suomi_sauna/"], "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}, "location": [{"@type": "Place", "name": "Showroom", "address": {"@type": "PostalAddress", "streetAddress": "K&#225;nai &#250;t 3/A", "addressLocality": "Budapest", "postalCode": "1112", "addressCountry": "HU"}}, {"@type": "Place", "name": "Workshop", "address": {"@type": "PostalAddress", "streetAddress": "V&#225;llalkoz&#243;k &#250;tja 7", "addressLocality": "Gy&#337;r&#250;jbar&#225;t", "postalCode": "9081", "addressCountry": "HU"}}], "areaServed": [{"@type": "Country", "name": "Hungary"}, {"@type": "Country", "name": "Slovakia"}, {"@type": "Country", "name": "Austria"}, {"@type": "Country", "name": "Germany"}, {"@type": "Country", "name": "Czechia"}], "knowsLanguage": ["en", "de", "sk", "cs", "hu"]}</script>
 
 <style>
   :root{
@@ -409,7 +409,9 @@
   .modal__x:hover{background:var(--gold);color:var(--ink)}
   .modal__x:focus{outline:none}
   .modal__x:focus-visible{box-shadow:0 0 0 2px var(--gold)}
-  .modal__media{display:grid;gap:4px;align-content:start}
+  .modal__media{position:relative;display:grid;gap:4px;align-content:start}
+  /* brand manual: the mark stays on the photograph, framed, never cropped */
+  .modal__logo{position:absolute;top:14px;left:14px;z-index:2;width:clamp(74px,8vw,96px);filter:drop-shadow(0 4px 18px rgba(0,0,0,.65));pointer-events:none}
   #mMain{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--panel)}
   .modal__thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
   .modal__thumbs img{width:100%;aspect-ratio:4/3;object-fit:cover;cursor:pointer;opacity:.45;transition:opacity .3s ease}
@@ -737,7 +739,7 @@
 
     <div class="topbar__links">
       <a class="lnk" href="#collection" data-t="nav_collections">Kolekcie</a>
-      <a class="lnk" href="#config"     data-t="config_title">Navrhnite si saunu</a>
+      <a class="lnk" href="#config"     data-t="nav_config">Konfigur&#225;tor</a>
       <a class="lnk" href="#atelier"    data-t="nav_craft">Pr&#237;beh</a>
       <a class="lnk" href="#contact"    data-t="nav_contact">Kontakt</a>
     </div>
@@ -770,7 +772,7 @@
     </div>
     <div class="drawer__group">
       <a class="lnk" href="#collection" data-t="nav_collections" data-dclose>Kolekcie</a>
-      <a class="lnk" href="#config"     data-t="config_title" data-dclose>Navrhnite si saunu</a>
+      <a class="lnk" href="#config"     data-t="nav_config" data-dclose>Konfigur&#225;tor</a>
       <a class="lnk" href="#atelier"    data-t="nav_craft" data-dclose>Pr&#237;beh</a>
       <a class="lnk" href="#contact"    data-t="nav_contact" data-dclose>Kontakt</a>
     </div>
@@ -856,7 +858,7 @@
 <!-- ================= CONFIGURATOR ================= -->
 <section class="config" id="config">
   <header class="sechead rv">
-    <h2 data-t="cfg_h">Zlo&#382;te si svoju saunu</h2>
+    <h2 data-t="config_title">Navrhnite si saunu</h2>
     <p data-t="cfg_lead">Vyberte dizajn a potom sp&#244;sob k&#250;renia.</p>
   </header>
 
@@ -950,6 +952,8 @@
   <h2 class="rv" data-t="team_h">&#317;udia za ka&#382;dou saunou</h2>
   <ul class="avatars rv" id="avatars">
     <li><button class="av" type="button"><img src="/img/timo-220.jpg" width="220" height="220" alt="Timo Nakari" loading="lazy" decoding="async"><span class="av__tip" role="tooltip"><b>Timo Nakari</b><small data-t="quote_role">Zakladate&#318; a dizajn&#233;r s&#225;un</small></span></button></li>
+    <li><button class="av av--init" type="button" aria-label="Agnes Kozenkow"><span class="av__init" aria-hidden="true">AK</span><span class="av__tip" role="tooltip"><b>Agnes Kozenkow</b><small data-t="role_agnes">Predaj a showroom</small></span></button></li>
+    <li><button class="av av--init" type="button" aria-label="David"><span class="av__init" aria-hidden="true">D</span><span class="av__tip" role="tooltip"><b>David</b><small data-t="role_david">Mana&#382;&#233;r dod&#225;vok</small></span></button></li>
     <li><button class="av av--init" type="button" aria-label="Kornel Szabo"><span class="av__init" aria-hidden="true">KS</span><span class="av__tip" role="tooltip"><b>Kornel Szabo</b><small data-t="role_kornel">Country manager pre Slovensko</small></span></button></li>
   </ul>
   <p class="railhint lbl rv"><span class="mouse" data-t="team_hint">Prejdite my&#353;ou na t&#237;m</span><span class="touch" data-t="team_hint_touch">&#356;uknite na &#269;lena t&#237;mu</span></p>
@@ -961,10 +965,7 @@
     <div class="contact__intro rv">
       <h2 data-t="cta_h" data-h>Postavme va&#353;u saunu.</h2>
       <p class="contact__lead" data-t="f_lead">Povedzte n&#225;m o va&#353;om priestore. Podrobn&#250; cenov&#250; ponuku dostanete do t&#253;&#382;d&#328;a.</p>
-      <dl class="contact__info">
-        <div><dt class="lbl" data-t="f_phone">Telef&#243;n</dt><dd><a href="tel:+36204755035">+36 20 4755 035</a></dd></div>
-        <div><dt class="lbl" data-t="f_email">E-mail</dt><dd><a href="mailto:agnes.kozenkow@suomii.com">agnes.kozenkow@suomii.com</a></dd></div>
-      </dl>
+      <dl class="contact__info"><div><dt class="lbl">Telef&#243;n</dt><dd><a href="tel:+36202636777">+36 20 2636 777</a></dd></div></dl>
     </div>
 
     <form class="form rv" id="form" novalidate>
@@ -1003,6 +1004,7 @@
   <div class="modal__box">
     <button class="modal__x" data-close aria-label="Close">&times;</button>
     <div class="modal__media">
+      <svg class="logo modal__logo" viewBox="0 0 438.836 232.156" role="img" aria-label="SUOMII"><rect class="fr" x="1.5" y="1.5" width="435.836" height="229.156"/><use href="#wm"/></svg>
       <img id="mMain" alt="">
       <div class="modal__thumbs" id="mThumbs"></div>
     </div>
@@ -1023,7 +1025,6 @@
       <li><a href="https://thermory.com" target="_blank" rel="noopener">Thermory</a><small data-t="p_wood">Drevo &#183; Est&#243;nsko</small></li>
       <li><a href="https://www.tulikivi.com" target="_blank" rel="noopener">Tulikivi</a><small data-t="p_stoves">Pece &#183; F&#237;nsko</small></li>
       <li><a href="https://saunafromfinland.com" target="_blank" rel="noopener">Sauna from Finland</a><small data-t="p_member">&#268;lenstvo</small></li>
-      <li><span class="pn">HomeSpa</span><small data-t="p_showroom">Showroom &#183; Budape&#353;&#357;</small></li>
     </ul>
   </div>
 
@@ -1034,15 +1035,15 @@
     </div>
     <div>
       <p class="lbl" data-t="f_showroom">Showroom</p>
-      <address>Suomi Sauna / HomeSpa<br>K&#225;nai &#250;t 3/A<br>1112 Budapest</address>
+      <address>K&#225;nai &#250;t 3/A<br>1112 Budapest</address>
     </div>
     <div>
-      <p class="lbl" data-t="f_workshop">Diel&#328;a</p>
+      <p class="lbl" data-t="f_workshop">V&#253;roba</p>
       <address>V&#225;llalkoz&#243;k &#250;tja 7<br>9081 Gy&#337;r&#250;jbar&#225;t</address>
     </div>
     <div>
       <p class="lbl" data-t="nav_contact">Kontakt</p>
-      <p class="foot__lines"><a href="tel:+36204755035">+36 20 4755 035</a><br><a href="tel:+36202636777">+36 20 2636 777</a><br><a href="mailto:agnes.kozenkow@suomii.com">agnes.kozenkow@suomii.com</a></p>
+      <p class="foot__lines"><a href="tel:+36202636777">+36 20 2636 777</a></p>
     </div>
   </div>
 
@@ -1056,7 +1057,7 @@
 (function(){
   "use strict";
 
-  var T = {"c_at": "Rak\u00fasko", "c_cz": "\u010cesko", "c_de": "Nemecko", "c_hu": "Ma\u010farsko", "c_sk": "Slovensko", "cfg_design": "Dizajn", "cfg_go": "Chcem t\u00fato saunu", "cfg_h": "Zlo\u017ete si svoju saunu", "cfg_lead": "Vyberte dizajn a potom sp\u00f4sob k\u00farenia.", "cfg_note": "Podrobn\u00e1 cenov\u00e1 ponuka do t\u00fd\u017ed\u0148a", "cfg_step1": "Vyberte dizajn", "cfg_step2": "Vyberte sp\u00f4sob ohrevu", "cfg_type": "Typ", "cfg_your": "V\u00e1\u0161 v\u00fdber", "col_h": "Kolekcia", "col_lead": "P\u00e4\u0165 dizajnov. Ka\u017ed\u00fd na mieru.", "config_title": "Navrhnite si saunu", "cta_h": "Postavme va\u0161u saunu.", "desc_soon": "Popis pripravujeme.", "detail": "Zobrazi\u0165 detail", "f_change": "Zmeni\u0165", "f_consent": "S\u00fahlas\u00edm, aby ma SUOMII kontaktovalo oh\u013eadom tohto dopytu.", "f_email": "E-mail", "f_err": "Nie\u010do sa nepodarilo. Sk\u00faste to znova alebo n\u00e1m zavolajte.", "f_fallback": "Otv\u00e1ra sa v\u00e1\u0161 e-mail so v\u0161etk\u00fdm vyplnen\u00fdm.", "f_lead": "Povedzte n\u00e1m o va\u0161om priestore. Podrobn\u00fa cenov\u00fa ponuku dostanete do t\u00fd\u017ed\u0148a.", "f_msg": "V\u00e1\u0161 priestor a predstavy", "f_name": "Meno", "f_ok": "V\u00e1\u0161 dopyt sme prijali. Ozveme sa do t\u00fd\u017ed\u0148a.", "f_ok_t": "\u010eakujeme.", "f_phone": "Telef\u00f3n", "f_place": "Kde bude sauna st\u00e1\u0165?", "f_req": "Vypl\u0148te meno, platn\u00fd e-mail a potvr\u010fte s\u00fahlas.", "f_send": "Odosla\u0165 dopyt", "f_sending": "Odosiela sa\u2026", "f_showroom": "Showroom", "f_workshop": "Diel\u0148a", "heat_bio": "Pec s odparova\u010dom", "heat_combined": "Pec a infra\u017eiari\u010de", "heat_finnish": "Pec s kame\u0148mi", "heat_infra": "Infra\u017eiari\u010de", "house_h": "N\u00e1\u0161 pr\u00edbeh", "house_text": "Timo Nakari je f\u00ednsky dizajn\u00e9r s\u00e1un. Od roku 2005 navrhuje a stavia sauny so spolumajite\u013eom, stol\u00e1rskym majstrom Emilom P\u00e1kozdim, v spolupr\u00e1ci s architektmi a interi\u00e9rov\u00fdmi dizajn\u00e9rmi v Ma\u010farsku aj v \u010fal\u0161\u00edch krajin\u00e1ch Eur\u00f3py. Drevo odober\u00e1me priamo od Thermory v Est\u00f3nsku a jeho kvalitu tam nieko\u013ekokr\u00e1t do roka osobne kontrolujeme.", "hum_dry": "Such\u00fd vzduch", "meta_desc": "P\u00e4\u0165 dizajnov, ka\u017ed\u00fd na mieru. F\u00ednske sauny ru\u010dne vyr\u00e1ban\u00e9 v Ma\u010farsku od roku 2005, dod\u00e1vame po strednej Eur\u00f3pe.", "meta_title": "SUOMII \u2014 F\u00ednske sauny na mieru, ru\u010dne vyroben\u00e9 v Ma\u010farsku", "nav_collections": "Kolekcie", "nav_contact": "Kontakt", "nav_craft": "Pr\u00edbeh", "nav_lang": "Jazyk", "nav_quote": "Cenov\u00e1 ponuka", "p_member": "\u010clenstvo", "p_showroom": "Showroom \u00b7 Budape\u0161\u0165", "p_stoves": "Pece \u00b7 F\u00ednsko", "p_wood": "Drevo \u00b7 Est\u00f3nsko", "partners": "Na\u0161i partneri", "quote": "V roku 2005 som si povedal, \u017ee je \u010das venova\u0165 sa svojej v\u00e1\u0161ni: saune.", "quote_role": "Zakladate\u013e a dizajn\u00e9r s\u00e1un", "rail_hint": "Prejdite my\u0161ou", "rail_hint_touch": "\u0164uknite pre detail", "ref1": "Vonkaj\u0161ia sauna pri baz\u00e9ne", "ref2": "Interi\u00e9rov\u00e1 sauna v rodinnom dome", "ref3": "Saunov\u00fd dom\u010dek pri Balatone", "ref4": "Pivni\u010dn\u00e1 sauna s kamennou stenou", "ref5": "Vonkaj\u0161ia kab\u00edna s \u010diernym sklom", "ref6": "Ba\u0148a s pecou na drevo", "refs_h": "Realizovan\u00e9 sauny", "refs_lead": "Nieko\u013eko kab\u00edn, ktor\u00e9 sme postavili do domov, z\u00e1hrad a wellness.", "role_kornel": "Country manager pre Slovensko", "spec_heat": "Zdroj tepla", "spec_hum": "Vlhkos\u0165", "spec_temp": "Teplota", "story_line": "Sauny, ktor\u00e9 sl\u00fa\u017eia celej gener\u00e1cii. Nikdy z katal\u00f3gu.", "team_h": "\u013dudia za ka\u017edou saunou", "team_hint": "Prejdite my\u0161ou na t\u00edm", "team_hint_touch": "\u0164uknite na \u010dlena t\u00edmu", "team_lbl": "T\u00edm", "type_bio": "Bio", "type_combined": "Kombinovan\u00e1", "type_finnish": "F\u00ednska", "type_infra": "Infra", "typed_bio": "Miernej\u0161ie teplo a vy\u0161\u0161ia vlhkos\u0165. \u0160etrn\u00e1 k telu.", "typed_combined": "F\u00ednska a infra v jednej kab\u00edne. Oboje, kedyko\u013evek.", "typed_finnish": "Such\u00e9 teplo, kamene, para pod\u013ea chuti. Origin\u00e1l.", "typed_infra": "S\u00e1lav\u00e9 teplo p\u00f4sob\u00ed hlb\u0161ie pri ni\u017e\u0161ej teplote.", "w_hu": "Diel\u0148a, showroom a v\u00fdroba", "w_partner": "Obchodn\u00fd partner", "w_sk": "Kornel Szabo, country manager", "where_h": "Kde n\u00e1s n\u00e1jdete", "where_lead": "Vyr\u00e1bame v Ma\u010farsku, dod\u00e1vame po strednej Eur\u00f3pe."};
+  var T = {"c_at": "Rak\u00fasko", "c_cz": "\u010cesko", "c_de": "Nemecko", "c_hu": "Ma\u010farsko", "c_sk": "Slovensko", "cfg_design": "Dizajn", "cfg_go": "Chcem t\u00fato saunu", "cfg_lead": "Vyberte dizajn a potom sp\u00f4sob k\u00farenia.", "cfg_note": "Podrobn\u00e1 cenov\u00e1 ponuka do t\u00fd\u017ed\u0148a", "cfg_step1": "Vyberte dizajn", "cfg_step2": "Vyberte sp\u00f4sob ohrevu", "cfg_type": "Typ", "cfg_your": "V\u00e1\u0161 v\u00fdber", "col_h": "Kolekcia", "col_lead": "P\u00e4\u0165 dizajnov. Ka\u017ed\u00fd na mieru.", "config_title": "Navrhnite si saunu", "cta_h": "Postavme va\u0161u saunu.", "desc_soon": "Popis pripravujeme.", "detail": "Zobrazi\u0165 detail", "f_change": "Zmeni\u0165", "f_consent": "S\u00fahlas\u00edm, aby ma SUOMII kontaktovalo oh\u013eadom tohto dopytu.", "f_email": "E-mail", "f_err": "Nie\u010do sa nepodarilo. Sk\u00faste to znova alebo n\u00e1m zavolajte.", "f_fallback": "Otv\u00e1ra sa v\u00e1\u0161 e-mail so v\u0161etk\u00fdm vyplnen\u00fdm.", "f_lead": "Povedzte n\u00e1m o va\u0161om priestore. Podrobn\u00fa cenov\u00fa ponuku dostanete do t\u00fd\u017ed\u0148a.", "f_msg": "V\u00e1\u0161 priestor a predstavy", "f_name": "Meno", "f_ok": "V\u00e1\u0161 dopyt sme prijali. Ozveme sa do t\u00fd\u017ed\u0148a.", "f_ok_t": "\u010eakujeme.", "f_phone": "Telef\u00f3n", "f_place": "Kde bude sauna st\u00e1\u0165?", "f_req": "Vypl\u0148te meno, platn\u00fd e-mail a potvr\u010fte s\u00fahlas.", "f_send": "Odosla\u0165 dopyt", "f_sending": "Odosiela sa\u2026", "f_showroom": "Showroom", "f_workshop": "V\u00fdroba", "heat_bio": "Pec s odparova\u010dom", "heat_combined": "Pec a infra\u017eiari\u010de", "heat_finnish": "Pec s kame\u0148mi", "heat_infra": "Infra\u017eiari\u010de", "house_h": "N\u00e1\u0161 pr\u00edbeh", "house_text": "Timo Nakari je f\u00ednsky dizajn\u00e9r s\u00e1un. Od roku 2005 navrhuje a stavia sauny so spolumajite\u013eom, stol\u00e1rskym majstrom Emilom P\u00e1kozdim, v spolupr\u00e1ci s architektmi a interi\u00e9rov\u00fdmi dizajn\u00e9rmi v Ma\u010farsku aj v \u010fal\u0161\u00edch krajin\u00e1ch Eur\u00f3py. Drevo odober\u00e1me priamo od Thermory v Est\u00f3nsku a jeho kvalitu tam nieko\u013ekokr\u00e1t do roka osobne kontrolujeme.", "hum_dry": "Such\u00fd vzduch", "meta_desc": "P\u00e4\u0165 dizajnov, ka\u017ed\u00fd na mieru. F\u00ednske sauny ru\u010dne vyr\u00e1ban\u00e9 v Ma\u010farsku od roku 2005, dod\u00e1vame po strednej Eur\u00f3pe.", "meta_title": "SUOMII \u2014 F\u00ednske sauny na mieru, ru\u010dne vyroben\u00e9 v Ma\u010farsku", "nav_collections": "Kolekcie", "nav_config": "Konfigur\u00e1tor", "nav_contact": "Kontakt", "nav_craft": "Pr\u00edbeh", "nav_lang": "Jazyk", "nav_quote": "Cenov\u00e1 ponuka", "p_member": "\u010clenstvo", "p_stoves": "Pece \u00b7 F\u00ednsko", "p_wood": "Drevo \u00b7 Est\u00f3nsko", "partners": "Na\u0161i partneri", "quote": "V roku 2005 som si povedal, \u017ee je \u010das venova\u0165 sa svojej v\u00e1\u0161ni: saune.", "quote_role": "Zakladate\u013e a dizajn\u00e9r s\u00e1un", "rail_hint": "Prejdite my\u0161ou", "rail_hint_touch": "\u0164uknite pre detail", "ref1": "Vonkaj\u0161ia sauna pri baz\u00e9ne", "ref2": "Interi\u00e9rov\u00e1 sauna v rodinnom dome", "ref3": "Saunov\u00fd dom\u010dek pri Balatone", "ref4": "Pivni\u010dn\u00e1 sauna s kamennou stenou", "ref5": "Vonkaj\u0161ia kab\u00edna s \u010diernym sklom", "ref6": "Ba\u0148a s pecou na drevo", "refs_h": "Realizovan\u00e9 sauny", "refs_lead": "Nieko\u013eko kab\u00edn, ktor\u00e9 sme postavili do domov, z\u00e1hrad a wellness.", "role_agnes": "Predaj a showroom", "role_david": "Mana\u017e\u00e9r dod\u00e1vok", "role_kornel": "Country manager pre Slovensko", "spec_heat": "Zdroj tepla", "spec_hum": "Vlhkos\u0165", "spec_temp": "Teplota", "story_line": "Sauny, ktor\u00e9 sl\u00fa\u017eia celej gener\u00e1cii. Nikdy z katal\u00f3gu.", "team_h": "\u013dudia za ka\u017edou saunou", "team_hint": "Prejdite my\u0161ou na t\u00edm", "team_hint_touch": "\u0164uknite na \u010dlena t\u00edmu", "team_lbl": "T\u00edm", "type_bio": "Bio", "type_combined": "Kombinovan\u00e1", "type_finnish": "F\u00ednska", "type_infra": "Infra", "typed_bio": "Miernej\u0161ie teplo a vy\u0161\u0161ia vlhkos\u0165. \u0160etrn\u00e1 k telu.", "typed_combined": "F\u00ednska a infra v jednej kab\u00edne. Oboje, kedyko\u013evek.", "typed_finnish": "Such\u00e9 teplo, kamene, para pod\u013ea chuti. Origin\u00e1l.", "typed_infra": "S\u00e1lav\u00e9 teplo p\u00f4sob\u00ed hlb\u0161ie pri ni\u017e\u0161ej teplote.", "w_hu": "Diel\u0148a, showroom a v\u00fdroba", "w_partner": "Obchodn\u00fd partner", "w_sk": "Kornel Szabo, country manager", "where_h": "Kde n\u00e1s n\u00e1jdete", "where_lead": "Vyr\u00e1bame v Ma\u010farsku, dod\u00e1vame po strednej Eur\u00f3pe."};
 
   /* every language is a separate pre-rendered page, so nothing is translated
      at runtime - T only carries the strings the scripts build themselves. */

@@ -26,6 +26,43 @@ NAME = {'en': 'English', 'de': 'Deutsch', 'sk': 'Sloven\u010dina',
 PATH = {'en': '/'}
 PATH.update({l: '/%s/' % l for l in LANGS if l != 'en'})
 
+# Who a visitor reaches, per language. 'default' is the Hungarian head office;
+# a language listed here overrides it, so Slovakia can answer in Slovak.
+# An empty string means "not published yet" and the row is simply left out.
+CONTACT = {
+    'default': {'phone': '+36 20 2636 777', 'email': ''},
+    'sk':      {'phone': '',                'email': ''},   # Kornel Szabo - awaiting his details
+    'de':      {'phone': '',                'email': ''},
+    'cs':      {'phone': '',                'email': ''},
+}
+
+
+def contact(lang):
+    c = dict(CONTACT['default'])
+    c.update({k: v for k, v in CONTACT.get(lang, {}).items() if v})
+    return c
+
+
+def contact_block(lang, words):
+    c, rows = contact(lang), []
+    if c['phone']:
+        rows.append('<div><dt class="lbl">%s</dt><dd><a href="tel:%s">%s</a></dd></div>'
+                    % (words['f_phone'], c['phone'].replace(' ', ''), c['phone']))
+    if c['email']:
+        rows.append('<div><dt class="lbl">%s</dt><dd><a href="mailto:%s">%s</a></dd></div>'
+                    % (words['f_email'], c['email'], c['email']))
+    return '<dl class="contact__info">%s</dl>' % ''.join(rows)
+
+
+def contact_lines(lang):
+    c = contact(lang)
+    out = []
+    if c['phone']:
+        out.append('<a href="tel:%s">%s</a>' % (c['phone'].replace(' ', ''), c['phone']))
+    if c['email']:
+        out.append('<a href="mailto:%s">%s</a>' % (c['email'], c['email']))
+    return '<p class="foot__lines">%s</p>' % '<br>'.join(out)
+
 src = open(D + 'suomii.template.html', encoding='utf-8').read()
 
 # ---------------------------------------------------------------- photos ----
@@ -107,8 +144,7 @@ LD = {
     'image': SITE + '/og.jpg',
     'foundingDate': '2005',
     'founder': {'@type': 'Person', 'name': 'Timo Nakari'},
-    'email': 'agnes.kozenkow@suomii.com',
-    'telephone': '+36204755035',
+    'telephone': '+36202636777',
     'sameAs': ['https://www.instagram.com/suomi_sauna/'],
     'address': {'@type': 'PostalAddress', 'streetAddress': 'K\u00e1nai \u00fat 3/A',
                 'addressLocality': 'Budapest', 'postalCode': '1112',
@@ -187,6 +223,8 @@ def render(lang):
     out = out.replace('__HEAD__', head(lang, words))
     out = out.replace('__LANGMENU__', langmenu(lang))
     out = out.replace('__LANGCHIPS__', langchips(lang))
+    out = out.replace('__CONTACTINFO__', contact_block(lang, words))
+    out = out.replace('__FOOTCONTACT__', contact_lines(lang))
     out = out.replace('__LANGCODE__', CODE[lang])
     out = out.replace('__LANG__', lang)
     out = translate(out, words)

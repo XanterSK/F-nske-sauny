@@ -31,15 +31,15 @@ PHOTOS = {
     'classic_x3': ('CLASSIC/Classic radiata pine.jpeg',  [700, 1200], 58),
     'lapanca_x1': ('LA\xa0PANCA/Panca Schön2.jpeg',      [700, 1200], 58),
     'lapanca_x2': ('LA\xa0PANCA/Panca PG3.jpeg',         [700, 1200], 58),
-    'lapanca_x3': ('LA\xa0PANCA/Panca BA.jpeg',          [700, 1200], 58),
+    'lapanca_x3': ('LA\xa0PANCA/Panca Schön.jpeg',       [700, 1200], 58),
     'massivo_x1': ('MASSIVO/Massivo bench.jpeg',         [700, 1200], 58),
     'massivo_x2': ('MASSIVO/Massivo München.jpeg',       [700, 1200], 58),
     'massivo_x3': ('MASSIVO/Massivo Fuchs.jpeg',         [700, 1200], 58),
     'dal_x1':     ('DAL/Dal white.jpeg',                 [700, 1200], 58),
     'dal_x2':     ('DAL/Dal step.jpeg',                  [700, 1200], 58),
     'dal_x3':     ('DAL/Dal rounded bench.jpeg',         [700, 1200], 58),
-    'tom_x1':     ('TOM/Tom Lights.jpeg',                [700, 1200], 58),
-    'tom_x2':     ('TOM/Tom Finger Ceiling.jpeg',        [700, 1200], 58),
+    'tom_x1':     ('TOM/Tom red ceder2.jpeg',            [700, 1200], 58),
+    'tom_x2':     ('TOM/Tom Beck Rest red ceder.jpeg',   [700, 1200], 58),
     'tom_x3':     ('TOM/Tom Black Glass.jpeg',           [700, 1200], 58),
 
     # references: delivered saunas, indoor and outdoor
