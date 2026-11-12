@@ -540,6 +540,22 @@
     font-size:var(--t-label);letter-spacing:var(--track);text-transform:uppercase;font-weight:500;color:var(--cream);
   }
   @media(max-width:860px){ .refgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem} }
+  .refs__more{display:flex;justify-content:center;margin-top:clamp(2rem,4vw,3rem)}
+  .btn--ghost{background:transparent;color:var(--cream);box-shadow:inset 0 0 0 1px rgba(245,230,211,.45)}
+  .btn--ghost:hover{background:var(--cream);color:var(--ink)}
+
+  /* back to top: appears once the hero is behind you, on every language page */
+  .totop{
+    position:fixed;z-index:150;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));
+    width:48px;height:48px;display:grid;place-items:center;border-radius:50%;
+    background:var(--navy);color:var(--cream);box-shadow:inset 0 0 0 1px rgba(245,230,211,.3),0 6px 24px rgba(0,0,0,.35);
+    opacity:0;visibility:hidden;transform:translateY(10px);
+    transition:opacity .3s ease,transform .3s var(--ease),visibility 0s linear .3s,background .3s ease,color .3s ease;
+  }
+  .totop.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  .totop:hover{background:var(--gold);color:var(--ink)}
+  .totop:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   @media(max-width:480px){ .refgrid{grid-template-columns:1fr} }
 
   /* ================= MAP ================= */
@@ -895,7 +911,7 @@
 <!-- ================= ATELIER + HISTORY ================= -->
 <section class="atelier" id="atelier">
   <figure class="atelier__fig">
-    <img src="/img/atelier-900.jpg" srcset="/img/atelier-900.jpg 900w, /img/atelier-1800.jpg 1800w" sizes="100vw" alt="" loading="lazy" decoding="async">
+    <img src="/img/atelier-900.jpg" srcset="/img/atelier-900.jpg 900w, /img/atelier-1480.jpg 1480w" sizes="100vw" alt="" loading="lazy" decoding="async">
     <blockquote class="quote rv">
       <p data-t="quote">In 2005, I decided it was time to devote myself to my passion: the sauna.</p>
       <cite><b>Timo Nakari</b><span class="lbl" data-t="quote_role">Founder & sauna designer</span></cite>
@@ -922,9 +938,13 @@
     <figure><img src="/img/ref1-600.jpg" srcset="/img/ref1-600.jpg 600w, /img/ref1-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref1">Outdoor sauna by the pool</figcaption></figure>
     <figure><img src="/img/ref2-600.jpg" srcset="/img/ref2-600.jpg 600w, /img/ref2-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref2">Indoor sauna in a family home</figcaption></figure>
     <figure><img src="/img/ref3-600.jpg" srcset="/img/ref3-600.jpg 600w, /img/ref3-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref3">Sauna house at Lake Balaton</figcaption></figure>
-    <figure><img src="/img/ref4-600.jpg" srcset="/img/ref4-600.jpg 600w, /img/ref4-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref4">Cellar sauna with a stone wall</figcaption></figure>
-    <figure><img src="/img/ref5-600.jpg" srcset="/img/ref5-600.jpg 600w, /img/ref5-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref5">Outdoor cabin with black glass</figcaption></figure>
+    <figure><img src="/img/ref4-600.jpg" srcset="/img/ref4-600.jpg 600w, /img/ref4-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref4">Hotel sauna in red cedar</figcaption></figure>
+    <figure><img src="/img/ref5-600.jpg" srcset="/img/ref5-600.jpg 600w, /img/ref5-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref5">Garden cabin in larch</figcaption></figure>
     <figure><img src="/img/ref6-600.jpg" srcset="/img/ref6-600.jpg 600w, /img/ref6-1200.jpg 1200w" sizes="(max-width:480px) 100vw, (max-width:860px) 50vw, 33vw" alt="" loading="lazy" decoding="async"><figcaption data-t="ref6">Banya with a wood-burning stove</figcaption></figure>
+  </div>
+  <div class="refs__more rv">
+    <!-- opens the full gallery once it exists; for now the button only holds its place -->
+    <button class="btn btn--ghost" type="button" id="galleryOpen"><span data-t="gallery_more">View the full gallery</span> <i aria-hidden="true">&rarr;</i></button>
   </div>
 </section>
 
@@ -1053,11 +1073,13 @@
   </div>
 </footer>
 
+<a class="totop" id="toTop" href="#top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span class="vh" data-t="totop">Back to top</span></a>
+
 <script>
 (function(){
   "use strict";
 
-  var T = {"c_at": "Austria", "c_cz": "Czechia", "c_de": "Germany", "c_hu": "Hungary", "c_sk": "Slovakia", "cfg_design": "Design", "cfg_go": "Request this sauna", "cfg_lead": "Choose a design, then how it should heat.", "cfg_note": "Detailed quote within a week", "cfg_step1": "Choose a design", "cfg_step2": "Choose how it heats", "cfg_type": "Type", "cfg_your": "Your selection", "col_h": "The Collection", "col_lead": "Five designs. Each one built to measure.", "config_title": "Configure your sauna", "cta_h": "Let us build your sauna.", "desc_soon": "Full description coming soon.", "detail": "View detail", "f_change": "Change", "f_consent": "I agree that SUOMII may contact me about this enquiry.", "f_email": "Email", "f_err": "Something went wrong. Please try again, or call us.", "f_fallback": "Opening your email app with everything filled in.", "f_lead": "Tell us about your space. A detailed quote follows within a week.", "f_msg": "Your space and wishes", "f_name": "Name", "f_ok": "Your enquiry has arrived. We will be in touch within a week.", "f_ok_t": "Thank you.", "f_phone": "Phone", "f_place": "Where will the sauna stand?", "f_req": "Please add your name, a valid email and your consent.", "f_send": "Send enquiry", "f_sending": "Sending\u2026", "f_showroom": "Showroom", "f_workshop": "Production", "heat_bio": "Stove with evaporator", "heat_combined": "Stove and infrared panels", "heat_finnish": "Stove with stones", "heat_infra": "Infrared panels", "house_h": "Our story", "house_text": "Timo Nakari is a Finnish sauna designer. Since 2005 he has designed and built saunas with co-owner and master joiner Emil P\u00e1kozdi, alongside architects and interior designers, in Hungary and across Europe. Our wood comes directly from Thermory in Estonia, where we check its quality in person several times a year.", "hum_dry": "Dry air", "meta_desc": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "meta_title": "SUOMII \u2014 Bespoke Finnish Saunas, Handmade in Hungary", "nav_collections": "Collections", "nav_config": "Configure", "nav_contact": "Contact", "nav_craft": "Story", "nav_lang": "Language", "nav_quote": "Request a quote", "p_member": "Member", "p_stoves": "Stoves \u00b7 Finland", "p_wood": "Wood \u00b7 Estonia", "partners": "In good company", "quote": "In 2005, I decided it was time to devote myself to my passion: the sauna.", "quote_role": "Founder & sauna designer", "rail_hint": "Hover to explore", "rail_hint_touch": "Tap to explore", "ref1": "Outdoor sauna by the pool", "ref2": "Indoor sauna in a family home", "ref3": "Sauna house at Lake Balaton", "ref4": "Cellar sauna with a stone wall", "ref5": "Outdoor cabin with black glass", "ref6": "Banya with a wood-burning stove", "refs_h": "Delivered saunas", "refs_lead": "A few of the cabins we have built for homes, gardens and spas.", "role_agnes": "Sales and showroom", "role_david": "Delivery manager", "role_kornel": "Country manager for Slovakia", "spec_heat": "Heat source", "spec_hum": "Humidity", "spec_temp": "Temperature", "story_line": "Saunas built to serve a generation. Never from a catalogue.", "team_h": "The people behind every sauna", "team_hint": "Hover to meet the team", "team_hint_touch": "Tap to meet the team", "team_lbl": "The team", "type_bio": "Bio", "type_combined": "Combined", "type_finnish": "Finnish", "type_infra": "Infrared", "typed_bio": "Gentler warmth at higher humidity. Easy on the body.", "typed_combined": "Finnish and infrared in one cabin. Both, whenever you want.", "typed_finnish": "Dry heat, stones, steam on demand. The original.", "typed_infra": "Radiant heat that reaches deeper, at a lower temperature.", "w_hu": "Workshop, showroom and production", "w_partner": "Trade partner", "w_sk": "Kornel Szabo, country manager", "where_h": "Where SUOMII is represented", "where_lead": "Built in Hungary, delivered across Central Europe."};
+  var T = {"c_at": "Austria", "c_cz": "Czechia", "c_de": "Germany", "c_hu": "Hungary", "c_sk": "Slovakia", "cfg_design": "Design", "cfg_go": "Request this sauna", "cfg_lead": "Choose a design, then how it should heat.", "cfg_note": "Detailed quote within a week", "cfg_step1": "Choose a design", "cfg_step2": "Choose how it heats", "cfg_type": "Type", "cfg_your": "Your selection", "col_h": "The Collection", "col_lead": "Five designs. Each one built to measure.", "config_title": "Configure your sauna", "cta_h": "Let us build your sauna.", "desc_soon": "Full description coming soon.", "detail": "View detail", "f_change": "Change", "f_consent": "I agree that SUOMII may contact me about this enquiry.", "f_email": "Email", "f_err": "Something went wrong. Please try again, or call us.", "f_fallback": "Opening your email app with everything filled in.", "f_lead": "Tell us about your space. A detailed quote follows within a week.", "f_msg": "Your space and wishes", "f_name": "Name", "f_ok": "Your enquiry has arrived. We will be in touch within a week.", "f_ok_t": "Thank you.", "f_phone": "Phone", "f_place": "Where will the sauna stand?", "f_req": "Please add your name, a valid email and your consent.", "f_send": "Send enquiry", "f_sending": "Sending\u2026", "f_showroom": "Showroom", "f_workshop": "Production", "gallery_more": "View the full gallery", "heat_bio": "Stove with evaporator", "heat_combined": "Stove and infrared panels", "heat_finnish": "Stove with stones", "heat_infra": "Infrared panels", "house_h": "Our story", "house_text": "Timo Nakari is a Finnish sauna designer. Since 2005 he has designed and built saunas with co-owner and master joiner Emil P\u00e1kozdi, alongside architects and interior designers, in Hungary and across Europe. Our wood comes directly from Thermory in Estonia, where we check its quality in person several times a year.", "hum_dry": "Dry air", "meta_desc": "Five designs, each built to measure. Finnish saunas handcrafted in Hungary since 2005 and delivered across Central Europe.", "meta_title": "SUOMII \u2014 Bespoke Finnish Saunas, Handmade in Hungary", "nav_collections": "Collections", "nav_config": "Configure", "nav_contact": "Contact", "nav_craft": "Story", "nav_lang": "Language", "nav_quote": "Request a quote", "p_member": "Member", "p_stoves": "Stoves \u00b7 Finland", "p_wood": "Wood \u00b7 Estonia", "partners": "In good company", "quote": "In 2005, I decided it was time to devote myself to my passion: the sauna.", "quote_role": "Founder & sauna designer", "rail_hint": "Hover to explore", "rail_hint_touch": "Tap to explore", "ref1": "Outdoor sauna by the pool", "ref2": "Indoor sauna in a family home", "ref3": "Sauna house at Lake Balaton", "ref4": "Hotel sauna in red cedar", "ref5": "Garden cabin in larch", "ref6": "Banya with a wood-burning stove", "refs_h": "Delivered saunas", "refs_lead": "A few of the cabins we have built for homes, gardens and spas.", "role_agnes": "Sales and showroom", "role_david": "Delivery manager", "role_kornel": "Country manager for Slovakia", "spec_heat": "Heat source", "spec_hum": "Humidity", "spec_temp": "Temperature", "story_line": "Saunas built to serve a generation. Never from a catalogue.", "team_h": "The people behind every sauna", "team_hint": "Hover to meet the team", "team_hint_touch": "Tap to meet the team", "team_lbl": "The team", "totop": "Back to top", "type_bio": "Bio", "type_combined": "Combined", "type_finnish": "Finnish", "type_infra": "Infrared", "typed_bio": "Gentler warmth at higher humidity. Easy on the body.", "typed_combined": "Finnish and infrared in one cabin. Both, whenever you want.", "typed_finnish": "Dry heat, stones, steam on demand. The original.", "typed_infra": "Radiant heat that reaches deeper, at a lower temperature.", "w_hu": "Workshop, showroom and production", "w_partner": "Trade partner", "w_sk": "Kornel Szabo, country manager", "where_h": "Where SUOMII is represented", "where_lead": "Built in Hungary, delivered across Central Europe."};
 
   /* every language is a separate pre-rendered page, so nothing is translated
      at runtime - T only carries the strings the scripts build themselves. */
@@ -1461,7 +1483,12 @@
 
   /* ---------- top bar turns solid once the hero is behind it ---------- */
   var nav = document.getElementById("nav"), hero = document.querySelector(".hero");
-  function solid(){ nav.classList.toggle("solid", hero.getBoundingClientRect().bottom < nav.offsetHeight + 40); }
+  var toTop = document.getElementById("toTop");
+  function solid(){
+    var b = hero.getBoundingClientRect().bottom;
+    nav.classList.toggle("solid", b < nav.offsetHeight + 40);
+    toTop.classList.toggle("on", b < 0);
+  }
   window.addEventListener("scroll", solid, {passive:true});
   solid();
 

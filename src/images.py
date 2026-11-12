@@ -17,7 +17,7 @@ OUT  = os.path.join(ROOT, 'img')
 # key -> (path inside CABIN DESIGNS, [widths], jpeg quality)
 PHOTOS = {
     'hero':    ('CLASSIC/Classic PR red ceder.jpeg', [900, 1800], 60),
-    'atelier': ('SPECIAL/Special Lights.jpeg',       [900, 1800], 58),
+    'atelier': ('OUTDOOR/Outdoor Black.jpeg',        [900, 1480], 60),
 
     'classic': ('CLASSIC/Classic GB red ceder.jpeg', [700, 1400], 60),
     'lapanca': ('LA\xa0PANCA/Panca PG2.jpeg',        [700, 1400], 60),
